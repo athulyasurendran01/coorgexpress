@@ -1,0 +1,25 @@
+.search-properties {
+	position: static;
+}
+.filter-stay-item .filter-stay-icon {
+    padding: 30px;
+ width: 130px;
+ text-align: -webkit-center;
+}
+.filter-stay-item .filter-stay-icon:hover {
+ background: whitesmoke;
+ border-radius: 100px;
+ height: 130px;
+ width: 130px;
+}
+.filter-stay-item .filter-stay-icon img {
+ width: 80px;
+}
+.filter-stay-item {
+ text-align: -webkit-center;
+}
+.filter-stay-item h6 {
+ margin-top: 0px;
+ font-size: 13px;
+ margin-bottom: 0px;
+}
