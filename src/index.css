@@ -3,6 +3,13 @@ body {
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #f2f7ff !important;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #757575 !important;
+    line-height: 1.5 !important;
+    margin: 0;
 }
 
 code {
