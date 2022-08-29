@@ -1,0 +1,109 @@
+.footer {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.bg-white {
+    background-color: #ffffff !important;
+}
+.footer-widget {
+    padding-top: 125px;
+    padding-bottom: 90px;
+}
+.footer-widget .footer--logo {
+    margin-bottom: 10px;
+}
+.footer-widget .footer--logo img {
+    width: 240px;
+}
+.footer-widget .widget--about p {
+    font-size: 14px;
+    line-height: 26px;
+    margin-bottom: 30px;
+    color: #aaaaaa;
+}
+.footer-widget .widget--title h5 {
+    font-family: 'Poppins', sans-serif;
+    color: #34495e;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 27px;
+}
+address, blockquote, dd, dl, fieldset, form, ol, p, pre, table, ul {
+    margin-bottom: 20px;
+}
+.footer-widget .widget--links ul li a {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #aaaaaa;
+    margin-bottom: 9px;
+    display: block;
+}
+.social-icons a {
+    display: inline-block;
+    width: 33px;
+    height: 33px;
+    line-height: 33px;
+    border-radius: 50%;
+    text-align: center;
+    margin-right: 10px;
+    background-color: #f5f5f5;
+    font-size: 12px;
+    color: #bdbdbd;
+}
+.text-center {
+    text-align: center;
+}
+
+p {
+    color: #aaaaaa;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 26px;
+}
+p {
+    font-family: 'Poppins', sans-serif;
+}
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+.contact-details li i {
+    margin-right: 10px;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.footer--bar {
+    border-top: 1px solid #eeeeee;
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+.footer--copyright span {
+    color: #aaaaaa;
+    font-size: 14px;
+    line-height: 24px;
+    display: block;
+}
+.footer--copyright span a {
+    color: #aaaaaa;
+}
+
+a {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    color: #fe0100;
+    text-decoration: none;
+}
