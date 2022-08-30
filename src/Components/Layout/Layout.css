@@ -14,7 +14,12 @@
     padding-top: 60px;
 }
 
-
+p {
+    color: #aaaaaa;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 26px;
+}
 .heading .heading--desc {
     font-family: 'Poppins', sans-serif;
     color: #000;
