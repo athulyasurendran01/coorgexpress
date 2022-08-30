@@ -3,7 +3,7 @@ import PropertyTypeStrip from "../Common/PropertyTypeStrip"
 function Stay() {
     return(
         <>
-            <Banner />
+            <Banner/>
             <PropertyTypeStrip/>
         </>
     )
