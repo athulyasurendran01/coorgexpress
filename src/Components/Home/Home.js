@@ -7,7 +7,6 @@ function Home() {
         <>
             <Slider />
             <Layout />
-            <Footer />
         </>
     )
 }

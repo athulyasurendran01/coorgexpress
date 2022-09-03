@@ -9,6 +9,7 @@ import Stay from './Components/Stay/Stay';
 import './App.css';
 import Contact from './Components/Contact/Contact';
 import About from './Components/About/About';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/contact" caseSensitive={false} element={<Contact />} />
           <Route path="/" caseSensitive={false} element={<Home />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );
