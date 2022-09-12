@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { httpGetService } from '../../app/httpHandler';
 import { fetchCount } from './counterAPI';
 
 const initialState = {
@@ -13,10 +14,9 @@ const initialState = {
 // typically used to make async requests.
 export const incrementAsync = createAsyncThunk(
   'counter/fetchCount',
-  async (amount) => {
-    const response = await fetchCount(amount);
-    // The value we return becomes the `fulfilled` action payload
-    return response.data;
+  async () => {
+    const response = await httpGetService('');
+    return response;
   }
 );
 
@@ -49,7 +49,7 @@ export const counterSlice = createSlice({
       })
       .addCase(incrementAsync.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.value += action.payload;
+        state.value = action.payload;
       });
   },
 });

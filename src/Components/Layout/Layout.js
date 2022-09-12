@@ -15,6 +15,10 @@ import './Layout.css';
 import GridContainer from '../Common/GridContainer'
 import Blogs from '../Home/Blogs/Blogs'
 
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { sliders, getHomepage } from '../../reducers/slider';
+
 function Layout() {
     const propsData = [{
         title: 'about',
@@ -34,13 +38,20 @@ function Layout() {
         img2: event1,
         img3: event2
     }]
+    const dispatch = useDispatch();
+    const homestay = useSelector(sliders);
+
+    useEffect(() => {
+        dispatch(getHomepage(0))
+    }, [])
+
     return (
         <>
             <main id="main">
                 {
-                    propsData.map(inputData => {
+                    propsData.map((inputData, idx) => {
                         return (
-                            <GridContainer data={inputData} />
+                            <GridContainer key={idx} data={inputData} response={homestay[1]}/>
                         )
                     })
                 }
@@ -299,9 +310,9 @@ function Layout() {
                         </div>
                     </div>
                 </div>*/}
-                
-                <Blogs title = {'blog'} blog = {blog}/>
-                
+
+                <Blogs title={'blog'} blog={blog} />
+
                 <section id="instagram-feeds" className="instagram-feeds text-center pb-70">
                     <div className="container">
                         <div className="row">
