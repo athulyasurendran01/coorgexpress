@@ -10,6 +10,7 @@ import './App.css';
 import Contact from './Components/Contact/Contact';
 import About from './Components/About/About';
 import Footer from './Components/Footer/Footer';
+import PropertyListing from './Components/PropertyListing/PropertyListing';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/events" caseSensitive={false} element={<Events />} />
           <Route path="/contact" caseSensitive={false} element={<Contact />} />
           <Route path="/" caseSensitive={false} element={<Home />} />
+          <Route path="/propertylisting" caseSensitive={false} element={<PropertyListing />} />
         </Routes>
         <Footer />
       </div>

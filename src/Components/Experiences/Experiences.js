@@ -1,10 +1,11 @@
 import Banner from "../Common/Banner"
+import PropertyTypeStrip from "../Common/PropertyTypeStrip"
 
 function Experiences() {
     return(
         <>
-            <Banner />
-            <h2>Experiences.....</h2>
+            <Banner/>
+            <PropertyTypeStrip/>
         </>
     )
 }

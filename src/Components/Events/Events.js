@@ -1,10 +1,11 @@
 import Banner from "../Common/Banner"
+import PropertyTypeStrip from "../Common/PropertyTypeStrip"
 
 function Events() {
     return (
         <>
-            <Banner />
-            <h2>Events</h2>
+            <Banner/>
+            <PropertyTypeStrip/>
         </>
     )
 }

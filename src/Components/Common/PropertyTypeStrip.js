@@ -1,25 +1,23 @@
-import BungalowIcon from '../../assets/images/stay/stay_icon_bungalow.png'
-import CampIcon from '../../assets/images/stay/stay_icon_camp.png'
-import HomeStayIcon from '../../assets/images/stay/stay_icon_homestay.png'
-import ResortIcon from '../../assets/images/stay/stay_icon_resort.png'
+
 import ProperyImage from '../../assets/images/stay/property-list_img-1.png'
 import './PropertyTypeStrip.css'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-const responsive = {
+import PropertyFilter from './PropertyFilter/PropertyFilter'
+const responsive1 = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 5,
+      items: 1,
       slidesToSlide: 1 // optional, default to 1.
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 3,
+      items: 1,
       slidesToSlide: 1 // optional, default to 1.
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 2,
+      items: 1,
       slidesToSlide: 1 // optional, default to 1.
     }
   };
@@ -32,68 +30,10 @@ function PropertyTypeStrip(){
             <div className="row">
                 <div className="col-xs-12 col-sm-12 col-md-12">
                     <form className="mb-0 ">
-                        <div className="form-box ">
+                        <div className="form-box col-lg-10">
                            <div className="row">
                               <div className="col-xs-12 col-sm-12 col-md-12">
-                                    <Carousel responsive={responsive} autoPlaySpeed={4000} transitionDuration={200}
-                                        removeArrowOnDeviceType={["tablet", "mobile","desktop"]}
-                                        infinite={true}
-                                        swipeable={false}
-                                        draggable={true}
-                                        showDots={false}
-                                        ssr={false}
-                                        autoPlay={true}>
-                                     
-                                        <div className="filter-stay-item">
-                                            <div className="filter-stay-icon">
-                                                <a href={url}>
-                                                    <img src={HomeStayIcon} alt="property image" className="img-responsive"/>
-                                                </a>
-                                            </div>
-                                                <h6>HOMESTAY</h6>
-                                        </div>
-                                      
-                                     
-                                      <div className="filter-stay-item">
-                                          <div className="filter-stay-icon">
-                                              <a href={url}>
-                                                  <img src={BungalowIcon} alt="property image" className="img-responsive"/>
-                                              </a>
-                                          </div>
-                                            <h6>BANGLOW</h6>
-                                      </div>
-                                      
-                                     
-                                      <div className="filter-stay-item">
-                                          <div className="filter-stay-icon">
-                                              <a href={url}>
-                                                  <img src={CampIcon} alt="property image" className="img-responsive"/>
-                                              </a>
-                                          </div>
-                                          <h6>CAMPING</h6>
-                                      </div>
-                                      
-                                     
-                                      <div className="filter-stay-item">
-                                          <div className="filter-stay-icon">
-                                              <a href={url}>
-                                                  <img src={ResortIcon} alt="property image" className="img-responsive"/>
-                                              </a>
-                                          </div>
-                                        <h6>RESORT</h6>
-                                      </div>
-                                      
-                                     
-                                      <div className="filter-stay-item">
-                                          <div className="filter-stay-icon">
-                                              <a href={url}>
-                                                  <img src={HomeStayIcon} alt="property image" className="img-responsive"/>
-                                              </a>
-                                          </div>
-                                         <h6>HOMESTAY</h6>
-                                      </div>
-                                      
-                                    </Carousel>
+                                    <PropertyFilter />
                               </div>
                           </div>
                         </div>
@@ -207,9 +147,16 @@ function PropertyTypeStrip(){
                                 <h5>Featured Properties</h5>
                             </div>
                             <div className="widget--content">
-                                <div className="carousel carousel-dots" data-slide="1" data-slide-rs="1" data-autoplay="false" data-nav="false" data-dots="true" data-space="0" data-loop="true" data-speed="800">
-                                    
-                                    <div className="property-item">
+                            <Carousel responsive={responsive1} autoPlaySpeed={4000} transitionDuration={200}
+                                        removeArrowOnDeviceType={["tablet", "mobile","desktop"]}
+                                        infinite={true}
+                                        swipeable={false}
+                                        draggable={true}
+                                        showDots={true}
+                                        ssr={false}
+                                        autoPlay={true}>
+                                     
+                                     <div className="property-item">
                                         <div className="property--img">
                                             <img src={ProperyImage} alt="property image" className="img-responsive" />
                                         </div>
@@ -233,7 +180,7 @@ function PropertyTypeStrip(){
                                     <div className="property-item">
                                         <div className="property--img">
                                             <img src={ProperyImage} alt="property image" className="img-responsive" />
-                                            <span className="property--status">For Rent</span>
+                                            
                                         </div>
                                         <div className="property--content">
                                             <div className="property--info">
@@ -272,8 +219,9 @@ function PropertyTypeStrip(){
 
                                         </div>
                                     </div>
-
-                                </div>
+  
+                                    </Carousel>
+                                
                             </div>
                         </div>
                     </div>
