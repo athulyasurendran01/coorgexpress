@@ -4,7 +4,7 @@ import PropertyTypeStrip from "../Common/PropertyTypeStrip"
 function Experiences() {
     return(
         <>
-            <Banner/>
+            <Banner />
             <PropertyTypeStrip/>
         </>
     )

@@ -1,4 +1,3 @@
-
 import ProperyImage from '../../assets/images/stay/property-list_img-1.png'
 import './PropertyTypeStrip.css'
 import Carousel from "react-multi-carousel";
