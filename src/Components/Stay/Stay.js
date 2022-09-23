@@ -1,10 +1,11 @@
 import Banner from "../Common/Banner"
 import PropertyTypeStrip from "../Common/PropertyTypeStrip"
-function Stay() {
+
+function Stay({propertyHighlight}) {
     return(
         <>
-            <Banner/>
-            <PropertyTypeStrip/>
+            <Banner category={'stay'} />
+            <PropertyTypeStrip propertyHighlight={propertyHighlight}/>
         </>
     )
 }

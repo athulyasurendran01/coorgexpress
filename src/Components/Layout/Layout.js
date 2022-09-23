@@ -14,12 +14,9 @@ import Slider from '../Slider/Slider'
 import './Layout.css';
 import GridContainer from '../Common/GridContainer'
 import Blogs from '../Home/Blogs/Blogs'
+import React from 'react'
 
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { sliders, getHomepage } from '../../reducers/slider';
-
-function Layout() {
+function Layout({ homeStayItem, experienceItem, eventsItem }) {
     const propsData = [{
         title: 'about',
         img1: stay_head,
@@ -30,7 +27,7 @@ function Layout() {
         title: 'experience',
         img1: experience_head,
         img2: experience1,
-        img3: experience2
+        img3: experience2,
     },
     {
         title: 'events',
@@ -38,12 +35,6 @@ function Layout() {
         img2: event1,
         img3: event2
     }]
-    const dispatch = useDispatch();
-    const homestay = useSelector(sliders);
-
-    useEffect(() => {
-        dispatch(getHomepage(0))
-    }, [])
 
     return (
         <>
@@ -51,265 +42,14 @@ function Layout() {
                 {
                     propsData.map((inputData, idx) => {
                         return (
-                            <GridContainer key={idx} data={inputData} response={homestay[1]}/>
+                            <React.Fragment key={idx} >
+                                {inputData.title === 'about' && <GridContainer data={inputData} response={homeStayItem} />}
+                                {inputData.title === 'experience' && <GridContainer data={inputData} response={experienceItem} />}
+                                {inputData.title === 'events' && <GridContainer data={inputData} response={eventsItem} />}
+                            </React.Fragment>
                         )
                     })
                 }
-                {/* <div id="about" className="about-area area-padding stay-property text-center pb-70  pt-60">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-12 col-sm-12 col-xs-12  text-center">
-                                <div className='heading heading-2 text-center mb-70'>
-                                    <img src={stay_head} />
-                                    <p className='heading--desc pt-30'>Quintessential accommodations across Coorg to make your holiday cozy.</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div className="row">
-                            <div className="col-md-8 col-sm-8 col-xs-12">
-                                <div className="well-left property-city-item">
-                                    <div className="single-well property--city-img">
-                                        <a href="#">
-                                            <img src={stay1} alt="" />
-                                            <div className='property--city-overlay'>
-                                                <div className='property--item-content'>
-                                                    <h5 className='property--title'>RESORT</h5>
-                                                    <p className='property--numbers'>Read More <i class="fa fa-angle-double-right"></i></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-4 col-sm-4 col-xs-12">
-                                <div className="well-left property-city-item">
-                                    <div className="single-well property--city-img">
-                                        <a href="#">
-                                            <img src={stay2} alt="" />
-                                            <div className='property--city-overlay'>
-                                                <div className='property--item-content'>
-                                                    <h5 className='property--title'>HOME STAY</h5>
-                                                    <p className='property--numbers'>Read More <i class="fa fa-angle-double-right"></i></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <br />
-
-                        <div className="row">
-                            <div className="col-md-4 col-sm-4 col-xs-12">
-                                <div className="well-left property-city-item">
-                                    <div className="single-well property--city-img">
-                                        <a href="#">
-                                            <img src={stay2} alt="" />
-                                            <div className='property--city-overlay'>
-                                                <div className='property--item-content'>
-                                                    <h5 className='property--title'>BANGLOW</h5>
-                                                    <p className='property--numbers'>Read More <i class="fa fa-angle-double-right"></i></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-8 col-sm-8 col-xs-12">
-                                <div className="well-left property-city-item">
-                                    <div className="single-well property--city-img">
-                                        <a href="#">
-                                            <img src={stay1} alt="" />
-                                            <div className='property--city-overlay'>
-                                                <div className='property--item-content'>
-                                                    <h5 className='property--title'>CAMPSITE</h5>
-                                                    <p className='property--numbers'>Read More <i class="fa fa-angle-double-right"></i></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                	        <div className="col-xs-12 col-sm-12 col-md-12 col-md-offset-3">
-                                <a href="#" className="btn btn--primary">View All</a>
-                            </div>
-            	        </div>
-                    </div>
-                </div> */}
-                {/* <div id="experience" className="experience-property text-center bg-white pb-70  pt-60">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-12 col-sm-12 col-xs-12  text-center">
-                                <div className='heading heading-2 text-center mb-70'>
-                                    <img src={experience_head} />
-                                    <p className='heading--desc pt-30'>Unforgettable experiences that are beyond ordinary in the most unique destinations.</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div className="row">
-                            <div className="col-md-8 col-sm-8 col-xs-12">
-                                <div className="well-left property-city-item">
-                                    <div className="single-well property--city-img">
-                                        <a href="#">
-                                            <img src={experience1} alt="" />
-                                            <div className='property--city-overlay'>
-                                                <div className='property--item-content'>
-                                                    <h5 className='property--title'>TRUCKING</h5>
-                                                    <p className='property--numbers'>Read More <i class="fa fa-angle-double-right"></i></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-4 col-sm-4 col-xs-12">
-                                <div className="well-left property-city-item">
-                                    <div className="single-well property--city-img">
-                                        <a href="#">
-                                            <img src={experience2} alt="" />
-                                            <div className='property--city-overlay'>
-                                                <div className='property--item-content'>
-                                                    <h5 className='property--title'>CYCLING</h5>
-                                                    <p className='property--numbers'>Read More <i class="fa fa-angle-double-right"></i></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <br />
-
-                        <div className="row">
-                            <div className="col-md-4 col-sm-4 col-xs-12">
-                                <div className="well-left property-city-item">
-                                    <div className="single-well property--city-img">
-                                        <a href="#">
-                                            <img src={experience2} alt="" />
-                                            <div className='property--city-overlay'>
-                                                <div className='property--item-content'>
-                                                    <h5 className='property--title'>HIKING</h5>
-                                                    <p className='property--numbers'>Read More <i class="fa fa-angle-double-right"></i></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-8 col-sm-8 col-xs-12">
-                                <div className="well-left property-city-item">
-                                    <div className="single-well property--city-img">
-                                        <a href="#">
-                                            <img src={experience1} alt="" />
-                                            <div className='property--city-overlay'>
-                                                <div className='property--item-content'>
-                                                    <h5 className='property--title'>CAMPSITE</h5>
-                                                    <p className='property--numbers'>Read More <i class="fa fa-angle-double-right"></i></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-xs-12 col-sm-12 col-md-12 col-md-offset-3">
-                                <a href="#" className="btn btn--primary">View All</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="events" className="events-property text-center pb-70  pt-60">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-12 col-sm-12 col-xs-12  text-center">
-                                <div className='heading heading-2 text-center mb-70'>
-                                    <img src={event_head} />
-                                    <p className='heading--desc pt-30'>A brief overview on all the precious holiday memories made together.</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div className="row">
-                            <div className="col-md-8 col-sm-8 col-xs-12">
-                                <div className="well-left property-city-item">
-                                    <div className="single-well property--city-img">
-                                        <a href="#">
-                                            <img src={event1} alt="" />
-                                            <div className='property--city-overlay'>
-                                                <div className='property--item-content'>
-                                                    <h5 className='property--title'>EVENT 1</h5>
-                                                    <p className='property--numbers'>Read More <i class="fa fa-angle-double-right"></i></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-4 col-sm-4 col-xs-12">
-                                <div className="well-left property-city-item">
-                                    <div className="single-well property--city-img">
-                                        <a href="#">
-                                            <img src={event2} alt="" />
-                                            <div className='property--city-overlay'>
-                                                <div className='property--item-content'>
-                                                    <h5 className='property--title'>EVENT 2</h5>
-                                                    <p className='property--numbers'>Read More <i class="fa fa-angle-double-right"></i></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <br />
-
-                        <div className="row">
-                            <div className="col-md-4 col-sm-4 col-xs-12">
-                                <div className="well-left property-city-item">
-                                    <div className="single-well property--city-img">
-                                        <a href="#">
-                                            <img src={event2} alt="" />
-                                            <div className='property--city-overlay'>
-                                                <div className='property--item-content'>
-                                                    <h5 className='property--title'>EVENT 3</h5>
-                                                    <p className='property--numbers'>Read More <i class="fa fa-angle-double-right"></i></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-8 col-sm-8 col-xs-12">
-                                <div className="well-left property-city-item">
-                                    <div className="single-well property--city-img">
-                                        <a href="#">
-                                            <img src={event1} alt="" />
-                                            <div className='property--city-overlay'>
-                                                <div className='property--item-content'>
-                                                    <h5 className='property--title'>EVENT 4</h5>
-                                                    <p className='property--numbers'>Read More <i class="fa fa-angle-double-right"></i></p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-xs-12 col-sm-12 col-md-12 col-md-offset-3">
-                                <a href="#" className="btn btn--primary">View All</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>*/}
 
                 <Blogs title={'blog'} blog={blog} />
 

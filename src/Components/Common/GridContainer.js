@@ -3,9 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 
 function GridContainer(props) {
-    if (!props.response) {
-        return <></>
-    } else {
+    if (props.response && props.response.length > 0) {
         return (
             <div id={props.data.title} className="about-area area-padding stay-property text-center pb-70  pt-60">
                 <div className="container">
@@ -26,9 +24,12 @@ function GridContainer(props) {
                                         <img src={props.data.img2} alt="" />
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
-                                                <h5 className='property--title'>{props.response[0].PropertyType.name}</h5>
+                                                <h5 className='property--title'>
+                                                    {props.data.title === 'about' && props.response[0].PropertyType.name}
+                                                    {props.data.title === 'experience' && props.response[0].ExperienceSlot.name}
+                                                </h5>
                                                 <p className='property--numbers'>Read More &nbsp;
-                                                <FontAwesomeIcon icon={faAngleDoubleRight}/></p>
+                                                    <FontAwesomeIcon icon={faAngleDoubleRight} /></p>
                                             </div>
                                         </div>
                                     </a>
@@ -43,9 +44,12 @@ function GridContainer(props) {
                                         <img src={props.data.img3} alt="" />
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
-                                                <h5 className='property--title'>{props.response[1].PropertyType.name}</h5>
+                                                <h5 className='property--title'>
+                                                    {props.data.title === 'about' && props.response[1].PropertyType.name}
+                                                    {props.data.title === 'experience' && props.response[1].ExperienceSlot.name}
+                                                </h5>
                                                 <p className='property--numbers'>Read More &nbsp;
-                                                <FontAwesomeIcon icon={faAngleDoubleRight}/></p>
+                                                    <FontAwesomeIcon icon={faAngleDoubleRight} /></p>
                                             </div>
                                         </div>
                                     </a>
@@ -62,9 +66,12 @@ function GridContainer(props) {
                                         <img src={props.data.img3} alt="" />
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
-                                                <h5 className='property--title'>{props.response[2].PropertyType.name}</h5>
+                                                <h5 className='property--title'>
+                                                    {props.data.title === 'about' && props.response[2].PropertyType.name}
+                                                    {props.data.title === 'experience' && props.response[2].ExperienceSlot.name}
+                                                </h5>
                                                 <p className='property--numbers'>Read More &nbsp;
-                                                <FontAwesomeIcon icon={faAngleDoubleRight}/></p>
+                                                    <FontAwesomeIcon icon={faAngleDoubleRight} /></p>
                                             </div>
                                         </div>
                                     </a>
@@ -79,9 +86,12 @@ function GridContainer(props) {
                                         <img src={props.data.img2} alt="" />
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
-                                                <h5 className='property--title'>{props.response[3].PropertyType.name}</h5>
+                                                <h5 className='property--title'>
+                                                    {props.data.title === 'about' && props.response[3].PropertyType.name}
+                                                    {props.data.title === 'experience' && props.response[3].ExperienceSlot.name}
+                                                </h5>
                                                 <p className='property--numbers'>Read More &nbsp;
-                                                <FontAwesomeIcon icon={faAngleDoubleRight}/></p>
+                                                    <FontAwesomeIcon icon={faAngleDoubleRight} /></p>
                                             </div>
                                         </div>
                                     </a>
@@ -97,6 +107,8 @@ function GridContainer(props) {
                 </div>
             </div>
         )
+    } else {
+        return <></>
     }
 }
 

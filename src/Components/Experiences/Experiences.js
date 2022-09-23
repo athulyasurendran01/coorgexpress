@@ -1,11 +1,11 @@
 import Banner from "../Common/Banner"
 import PropertyTypeStrip from "../Common/PropertyTypeStrip"
 
-function Experiences() {
+function Experiences({propertyHighlight}) {
     return(
         <>
-            <Banner />
-            <PropertyTypeStrip/>
+            <Banner category={'experience'} />
+            <PropertyTypeStrip propertyHighlight={propertyHighlight}/>
         </>
     )
 }

@@ -1,7 +1,8 @@
 import { serverURL } from "./Config"
 
 export function httpGetService(url) {
-    const apiURL = 'https://www.coorgexpress.com/home.json'
+    let urlStr = url ? `/${url}` : ''
+    const apiURL = `https://www.coorgexpress.com/home${urlStr}.json`
     return fetch(`${apiURL}`)
         .then((response) => response.json())
         .then((data) => {
