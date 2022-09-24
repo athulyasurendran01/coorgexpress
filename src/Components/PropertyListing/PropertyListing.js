@@ -730,8 +730,7 @@ function PropertyListing() {
                 </div>
 
             </section>
-        </>
-    )
-}
+            </>
+)}
 
 export default PropertyListing
