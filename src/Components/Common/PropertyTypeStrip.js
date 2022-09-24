@@ -53,7 +53,7 @@ function PropertyTypeStrip({ propertyHighlight }) {
                                 <div className="form-box col-lg-10">
                                     <div className="row">
                                         <div className="col-xs-12 col-sm-12 col-md-12">
-                                            <PropertyFilter />
+                                            <PropertyFilter data={propertyHighlight ? propertyHighlight.property_type : []}/>
                                         </div>
                                     </div>
                                 </div>

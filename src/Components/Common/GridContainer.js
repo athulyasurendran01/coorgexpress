@@ -1,6 +1,7 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
+import { Link } from "react-router-dom";
 
 function GridContainer(props) {
     if (props.response && props.response.length > 0) {
@@ -101,7 +102,7 @@ function GridContainer(props) {
                     </div>
                     <div className="row">
                         <div className="col-xs-12 col-sm-12 col-md-12 col-md-offset-3">
-                            <a href="#" className="btn btn--primary">View All</a>
+                            <Link className="btn btn--primary" to={`/${props.title}`}>View All</Link>
                         </div>
                     </div>
                 </div>

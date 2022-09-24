@@ -43,9 +43,9 @@ function Layout({ homeStayItem, experienceItem, eventsItem }) {
                     propsData.map((inputData, idx) => {
                         return (
                             <React.Fragment key={idx} >
-                                {inputData.title === 'about' && <GridContainer data={inputData} response={homeStayItem} />}
-                                {inputData.title === 'experience' && <GridContainer data={inputData} response={experienceItem} />}
-                                {inputData.title === 'events' && <GridContainer data={inputData} response={eventsItem} />}
+                                {inputData.title === 'about' && <GridContainer data={inputData} response={homeStayItem} title={'stay'} />}
+                                {inputData.title === 'experience' && <GridContainer data={inputData} response={experienceItem} title={'experiences'} />}
+                                {inputData.title === 'events' && <GridContainer data={inputData} response={eventsItem} title={'events'} />}
                             </React.Fragment>
                         )
                     })

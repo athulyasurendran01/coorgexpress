@@ -21,71 +21,40 @@ const responsive = {
         slidesToSlide: 1 // optional, default to 1.
     }
 };
-function PropertyFilter() {
+function PropertyFilter({ data }) {
     let url = "";
-    return (
-        <>
-            <Carousel responsive={responsive} autoPlaySpeed={4000} transitionDuration={200}
-                removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
-                infinite={true}
-                swipeable={false}
-                draggable={true}
-                showDots={false}
-                ssr={false}
-                autoPlay={true}>
+    if (data && data.length > 0) {
+        return (
+            <>
+                <Carousel responsive={responsive} autoPlaySpeed={4000} transitionDuration={200}
+                    removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
+                    infinite={true}
+                    swipeable={false}
+                    draggable={true}
+                    showDots={false}
+                    ssr={false}
+                    autoPlay={true}>
+                    {data.map((category, idx) => {
+                        return (
+                            <div className="filter-stay-item">
+                                <div className="filter-stay-icon">
+                                    <a href={url}>
+                                        <img src={HomeStayIcon} alt="property image" className="img-responsive" />
+                                    </a>
+                                </div>
+                                <h6>{category.title}</h6>
+                            </div>
+                        )
+                    })}
+                </Carousel>
+            </>
+        )
+    } else {
+        return (
+            <></>
+        )
+    }
 
-                <div className="filter-stay-item">
-                    <div className="filter-stay-icon">
-                        <a href={url}>
-                            <img src={HomeStayIcon} alt="property image" className="img-responsive" />
-                        </a>
-                    </div>
-                    <h6>HOMESTAY</h6>
-                </div>
-
-
-                <div className="filter-stay-item">
-                    <div className="filter-stay-icon">
-                        <a href={url}>
-                            <img src={BungalowIcon} alt="property image" className="img-responsive" />
-                        </a>
-                    </div>
-                    <h6>BANGLOW</h6>
-                </div>
-
-
-                <div className="filter-stay-item">
-                    <div className="filter-stay-icon">
-                        <a href={url}>
-                            <img src={CampIcon} alt="property image" className="img-responsive" />
-                        </a>
-                    </div>
-                    <h6>CAMPING</h6>
-                </div>
-
-
-                <div className="filter-stay-item">
-                    <div className="filter-stay-icon">
-                        <a href={url}>
-                            <img src={ResortIcon} alt="property image" className="img-responsive" />
-                        </a>
-                    </div>
-                    <h6>RESORT</h6>
-                </div>
-
-
-                <div className="filter-stay-item">
-                    <div className="filter-stay-icon">
-                        <a href={url}>
-                            <img src={HomeStayIcon} alt="property image" className="img-responsive" />
-                        </a>
-                    </div>
-                    <h6>HOMESTAY</h6>
-                </div>
-
-            </Carousel>
-        </>
-    )
 }
 
 export default PropertyFilter

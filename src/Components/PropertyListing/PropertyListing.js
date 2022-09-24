@@ -2,7 +2,7 @@ import PropertyBanner from '../../assets/images/property/property_banner.jpg';
 import PropertyImage from '../../assets/images/property/property_image.jpg';
 import './PropertyListing.css';
 import React, { useCallback, useRef, useState } from "react";
-import ImageSliderComponent from './ImageSliderComponent';
+import ImageSliderComponent from '../PropertyDetail/ImageSliderComponent';
 import ProperyListImage from '../../assets/images/stay/property-list_img-1.png'
 import guests from '../../assets/images/property/icons/guests.png'
 import beds from '../../assets/images/property/icons/beds.png'
@@ -110,7 +110,7 @@ function PropertyListing() {
                             <div className="property-single-carousel inner-box">
                                 <div className="row">
                                     <div className="col-xs-12 col-sm-12 col-md-12">
-                                        <ImageSliderComponent />
+                                        {/* <ImageSliderComponent /> */}
                                     </div>
                                 </div>
                             </div>
