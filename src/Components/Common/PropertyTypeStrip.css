@@ -195,9 +195,9 @@ select {
     -o-appearance: none;
     appearance: none;
 }
-select, .form-control, textarea.form-control {
+select, .form-control {
     font-family: 'Poppins', sans-serif;
-    background-color: #f8f8f8;
+    background-color: #fff;
     border: 1px solid #eeeeee;
     font-size: 14px;
     color: #aaaaaa;
@@ -211,6 +211,23 @@ select, .form-control, textarea.form-control {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
+}
+textarea.form-control {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+    border: 1px solid #eeeeee;
+    font-size: 14px;
+    color: #aaaaaa;
+    line-height: 42px;
+    margin-bottom: 0;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    padding: 0 18px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    height: auto;
 }
 .properties-filter .view--type a {
     display: inline-block;
@@ -387,10 +404,20 @@ address, blockquote, dd, dl, fieldset, form, ol, p, pre, table, ul {
     font-weight: 400;
     border: none;
     text-transform: uppercase;
-    padding: 0;
+    padding: 6px 10px;
     width: 33px !important;
     height: 33px !important;
     line-height: 33px;
     text-align: center;
     border-radius: 2px;
+}
+.property-single-desc .feature-panel .feature--img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
+    height: 30px;
+}
+.property-single-desc .feature-panel .feature--content {
+    padding-left: 50px;
 }

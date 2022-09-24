@@ -1,10 +1,11 @@
 import React from "react";
 import 'react-image-gallery/styles/css/image-gallery.css';
+//import ProperyListImage from '../../assets/images/property/property-list-image.jpg'
 import ImageGallery from 'react-image-gallery';
 
 const images = [
     {
-      original: 'https://picsum.photos/id/1018/1000/400/',
+      original: 'https://picsum.photos/id/1015/1000/400/',
       thumbnail: 'https://picsum.photos/id/1018/250/150/',
     },
     {

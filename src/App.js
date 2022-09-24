@@ -11,6 +11,7 @@ import Contact from './Components/Contact/Contact';
 import About from './Components/About/About';
 import Footer from './Components/Footer/Footer';
 import PropertyListing from './Components/PropertyListing/PropertyListing';
+import Blog from './Components/Blog/Blog';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/contact" caseSensitive={false} element={<Contact />} />
           <Route path="/" caseSensitive={false} element={<Home />} />
           <Route path="/propertylisting" caseSensitive={false} element={<PropertyListing />} />
+          <Route path="/blog" caseSensitive={false} element={<Blog />} />
         </Routes>
         <Footer />
       </div>

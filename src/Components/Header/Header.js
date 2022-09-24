@@ -21,7 +21,7 @@ function Header() {
                         <Nav.Link><Link to="/stay">Stay</Link></Nav.Link>
                         <Nav.Link><Link to="/experiences">Experiences</Link></Nav.Link>
                         <Nav.Link><Link to="/events">Events</Link></Nav.Link>
-                        <Nav.Link><Link to="/contact">Contact Us</Link></Nav.Link>
+                        <Nav.Link><Link to="/blog">Blogs</Link></Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

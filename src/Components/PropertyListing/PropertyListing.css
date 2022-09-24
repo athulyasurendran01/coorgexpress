@@ -5,7 +5,6 @@
 .bg-overlay:before {
     content: "";
     display: inline-block;
-    height: 100%;
     left: 0;
     position: absolute;
     top: 0;
@@ -29,7 +28,13 @@
     position: relative;
     margin-top: -100px;
 }
-
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: #000000;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    margin: 0 0 28px;
+    line-height: 1;
+}
 .page-title {
     padding: 0;
 }
@@ -92,6 +97,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
     background-color: transparent;
     padding: 0;
     color: #34495e;
+}
+.property-single-gallery-info .property--status span {
+    margin-right: 10px;
+}
+.property-single-gallery-info .property--status i {
+    margin-right: 12px;
 }
 .verified-listing .property-rating {
     margin-top: 10px;
@@ -268,4 +279,97 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 .col-xs-2 {
     width: 20% !important;
 }
+.widget-request .widget--title h5 span {
+    font-size: 32px;
+    font-weight: 600;
+}
+.widget .widget--title h5 {
+    font-family: 'Poppins', sans-serif;
+    color: #000000;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: capitalize;
+    margin-bottom: 0;
+}
+.widget-request .widget--title h5 {
+    text-transform: inherit !important;
+}
+.widget-request label {
+    line-height: 1;
+    font-weight: 400;
+    font-size: 16px;
+    color: #34495e;
+    margin-bottom: 12px;
+}
+.widget-request .form-group, .widget-mortgage-calculator .form-group {
+    margin-bottom: 20px;
+}
+.form-group {
+    margin-bottom: 30px;
+    position: relative;
+}
+.react-datepicker__input-container input {
+    width: 100%;
+    height: 42px;
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #4f4f4f;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 4px;
+}
+.btn--primary {
+    background-color: #ff5e5e00 !important;
+    color: #ffffff !important;
+    border: 2px solid #fe0100 !important;
+    color: red !important;
+}
+.btn {
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    z-index: 2;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 4px;
+    padding: 0;
+    line-height: 39px;
+    width: 150px;
+    height: 42px;
+    border: none;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.btn--block {
+    width: 100%!important;
+}
+
+.btn--block {
+    width: 100%;
+}
+.react-multi-carousel-item {
+    padding-right: 15px;
+}
+.heading-2 .heading--title {
+    font-size: 30px;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+.h2, h2 {
+    font-size: 42px;
+}
+.property-single-desc .feature-panel .feature--content {
+    padding-top: 8px;
+    padding-left: 50px;
+}
+
 

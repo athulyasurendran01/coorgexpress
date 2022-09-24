@@ -3,14 +3,54 @@ import PropertyImage from '../../assets/images/property/property_image.jpg';
 import './PropertyListing.css';
 import React, { useCallback, useRef, useState } from "react";
 import ImageSliderComponent from './ImageSliderComponent';
+import ProperyListImage from '../../assets/images/stay/property-list_img-1.png'
+import guests from '../../assets/images/property/icons/guests.png'
+import beds from '../../assets/images/property/icons/beds.png'
+import baths from '../../assets/images/property/icons/baths.png'
+import pet_friendly from '../../assets/images/property/icons/pet-friendly.png'
+import center_cooling from '../../assets/images/property/icons/center-cooling.png'
+import balcony from '../../assets/images/property/icons/balcony.png'
+import fire_alarm from '../../assets/images/property/icons/fire-alarm.png'
+import modern_kitchen from '../../assets/images/property/icons/modern-kitchen.png'
+import storage from '../../assets/images/property/icons/storage.png'
+import heating from '../../assets/images/property/icons/heating.png'
+import pool from '../../assets/images/property/icons/pool.png'
+import laundry from '../../assets/images/property/icons/laundry.png'
+import gym from '../../assets/images/property/icons/gym.png'
+import elevator from '../../assets/images/property/icons/elevator.png'
+import dish_washer from '../../assets/images/property/icons/dish-washer.png'
+import ReactPlayer from 'react-player'
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+
+const responsive1 = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      slidesToSlide: 1 // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 3,
+      slidesToSlide: 1 // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1 // optional, default to 1.
+    }
+  };
 
 
 function PropertyListing() {
 
+    let url="";
+    const [dateRange, setDateRange] = useState([null, null]);
+    const [startDate, endDate] = dateRange;
     const [currentSlide, setCurrentSlide] = useState(0);
-
     const carouselInner = useRef(null);
-
     const slideChanged = useCallback(() => {
         const activeItem = carouselInner.current.querySelector(".active");
         setCurrentSlide(
@@ -31,7 +71,7 @@ function PropertyListing() {
 
     return (
         <>
-            <section id="page-title" className="page-title bg-overlay bg-overlay-dark2" style={{ "height": "75vh" }}>
+            <section id="page-title" className="page-title bg-overlay bg-overlay-dark2">
                 <div className="bg-section">
                     <img src={PropertyBanner} alt="Background" />
                 </div>
@@ -50,7 +90,7 @@ function PropertyListing() {
                                     </div>
                                     <div className="pull-right verified-listing">
                                         <input type="submit" value="Verified Listing" name="submit" className="btn btn--success mb-20" style={{ width: "275px", background: "#34a20d", color: "#fff" }} />
-                                        <span className="property--status"><i className="fa fa-share-alt"></i> Share | <i className="fa fa fa-pencil"></i> Review</span>
+                                        <span className="property--status"><i className="fa fa-share-alt"></i> <span>Share</span> <span>|</span> <i className="fa fa fa-pencil"></i> <span>Review</span></span>
                                         <div className="property-rating">
                                             <span>Rating : </span>
                                             <i className="fa fa-star"></i>
@@ -65,101 +105,12 @@ function PropertyListing() {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="row">
+                    <div className="row">
                         <div className="col-xs-12 col-sm-12 col-md-8">
                             <div className="property-single-carousel inner-box">
                                 <div className="row">
                                     <div className="col-xs-12 col-sm-12 col-md-12">
-                                        <MDBContainer className="mt-5">
-                                            <MDBCarousel
-                                                id="carouselExampleIndicators"
-                                                showControls
-                                                fade
-                                                onSlide={slideChanged}
-                                            >
-                                                <MDBCarouselInner ref={carouselInner}>
-                                                    <MDBCarouselItem className="active">
-                                                        <MDBCarouselElement
-                                                            src="https://mdbootstrap.com/img/Photos/Slides/img%20(88).webp"
-                                                            alt="..."
-                                                        />
-                                                    </MDBCarouselItem>
-
-                                                    <MDBCarouselItem>
-                                                        <MDBCarouselElement
-                                                            src="https://mdbootstrap.com/img/Photos/Slides/img%20(121).webp"
-                                                            alt="..."
-                                                        />
-                                                    </MDBCarouselItem>
-
-                                                    <MDBCarouselItem>
-                                                        <MDBCarouselElement
-                                                            src="https://mdbootstrap.com/img/Photos/Slides/img%20(31).webp"
-                                                            alt="..."
-                                                        />
-                                                    </MDBCarouselItem>
-                                                </MDBCarouselInner>
-
-                                                <div className="carousel-indicators" style={{ marginBottom: "-20px" }}>
-                                                    <button
-                                                        className={`carousel-indicator ${currentSlide === 0 ? "active" : ""}`}
-                                                        onClick={() => changeSlide(0)}
-                                                        style={{ width: "100px" }}
-                                                    >
-                                                        <img
-                                                            className="d-block w-100 img-fluid"
-                                                            src="https://mdbootstrap.com/img/Photos/Slides/img%20(88).webp"
-                                                        />
-                                                    </button>
-                                                    <button
-                                                        className={`carousel-indicator ${currentSlide === 1 ? "active" : ""}`}
-                                                        onClick={() => changeSlide(1)}
-                                                        style={{ width: "100px" }}
-                                                    >
-                                                        <img
-                                                            className="d-block w-100 img-fluid"
-                                                            src="https://mdbootstrap.com/img/Photos/Slides/img%20(121).webp"
-                                                        />
-                                                    </button>
-                                                    <button
-                                                        className={`carousel-indicator ${currentSlide === 2 ? "active" : ""}`}
-                                                        onClick={() => changeSlide(2)}
-                                                        style={{ width: "100px" }}
-                                                    >
-                                                        <img
-                                                            className="d-block w-100 img-fluid"
-                                                            src="https://mdbootstrap.com/img/Photos/Slides/img%20(31).webp"
-                                                        />
-                                                    </button>
-                                                </div>
-                                            </MDBCarousel>
-                                        </MDBContainer>
-                                        <div className="property-single-carousel-content">
-                                            <div className="carousel carousel-thumbs slider-navs" data-slide="1" data-slide-res="1" data-autoplay="true" data-thumbs="true" data-nav="true" data-dots="false" data-space="30" data-loop="true" data-speed="800" data-slider-id="1">
-                                                <img src={PropertyImage} alt="Property Image" />
-                                                <img src={PropertyImage} alt="Property Image" />
-                                                <img src={PropertyImage} alt="Property Image" />
-                                                <img src={PropertyImage} alt="Property Image" />
-                                                <img src={PropertyImage} alt="Property Image" />
-                                            </div>
-                                            <div className="owl-thumbs thumbs-bg" data-slider-id="1">
-                                                <button className="owl-thumb-item">
-                                                    <img src="assets/images/properties/slider/thumbs/1.jpg" alt="Property Image thumb" />
-                                                </button>
-                                                <button className="owl-thumb-item">
-                                                    <img src="assets/images/properties/slider/thumbs/2.jpg" alt="Property Image thumb" />
-                                                </button>
-                                                <button className="owl-thumb-item">
-                                                    <img src="assets/images/properties/slider/thumbs/3.jpg" alt="Property Image thumb" />
-                                                </button>
-                                                <button className="owl-thumb-item">
-                                                    <img src="assets/images/properties/slider/thumbs/4.jpg" alt="Property Image thumb" />
-                                                </button>
-                                                <button className="owl-thumb-item">
-                                                    <img src="assets/images/properties/slider/thumbs/5.jpg" alt="Property Image thumb" />
-                                                </button>
-                                            </div>
-                                        </div>
+                                        <ImageSliderComponent />
                                     </div>
                                 </div>
                             </div>
@@ -201,7 +152,7 @@ function PropertyListing() {
                                     <div className="col-xs-6 col-sm-3 col-md-3">
                                         <div className="feature-panel">
                                             <div className="feature--img">
-                                                <img src="assets/images/property-single/features/1.png" alt="icon" />
+                                                <img src={guests} alt="icon" />
                                             </div>
                                             <div className="feature--content">
                                                 <h5>12 Guests</h5>
@@ -211,7 +162,7 @@ function PropertyListing() {
                                     <div className="col-xs-6 col-sm-3 col-md-3">
                                         <div className="feature-panel">
                                             <div className="feature--img">
-                                                <img src="assets/images/property-single/features/1.png" alt="icon" />
+                                                <img src={beds} alt="icon" />
                                             </div>
                                             <div className="feature--content">
                                                 <h5>3 Beds</h5>
@@ -221,7 +172,7 @@ function PropertyListing() {
                                     <div className="col-xs-6 col-sm-3 col-md-3">
                                         <div className="feature-panel">
                                             <div className="feature--img">
-                                                <img src="assets/images/property-single/features/1.png" alt="icon" />
+                                                <img src={baths} alt="icon" />
                                             </div>
                                             <div className="feature--content">
                                                 <h5>2 Baths</h5>
@@ -231,7 +182,7 @@ function PropertyListing() {
                                     <div className="col-xs-6 col-sm-3 col-md-3">
                                         <div className="feature-panel">
                                             <div className="feature--img">
-                                                <img src="assets/images/property-single/features/1.png" alt="icon" />
+                                                <img src={pet_friendly} alt="icon" />
                                             </div>
                                             <div className="feature--content">
                                                 <h5>Pet Friendly</h5>
@@ -249,7 +200,7 @@ function PropertyListing() {
                             </div>
 
 
-                            <div className="property-single-features inner-box">
+                            <div className="property-single-features inner-box property-single-desc">
                                 <div className="row">
                                     <div className="col-xs-12 col-sm-12 col-md-12">
                                         <div className="heading">
@@ -257,63 +208,123 @@ function PropertyListing() {
                                         </div>
                                     </div>
                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                        <div className="feature-item">
-                                            <p>Center Cooling</p>
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={center_cooling} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Center Cooling</h5>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                        <div className="feature-item">
-                                            <p>Balcony</p>
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={balcony} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Balcony</h5>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                        <div className="feature-item">
-                                            <p>Pet Friendly</p>
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={pet_friendly} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Pet Friendly</h5>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                        <div className="feature-item">
-                                            <p>Fire Alarm</p>
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={fire_alarm} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Fire Alarm</h5>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                        <div className="feature-item">
-                                            <p>Modern Kitchen</p>
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={modern_kitchen} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Modern Kitchen</h5>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                        <div className="feature-item">
-                                            <p>Storage</p>
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={storage} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Storage</h5>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                        <div className="feature-item">
-                                            <p>Heating</p>
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={heating} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Heating</h5>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                        <div className="feature-item">
-                                            <p>Pool</p>
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={pool} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Pool</h5>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                        <div className="feature-item">
-                                            <p>Laundry</p>
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={laundry} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Laundry</h5>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                        <div className="feature-item">
-                                            <p>Gym</p>
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={gym} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Gym</h5>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                        <div className="feature-item">
-                                            <p>Elevator</p>
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={elevator} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Elevator</h5>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                        <div className="feature-item">
-                                            <p>Dish Washer</p>
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={dish_washer} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Dish Washer</h5>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -346,7 +357,7 @@ function PropertyListing() {
                                                     </div>
                                                 </div>
                                                 <div className="col-xs-2">
-                                                    Book Now
+                                                <input type="submit" value="Book Now" name="submit" className="btn btn--success mb-20" style={{ background: "#34a20d", color: "#fff" }} />
                                                 </div>
                                             </li>
                                             <li className="review-comment row">
@@ -365,7 +376,7 @@ function PropertyListing() {
                                                     </div>
                                                 </div>
                                                 <div className="col-xs-2">
-                                                    Book Now
+                                                <input type="submit" value="Book Now" name="submit" className="btn btn--success mb-20" style={{ background: "#34a20d", color: "#fff" }} />
                                                 </div>
                                             </li>
 
@@ -381,42 +392,14 @@ function PropertyListing() {
                                         </div>
                                     </div>
                                     <div className="col-xs-12 col-sm-12 col-md-12">
-                                        <div className="accordion accordion-1" id="accordion01">
-                                            <div className="panel">
-                                                <div className="panel--heading clearfix">
-                                                    <div className="pull-left">
-                                                        <a className="accordion-toggle" data-toggle="collapse" data-parent="#accordion01" href="#collapse01-1">First Floor</a>
-                                                    </div>
-                                                    <div className="pull-right">
-                                                        <ul className="list-unstyled list-inline mb-0">
-                                                            <li><span>Size:</span>635 sq ft</li>
-                                                            <li><span>Rooms:</span>3</li>
-                                                            <li><span>Baths:</span>1</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div id="collapse01-1" className="panel--body panel-collapse collapse in">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercit ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in volupte velit esse cillum dolore eu fugiat.</p>
-                                                    <img src="assets/images/property-single/1.png" alt="img" className="img-responsive" />
-                                                </div>
-                                            </div>
-                                            <div className="panel">
-                                                <div className="panel--heading clearfix">
-                                                    <div className="pull-left">
-                                                        <a className="accordion-toggle" data-toggle="collapse" data-parent="#accordion01" href="#collapse01-2">Second Floor</a>
-                                                    </div>
-                                                    <div className="pull-right">
-                                                        <ul className="list-unstyled list-inline mb-0">
-                                                            <li><span>Size:</span>635 sq ft</li>
-                                                            <li><span>Rooms:</span>3</li>
-                                                            <li><span>Baths:</span>1</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div id="collapse01-2" className="panel--body panel-collapse collapse">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercit ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in volupte velit esse cillum dolore eu fugiat.</p>
-                                                    <img src="assets/images/property-single/1.png" alt="img" className="img-responsive" />
-                                                </div>
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <div class="property--details">
+                                                <p>Lorem ipsum dolor sit amet, dolore magna aliqua. 
+                                                    Ut enim ad minim veniam, quis nostrud exercitation 
+                                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                                                    Duis aute irure dolor in reprehenderit in volupte velit 
+                                                    esse cillum dolore eu fugiat nulla pariatur.
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -430,20 +413,7 @@ function PropertyListing() {
                                         </div>
                                     </div>
                                     <div className="col-xs-12 col-sm-12 col-md-12">
-                                        <div className="video--content text-center">
-                                            <div className="bg-section">
-                                                <img src="assets/images/video/1.jpg" alt="Background" />
-                                            </div>
-                                            <div className="video--button">
-                                                <div className="video-overlay">
-                                                    <div className="pos-vertical-center">
-                                                        <a className="popup-video" href="https://www.youtube.com/watch?v=nrJtHemSPW4">
-                                                            <i className="fa fa-youtube-play"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <ReactPlayer url='https://www.youtube.com/watch?v=nrJtHemSPW4' />
                                     </div>
                                 </div>
                             </div>
@@ -455,18 +425,9 @@ function PropertyListing() {
                                         </div>
                                     </div>
                                     <div className="col-xs-12 col-sm-12 col-md-12">
-                                        <ul className="list-unstyled mb-20">
-                                            <li><span>Address:</span>1220 Petersham Town</li>
-                                            <li><span>City:</span>Sydney</li>
-                                            <li><span>Country:</span>Australia</li>
-                                            <li><span>State:</span>Newcastle</li>
-                                            <li><span>Zip/Postal code:</span>54330</li>
-                                        </ul>
-                                    </div>
-
-
-                                    <div className="col-xs-12 col-sm-12 col-md-12">
-                                        <div id="googleMap" style={{ width: "100%", height: "380px" }}></div>
+                                        <div className="google-map-code">
+                                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15282225.79979123!2d73.7250245393691!3d20.750301298393563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1587818542745!5m2!1sen!2sin" width="100%" height="450" frameborder="0" style={{border:0}} allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -568,11 +529,11 @@ function PropertyListing() {
                                                     <div className="form-group">
                                                         <label>Rating*</label>
                                                         <div className="property-rating">
-                                                            <i className="fa fa-star-o"></i>
-                                                            <i className="fa fa-star-o"></i>
-                                                            <i className="fa fa-star-o"></i>
-                                                            <i className="fa fa-star-o"></i>
-                                                            <i className="fa fa-star-o"></i>
+                                                            <i className="fa fa-star"></i>
+                                                            <i className="fa fa-star"></i>
+                                                            <i className="fa fa-star"></i>
+                                                            <i className="fa fa-star"></i>
+                                                            <i className="fa fa-star"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -580,7 +541,7 @@ function PropertyListing() {
                                                 <div className="col-xs-12 col-sm-12 col-md-12">
                                                     <div className="form-group">
                                                         <label for="review-comment">Review*</label>
-                                                        <textarea className="form-control" id="review-comment" rows="2" required></textarea>
+                                                        <textarea value="" className="form-control" cols="30" rows="5"> </textarea>
                                                     </div>
                                                 </div>
                                                 <div className="col-xs-12 col-sm-12 col-md-12">
@@ -603,26 +564,24 @@ function PropertyListing() {
                                 <div className="widget--content">
                                     <form className="mb-0">
                                         <div className="form-group">
-                                            <label for="contact-name">Your Name*</label>
-                                            <input type="text" className="form-control" name="contact-name" id="contact-name" required />
+                                            <label for="contact-name">Pick a Date Range*</label>
+                                            <DatePicker selectsRange={true}
+                                                startDate={startDate}
+                                                endDate={endDate}
+                                                onChange={(update) => {
+                                                    setDateRange(update);
+                                                }}
+                                                isClearable={true}
+                                                />
+
                                         </div>
 
                                         <div className="form-group">
-                                            <label for="contact-email">Email Address*</label>
+                                            <label for="contact-email">No of Person*</label>
                                             <input type="email" className="form-control" name="contact-email" id="contact-email" required />
                                         </div>
-
-                                        <div className="form-group">
-                                            <label for="contact-phone">Phone Number</label>
-                                            <input type="text" className="form-control" name="contact-phone" id="contact-phone" placeholder="(optional)" />
-                                        </div>
-
-                                        <div className="form-group">
-                                            <label for="message">Message*</label>
-                                            <textarea className="form-control" name="contact-message" id="message" rows="2" placeholder="(optional)"></textarea>
-                                        </div>
-
-                                        <input type="submit" value="Book Now" name="submit" className="btn btn--success mb-20" style={{ width: "275px", background: "#34a20d", color: "#fff" }} />
+                                        
+                                        <input type="submit" value="Book Now" name="submit" className="btn btn--success mb-20" style={{ width: "100%", background: "#34a20d", color: "#fff" }} />
                                     </form>
                                 </div>
                             </div>
@@ -660,8 +619,8 @@ function PropertyListing() {
 
                         </div>
 
-                    </div> */}
-                    <ImageSliderComponent />
+                    </div>
+                    
                 </div>
 
             </section>
@@ -680,13 +639,19 @@ function PropertyListing() {
 
                     <div className="row">
                         <div className="col-xs-12 col-sm-12 col-md-12">
-                            <div className="carousel carousel-dots" data-slide="3" data-slide-rs="1" data-autoplay="true" data-nav="false" data-dots="true" data-space="25" data-loop="true" data-speed="800">
-
-                                <div className="property-item">
+                        <Carousel responsive={responsive1} autoPlaySpeed={4000} transitionDuration={200}
+                                        removeArrowOnDeviceType={["tablet", "mobile","desktop"]}
+                                        infinite={true}
+                                        swipeable={false}
+                                        draggable={true}
+                                        showDots={true}
+                                        ssr={false}
+                                        autoPlay={true}>
+                                     
+                                     <div className="property-item">
                                     <div className="property--img">
                                         <a href="#">
-                                            <img src="assets/images/properties/3.jpg" alt="property image" className="img-responsive" />
-                                            <span className="property--status">For Sale</span>
+                                            <img src={PropertyImage} alt="property image" className="img-responsive" />
                                         </a>
                                     </div>
                                     <div className="property--content">
@@ -710,108 +675,7 @@ function PropertyListing() {
                                 <div className="property-item">
                                     <div className="property--img">
                                         <a href="#">
-                                            <img src="assets/images/properties/11.jpg" alt="property image" className="img-responsive" />
-                                            <span className="property--status">For Sale</span>
-                                        </a>
-                                    </div>
-                                    <div className="property--content">
-                                        <div className="property--info">
-                                            <h5 className="property--title"><a href="#">Villa in Chicago IL</a></h5>
-                                            <p className="property--location">1445 N State Pkwy, Chicago, IL 60610</p>
-                                            <p className="property--price">$235,000</p>
-                                        </div>
-
-                                        <div className="property--features">
-                                            <ul className="list-unstyled mb-0">
-                                                <li><span className="feature">Beds:</span><span className="feature-num">3</span></li>
-                                                <li><span className="feature">Baths:</span><span className="feature-num">2</span></li>
-                                                <li><span className="feature">Area:</span><span className="feature-num">1120 sq ft</span></li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div className="property-item">
-                                    <div className="property--img">
-                                        <a href="#">
-                                            <img src="assets/images/properties/5.jpg" alt="property image" className="img-responsive" />
-                                            <span className="property--status">For Rent</span>
-                                        </a>
-                                    </div>
-                                    <div className="property--content">
-                                        <div className="property--info">
-                                            <h5 className="property--title"><a href="#">2750 House in Urban St.</a></h5>
-                                            <p className="property--location">2750 Urban Street Dr, Anderson, IN 46011</p>
-                                            <p className="property--price">$1,550<span className="time">month</span></p>
-                                        </div>
-
-                                        <div className="property--features">
-                                            <ul className="list-unstyled mb-0">
-                                                <li><span className="feature">Beds:</span><span className="feature-num">2</span></li>
-                                                <li><span className="feature">Baths:</span><span className="feature-num">2</span></li>
-                                                <li><span className="feature">Area:</span><span className="feature-num">1390 sq ft</span></li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div className="property-item">
-                                    <div className="property--img">
-                                        <a href="#">
-                                            <img src="assets/images/properties/4.jpg" alt="property image" className="img-responsive" />
-                                            <span className="property--status">For Sale</span>
-                                        </a>
-                                    </div>
-                                    <div className="property--content">
-                                        <div className="property--info">
-                                            <h5 className="property--title"><a href="#">House in Kent Street</a></h5>
-                                            <p className="property--location">127 Kent Street, Sydney, NSW 2000</p>
-                                            <p className="property--price">$130,000</p>
-                                        </div>
-
-                                        <div className="property--features">
-                                            <ul className="list-unstyled mb-0">
-                                                <li><span className="feature">Beds:</span><span className="feature-num">2</span></li>
-                                                <li><span className="feature">Baths:</span><span className="feature-num">2</span></li>
-                                                <li><span className="feature">Area:</span><span className="feature-num">587 sq ft</span></li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div className="property-item">
-                                    <div className="property--img">
-                                        <a href="#">
-                                            <img src="assets/images/properties/2.jpg" alt="property image" className="img-responsive" />
-                                            <span className="property--status">For Rent</span>
-                                        </a>
-                                    </div>
-                                    <div className="property--content">
-                                        <div className="property--info">
-                                            <h5 className="property--title"><a href="#">Villa in Oglesby Ave</a></h5>
-                                            <p className="property--location">1035 Oglesby Ave, Chicago, IL 60617</p>
-                                            <p className="property--price">$130,000<span className="time">month</span></p>
-                                        </div>
-
-                                        <div className="property--features">
-                                            <ul className="list-unstyled mb-0">
-                                                <li><span className="feature">Beds:</span><span className="feature-num">4</span></li>
-                                                <li><span className="feature">Baths:</span><span className="feature-num">3</span></li>
-                                                <li><span className="feature">Area:</span><span className="feature-num">800 sq ft</span></li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div className="property-item">
-                                    <div className="property--img">
-                                        <a href="#">
-                                            <img src="assets/images/properties/3.jpg" alt="property image" className="img-responsive" />
-                                            <span className="property--status">For Sale</span>
+                                            <img src={PropertyImage} alt="property image" className="img-responsive" />
                                         </a>
                                     </div>
                                     <div className="property--content">
@@ -832,8 +696,32 @@ function PropertyListing() {
                                     </div>
                                 </div>
 
+                                <div className="property-item">
+                                    <div className="property--img">
+                                        <a href="#">
+                                            <img src={PropertyImage} alt="property image" className="img-responsive" />
+                                        </a>
+                                    </div>
+                                    <div className="property--content">
+                                        <div className="property--info">
+                                            <h5 className="property--title"><a href="#">Apartment in Long St.</a></h5>
+                                            <p className="property--location">34 Long St, Jersey City, NJ 07305</p>
+                                            <p className="property--price">$70,000</p>
+                                        </div>
 
-                            </div>
+                                        <div className="property--features">
+                                            <ul className="list-unstyled mb-0">
+                                                <li><span className="feature">Beds:</span><span className="feature-num">2</span></li>
+                                                <li><span className="feature">Baths:</span><span className="feature-num">1</span></li>
+                                                <li><span className="feature">Area:</span><span className="feature-num">200 sq ft</span></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+  
+                            </Carousel>
+                            
 
                         </div>
 
