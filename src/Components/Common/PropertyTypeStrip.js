@@ -7,6 +7,7 @@ import SearchAutoComplete from './SearchAutoComplete';
 import RangeSlider from './RangeSlider';
 import { useEffect } from 'react';
 import { Link } from "react-router-dom";
+import pet_friendly from '../../assets/images/property/icons/pet-friendly.png'
 
 const responsive1 = {
     desktop: {
@@ -263,7 +264,9 @@ function PropertyTypeStrip({ propertyHighlight }) {
                                                             <ul className="list-unstyled mb-0">
                                                                 <li><span className="feature">Beds:</span><span className="feature-num">{stay.Homestay.no_of_beds}</span></li>
                                                                 <li><span className="feature">Baths:</span><span className="feature-num">{stay.Homestay.no_of_bathrooms}</span></li>
-                                                                <li><span className="feature">Area:</span><span className="feature-num">0 sq ft</span></li>
+                                                                <li style={{float: "right"}}>
+                                                                    <img src={pet_friendly} style={{width : "35px" }}/>   
+                                                                </li>
                                                             </ul>
                                                         </div>
 

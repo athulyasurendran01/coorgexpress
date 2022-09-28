@@ -91,7 +91,7 @@ function PropertyDetail() {
             <>
                 <section id="page-title" className="page-title bg-overlay bg-overlay-dark2">
                     <div className="bg-section">
-                        <img src={bannerURL} alt="Background" />
+                        <img src={bannerURL} alt="Background" style={{width : "100%"}}/>
                     </div>
                 </section>
 

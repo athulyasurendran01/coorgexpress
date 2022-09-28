@@ -1,0 +1,236 @@
+.page-title {
+    padding: 0;
+}
+.header-transparent + .mtop-100, .header-transparent + .page-title, .header-transparent + section {
+    position: relative;
+    margin-top: -100px;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+    display: block;
+}
+.bg-section {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    -ms-background-size: cover;
+    background-size: cover;
+    /* background-attachment: fixed; */
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 100%;
+}
+img, svg {
+    vertical-align: middle;
+}
+.page-title .title {
+    padding: 235px 0 175px;
+}
+
+.text-center {
+    text-align: center;
+}
+.page-title .title--heading {
+    margin-bottom: 20px;
+}
+.page-title .title--heading h1 {
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin-bottom: 0;
+    text-transform: capitalize;
+}
+.h1, h1 {
+    font-size: 52px;
+}
+@media (min-width: 992px){
+.col-md-offset-3 {
+    margin-left: 25%;
+}
+}
+section {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    overflow: hidden;
+}
+.mb-50 {
+    margin-bottom: 50px !important;
+}
+.blog-grid .blog-entry {
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+.blog-entry {
+    border-radius: 5px;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+.blog-entry .entry--img {
+    overflow: hidden;
+    position: relative;
+}
+.blog-entry .entry--img img {
+    max-width: 100%;
+    height: auto;
+    -moz-transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+.blog-entry .entry--content {
+    padding: 25px 20px 25px 25px;
+    position: relative;
+}
+.entry--meta {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: capitalize;
+    line-height: 20px;
+    margin-bottom: 6px;
+}
+.entry--meta a:first-of-type {
+    padding-left: 0;
+}
+.entry--meta a {
+    position: relative;
+    padding-left: 12px;
+    color: #aaaaaa;
+}
+.entry--meta a:before {
+    content: "/";
+    position: absolute;
+    top: 0;
+    left: 4px;
+}
+.blog-entry .entry--title {
+    margin-bottom: 9px;
+}
+.blog-entry .entry--title h4 {
+    color: #34495e;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+    margin-bottom: 0;
+}
+.blog-entry .entry--title h4 a {
+    color: #34495e;
+}
+.blog-entry .entry--bio {
+    color: #aaaaaa;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 26px;
+    margin-bottom: 18px;
+}
+.blog-entry .entry--footer, .blog-entry .entry--more {
+    overflow: hidden;
+}
+.blog-entry .entry--more a {
+    color: #fe0100;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: capitalize;
+    position: relative;
+}
+.blog-entry .entry--more a i {
+    margin-left: 7px;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+    transition: all .4s ease;
+}
+.text--center {
+    text-align: center !important;
+}
+.widget {
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    padding: 40px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 10px;
+}
+.widget .widget--title {
+    margin-bottom: 35px;
+}
+.widget .widget--title h5 {
+    font-family: 'Poppins', sans-serif;
+    color: #000000;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: capitalize;
+    margin-bottom: 0;
+}
+.widget-recent-posts .entry {
+    position: relative;
+    margin-bottom: 30px;
+}
+.widget-recent-posts img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 85px;
+    height: 85px;
+}
+.widget-recent-posts .entry .entry-desc {
+    position: relative;
+    margin-left: 100px;
+}
+.widget-recent-posts .entry .entry-title {
+    margin-bottom: 9px;
+}
+.widget-recent-posts .entry .entry-title a {
+    font-family: 'Poppins', sans-serif;
+    color: #34495e;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 26px;
+    text-transform: capitalize;
+}
+.widget-recent-posts .entry .entry-desc .entry-meta a {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    line-height: 26px;
+    color: #bdbdbd;
+}
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+address, blockquote, dd, dl, fieldset, form, ol, p, pre, table, ul {
+    margin-bottom: 20px;
+}
+
+ol, ul {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.widget-categories ul li a {
+    color: #aaaaaa;
+    font-size: 14px;
+    line-height: 35px;
+    position: relative;
+    display: block;
+    text-transform: capitalize;
+    padding-left: 15px;
+}
+.widget-categories ul li a:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "\f105";
+    font-family: fontawesome;
+    line-height: 35px;
+}
+

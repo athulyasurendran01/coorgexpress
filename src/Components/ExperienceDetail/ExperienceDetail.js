@@ -1,8 +1,8 @@
 import PropertyBanner from '../../assets/images/property/property_banner.jpg';
 import PropertyImage from '../../assets/images/property/property_image.jpg';
-import './PropertyListing.css';
+import './ExperienceDetail.css';
 import React, { useCallback, useRef, useState } from "react";
-import ImageSliderComponent from '../PropertyDetail/ImageSliderComponent';
+import ImageSlider from './ImageSlider';
 import ProperyListImage from '../../assets/images/stay/property-list_img-1.png'
 import guests from '../../assets/images/property/icons/guests.png'
 import beds from '../../assets/images/property/icons/beds.png'
@@ -44,7 +44,7 @@ const responsive1 = {
   };
 
 
-function PropertyListing() {
+function ExperienceDetail() {
 
     let url="";
     const [dateRange, setDateRange] = useState([null, null]);
@@ -71,9 +71,9 @@ function PropertyListing() {
 
     return (
         <>
-            <section id="page-title" className="page-title">
+            <section id="page-title" className="page-title bg-overlay bg-overlay-dark2">
                 <div className="bg-section">
-                    <img src={PropertyBanner} alt="Background" />
+                    <img src={PropertyBanner} alt="Background" style={{width : "100%"}}/>
                 </div>
             </section>
 
@@ -84,21 +84,21 @@ function PropertyListing() {
                             <div className="property-single-gallery-info">
                                 <div className="property--info clearfix">
                                     <div className="pull-left">
-                                        <h5 className="property--title">Nishani Motte Trek</h5>
-                                        <p className="property--location" style= {{ "margin-bottom" : "15px" }}>Bhagamandala</p>
-                                        { /*<p className="property--location">Address Address </p>*/}
-                                        <p>
-                                            <span className="property--status"><i className="fa fa-pencil"></i> <span>Half Trail </span> 
-                                            <span>|</span> <i className="fa fa fa-pencil"></i> <span>5 Hours</span></span>
-                                        </p>
+                                        <h5 className="property--title">Property 1</h5>
+                                        <p className="property--location">Listing Address Address Address Address </p>
+                                        <p className="property--location">Address Address </p>
                                     </div>
                                     <div className="pull-right verified-listing">
                                         <input type="submit" value="Verified Listing" name="submit" className="btn btn--success mb-20" style={{ width: "275px", background: "#34a20d", color: "#fff" }} />
-                                        <div className="property-rating" style={{ "margin-top" : "0px", "margin-bottom" : "20px"}}>
-                                            <span>Hosted By : </span>Coorgexpress
+                                        <span className="property--status"><i className="fa fa-share-alt"></i> <span>Share</span> <span>|</span> <i className="fa fa fa-pencil"></i> <span>Review</span></span>
+                                        <div className="property-rating">
+                                            <span>Rating : </span>
+                                            <i className="fa fa-star"></i>
+                                            <i className="fa fa-star"></i>
+                                            <i className="fa fa-star"></i>
+                                            <i className="fa fa-star"></i>
+                                            <i className="fa fa-star-o"></i>
                                         </div>
-                                        <span className="property--status"><i className="fa fa-phone"></i> <span>+91 9995894145</span> 
-                                        <span>|</span> <i className="fa fa-envelope"></i> <span>mail@gmail.com</span></span>
                                     </div>
                                 </div>
 
@@ -110,7 +110,34 @@ function PropertyListing() {
                             <div className="property-single-carousel inner-box">
                                 <div className="row">
                                     <div className="col-xs-12 col-sm-12 col-md-12">
-                                        {/* <ImageSliderComponent /> */}
+                                        { <ImageSlider /> }
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="property-single-desc inner-box property-det">
+                                <div className="row">
+                                    <div className="col-xs-6 col-sm-6 col-md-6">
+                                        <div className="feature-panel">
+                                            <div className="heading">
+                                                <h2 className="heading--title">Opening Hours</h2>
+                                            </div>
+                                            <div className="feature--content">
+                                                <p>Check In Timing<span>11 AM</span></p>
+                                                <p>Check Out Timing<span>11 AM</span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-6 col-md-6">
+                                        <div className="feature-panel">
+                                            <div className="heading">
+                                                <h2 className="heading--title">Hosted By</h2>
+                                            </div>
+                                            <div className="feature--content">
+                                                <p>coorgexpress.com</p>
+                                                <p><strong>T</strong> - +91 (963) 2338 11</p>
+                                                <p><strong>M</strong> - info@coorgexpress.com</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -118,68 +145,250 @@ function PropertyListing() {
                             <div className="property-single-desc inner-box">
                                 <div className="row">
                                     <div className="col-xs-12 col-sm-12 col-md-12">
-                                        <div className="heading" style={{"margin-bottom" : "25px"}}>
+                                        <div className="heading">
                                             <h2 className="heading--title">Overview</h2>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-3 col-md-3">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={guests} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>12 Guests</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-3 col-md-3">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={beds} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>3 Beds</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-3 col-md-3">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={baths} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>2 Baths</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-3 col-md-3">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={pet_friendly} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Pet Friendly</h5>
+                                            </div>
                                         </div>
                                     </div>
 
 
                                     <div className="col-xs-12 col-sm-12 col-md-12">
                                         <div className="property--details">
-                                            <p>Nishani Motte is a striking peak in the Talacauvery/ Brahmagiri range, 
-                                                Coorg belonging to the Western Ghats, a world heritage centre. Our walk 
-                                                starts from Cherangala Village about 6 KMS from Bagamandala Town. We 
-                                                probably need to take a Auto / Taxi to reach the base point. The Trek 
-                                                traverses through villages ,Streams & rain forests. The final stretch 
-                                                of the Nishani hills is uphill but worth for a perfect viewpoint. 
-                                                Magnificent 360-degree panoramic view of the mountain ranges from the 
-                                                top is mind blowing .It’s one of the scenic treks and surely a must do.</p>
+                                            <p>Lorem ipsum dolor sit amet, dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in volupte velit esse cillum dolore eu fugiat nulla pariatur.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="property-single-desc inner-box property-det">
+
+                            <div className="property-single-features inner-box property-single-desc">
                                 <div className="row">
-                                    <div className="col-xs-4 col-sm-4 col-md-4">
+                                    <div className="col-xs-12 col-sm-12 col-md-12">
+                                        <div className="heading">
+                                            <h2 className="heading--title">Amenities</h2>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-4 col-md-4">
                                         <div className="feature-panel">
-                                            <div className="heading">
-                                                <h2 className="heading--title">Inclusion</h2>
+                                            <div className="feature--img">
+                                                <img src={center_cooling} alt="icon" />
                                             </div>
-                                            <div>
-                                                <p>Tour Charges</p>
-                                                <p>Packed Lunch</p>
+                                            <div className="feature--content">
+                                                <h5>Center Cooling</h5>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-xs-4 col-sm-4 col-md-4">
+                                    <div className="col-xs-6 col-sm-4 col-md-4">
                                         <div className="feature-panel">
-                                            <div className="heading">
-                                                <h2 className="heading--title">Who can attend ww</h2>
+                                            <div className="feature--img">
+                                                <img src={balcony} alt="icon" />
                                             </div>
-                                            <div>
-                                                <p>Anyone above 12 Years</p>
+                                            <div className="feature--content">
+                                                <h5>Balcony</h5>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-xs-4 col-sm-4 col-md-4">
+                                    <div className="col-xs-6 col-sm-4 col-md-4">
                                         <div className="feature-panel">
-                                            <div className="heading">
-                                                <h2 className="heading--title">Upcoming Availability</h2>
+                                            <div className="feature--img">
+                                                <img src={pet_friendly} alt="icon" />
                                             </div>
-                                            <div>
-                                                <p>08.00AM - 01.00PM</p>
+                                            <div className="feature--content">
+                                                <h5>Pet Friendly</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-4 col-md-4">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={fire_alarm} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Fire Alarm</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-4 col-md-4">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={modern_kitchen} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Modern Kitchen</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-4 col-md-4">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={storage} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Storage</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-4 col-md-4">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={heating} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Heating</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-4 col-md-4">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={pool} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Pool</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-4 col-md-4">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={laundry} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Laundry</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-4 col-md-4">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={gym} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Gym</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-4 col-md-4">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={elevator} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Elevator</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-6 col-sm-4 col-md-4">
+                                        <div className="feature-panel">
+                                            <div className="feature--img">
+                                                <img src={dish_washer} alt="icon" />
+                                            </div>
+                                            <div className="feature--content">
+                                                <h5>Dish Washer</h5>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
+
+
+                            <div className="property-single-reviews inner-box room-details">
+                                <div className="row">
+                                    <div className="col-xs-12 col-sm-12 col-md-12">
+                                        <div className="heading">
+                                            <h2 className="heading--title">Rooms</h2>
+                                        </div>
+                                    </div>
+                                    <div className="col-xs-12 col-sm-12 col-md-12">
+                                        <ul className="property-review">
+                                            <li className="review-comment row">
+                                                <div className="col-xs-10">
+                                                    <div className="avatar">R</div>
+                                                    <div className="comment">
+                                                        <h6>Room 1</h6>
+                                                        <div className="property-rating">
+                                                            <i className="fa fa-star"></i>
+                                                            <i className="fa fa-star"></i>
+                                                            <i className="fa fa-star"></i>
+                                                            <i className="fa fa-star"></i>
+                                                            <i className="fa fa-star-o"></i>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectet adipisicing elit, sed eiusmod tempor incididun ut labore dolor magna aliqua enim minim veniam, quis nostrud.</p>
+                                                    </div>
+                                                </div>
+                                                <div className="col-xs-2">
+                                                <input type="submit" value="Book Now" name="submit" className="btn btn--success mb-20" style={{ background: "#34a20d", color: "#fff" }} />
+                                                </div>
+                                            </li>
+                                            <li className="review-comment row">
+                                                <div className="col-xs-10">
+                                                    <div className="avatar">S</div>
+                                                    <div className="comment">
+                                                        <h6>Room 2</h6>
+                                                        <div className="property-rating">
+                                                            <i className="fa fa-star"></i>
+                                                            <i className="fa fa-star"></i>
+                                                            <i className="fa fa-star"></i>
+                                                            <i className="fa fa-star"></i>
+                                                            <i className="fa fa-star"></i>
+                                                        </div>
+                                                        <p>Lorem ipsum dolor sit amet, consectet adipisicing elit, sed eiusmod tempor incididun ut labore dolor magna aliqua enim minim veniam, quis nostrud.</p>
+                                                    </div>
+                                                </div>
+                                                <div className="col-xs-2">
+                                                <input type="submit" value="Book Now" name="submit" className="btn btn--success mb-20" style={{ background: "#34a20d", color: "#fff" }} />
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="property-single-design inner-box">
                                 <div className="row">
                                     <div className="col-xs-12 col-sm-12 col-md-12">
                                         <div className="heading">
-                                            <h2 className="heading--title">Tour Notes</h2>
+                                            <h2 className="heading--title">More Details</h2>
                                         </div>
                                     </div>
                                     <div className="col-xs-12 col-sm-12 col-md-12">
@@ -524,4 +733,4 @@ function PropertyListing() {
             </>
 )}
 
-export default PropertyListing
+export default ExperienceDetail
