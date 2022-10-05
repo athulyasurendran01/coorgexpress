@@ -1,5 +1,6 @@
 import Banner from "../Common/Banner"
 import PropertyImage from "../../assets/images/property/property_image.jpg"
+import "./Booking.css"
 
 function Booking (){
     return(
