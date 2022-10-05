@@ -36,7 +36,7 @@ function PropertyFilter({ data }) {
                     autoPlay={true}>
                     {data.map((category, idx) => {
                         return (
-                            <div className="filter-stay-item">
+                            <div className="filter-stay-item" key={idx}>
                                 <div className="filter-stay-icon">
                                     <a href={url}>
                                         <img src={HomeStayIcon} alt="property image" className="img-responsive" />

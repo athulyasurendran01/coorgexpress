@@ -5,12 +5,11 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Link } from "react-router-dom";
 
 import logo from '../../logo/logo-light.png';
-
 import './Header.css'
 
-function Header() {
+function Header({headerStyle}) {
     return (
-        <Navbar fixed="top" variant="dark">
+        <Navbar fixed="top" variant="dark" className={headerStyle}>
             <Container>
                 <Navbar.Brand href="#home"><img src={logo} /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

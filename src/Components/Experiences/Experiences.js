@@ -5,7 +5,7 @@ function Experiences({propertyHighlight}) {
     return(
         <>
             <Banner category={'experience'} />
-            <PropertyTypeStrip propertyHighlight={propertyHighlight}/>
+            <PropertyTypeStrip propertyHighlight={propertyHighlight} category={'experience'}/>
         </>
     )
 }

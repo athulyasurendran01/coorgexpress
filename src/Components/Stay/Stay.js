@@ -5,7 +5,7 @@ function Stay({propertyHighlight}) {
     return(
         <>
             <Banner category={'stay'} />
-            <PropertyTypeStrip propertyHighlight={propertyHighlight}/>
+            <PropertyTypeStrip propertyHighlight={propertyHighlight} category={'stay'}/>
         </>
     )
 }

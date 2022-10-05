@@ -5,7 +5,7 @@ function Events({propertyHighlight}) {
     return (
         <>
             <Banner category={'events'} />
-            <PropertyTypeStrip propertyHighlight={propertyHighlight}/>
+            <PropertyTypeStrip propertyHighlight={propertyHighlight} category={'events'}/>
         </>
     )
 }
