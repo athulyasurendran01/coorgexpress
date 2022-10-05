@@ -76,11 +76,9 @@ function PropertyDetail() {
         });
     }, []);
 
-
     //Get product detail API
     const propertyDetails = useSelector(propertyData)
 
-    console.log(propertyDetails)
     useEffect(() => {
         dispatch(getPropertyDetail(params.id))
     }, [])
@@ -91,7 +89,7 @@ function PropertyDetail() {
             <>
                 <section id="page-title" className="page-title bg-overlay bg-overlay-dark2">
                     <div className="bg-section">
-                        <img src={bannerURL} alt="Background" style={{width : "100%"}}/>
+                        <img src={bannerURL} alt="Background" style={{ width: "100%" }} />
                     </div>
                 </section>
 
@@ -395,8 +393,8 @@ function PropertyDetail() {
                                             </div>
                                         </div>
                                         <div className="col-xs-12 col-sm-12 col-md-12">
-                                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                                <div class="property--details">
+                                            <div className="col-xs-12 col-sm-12 col-md-12">
+                                                <div className="property--details">
                                                     <div dangerouslySetInnerHTML={{ __html: propertyDetails.Homestay.other_details }} />
                                                 </div>
                                             </div>
@@ -424,7 +422,7 @@ function PropertyDetail() {
                                         </div>
                                         <div className="col-xs-12 col-sm-12 col-md-12">
                                             <div className="google-map-code">
-                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15282225.79979123!2d73.7250245393691!3d20.750301298393563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1587818542745!5m2!1sen!2sin" width="100%" height="450" frameborder="0" style={{ border: 0 }} allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15282225.79979123!2d73.7250245393691!3d20.750301298393563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1587818542745!5m2!1sen!2sin" width="100%" height="450" frameBorder="0" style={{ border: 0 }} aria-hidden="false" tabIndex="0"></iframe>
                                             </div>
                                         </div>
 

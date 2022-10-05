@@ -28,21 +28,17 @@ function App() {
   const [headerStyle, setHeaderStyle] = useState('');
 
   useEffect(() => {
-    setOffset(window.pageYOffset)
-
-    const onScroll = () => setOffset(window.pageYOffset);
-
-    window.removeEventListener('scroll', onScroll);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-
+    // setOffset(window.pageYOffset)
+    // const onScroll = () => setOffset(window.pageYOffset);
+    // window.removeEventListener('scroll', onScroll);
+    // window.addEventListener('scroll', onScroll, { passive: true });
+    // return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('scroll', handleScroll);
   }, []);
 
-
-  // console.log(.offsetHeight);
-
-  // page-title
-  // 529 - 609-120
+  const handleScroll = function (event) {
+    // setOffset(window.pageYOffset)
+  }
 
   useEffect(() => {
     let elem = document.getElementById("hero")
@@ -63,15 +59,15 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header headerStyle={headerStyle}/>
+        <Header headerStyle={headerStyle} />
         <Routes>
           <Route path="/about" caseSensitive={false} element={<About />} />
           <Route path="/stay" caseSensitive={false} element={<Stay propertyHighlight={propertyHighlight} />} />
           <Route path="/stay/:id" caseSensitive={false} element={<PropertyDetail />} />
           <Route path="/experiences" caseSensitive={false} element={<Experiences propertyHighlight={propertyHighlight} />} />
+          <Route path="/experiences/:id" caseSensitive={false} element={<ExperienceDetail />} />
           <Route path="/events" caseSensitive={false} element={<Events propertyHighlight={propertyHighlight} />} />
           <Route path="/contact" caseSensitive={false} element={<Contact />} />
-          <Route path="/experiencedetail" caseSensitive={false} element={<ExperienceDetail />} />
           <Route path="/" caseSensitive={false} element={<Home />} />
           <Route path="/propertylisting" caseSensitive={false} element={<PropertyListing />} />
           <Route path="/blog" caseSensitive={false} element={<Blog />} />

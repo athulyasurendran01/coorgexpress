@@ -32,7 +32,7 @@ class PropertyTypeStrip extends React.Component {
     constructor(props) {
         super()
         this.state = {
-            stayData: [],
+            responseData: [],
             itemsPerPage: 10,
             pageCount: 0,
             itemOffset: 0,
@@ -43,30 +43,30 @@ class PropertyTypeStrip extends React.Component {
         fetch(`https://www.coorgexpress.com/${this.props.category}.json?page=1`)
             .then(response => response.json())
             .then(data => {
-                this.setState({ stayData: data.data })
-                this.setState({ pageCount:  Math.ceil(data.total / 10)})
-                
+                this.setState({ responseData: data.data })
+                this.setState({ pageCount: Math.ceil(data.total / 10) })
+
             })
     }
     getPaginationData = (event) => {
-        
-        let { stayData, itemsPerPage, itemOffset, pageCount } = this.state
-        const newOffset = (event.selected * itemsPerPage) % stayData.length;
+
+        let { responseData, itemsPerPage, itemOffset, pageCount } = this.state
+        const newOffset = (event.selected * itemsPerPage) % responseData.length;
         this.setState({ itemOffset: newOffset })
 
         let { propertyHighlight, category } = this.props
-        fetch(`https://www.coorgexpress.com/${category}.json?page=${event.selected+1}`)
+        fetch(`https://www.coorgexpress.com/${category}.json?page=${event.selected + 1}`)
             .then(response => response.json())
             .then(data => {
-                this.setState({ stayData: data.data })
+                this.setState({ responseData: data.data })
             })
     }
 
     render() {
         let url = ''
         let { propertyHighlight, category } = this.props
-        let { stayData, pageCount } = this.state
-        
+        let { responseData, pageCount } = this.state
+console.log("sssssssssssss")
         return (
             <section id="properties-grid" style={{ "overflow": "inherit" }}>
                 <div className="search-properties" >
@@ -147,7 +147,7 @@ class PropertyTypeStrip extends React.Component {
                                 <input type="submit" value="Clear All" name="submit" className="btn btn--primary" style={{ "width": "135px" }} />
                                 <input type="submit" value="Search" name="submit" className="btn btn--success" style={{ "width": "135px" }} />
                             </div>
-
+                            {/* Featured Properties
                             <div className="widget widget-featured-property">
                                 <div className="widget--title">
                                     <h5>Featured Properties</h5>
@@ -229,7 +229,7 @@ class PropertyTypeStrip extends React.Component {
                                     </Carousel>
 
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="col-xs-12 col-sm-12 col-md-8">
@@ -256,49 +256,83 @@ class PropertyTypeStrip extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="properties properties-grid row">
-                                    {stayData &&
-                                        stayData.map((stay, idx) => {
-                                            const imageURL = `https://www.coorgexpress.com/${stay.HomestayFile[0].file_path}/${stay.HomestayFile[0].file_name}`
-                                            return (
-                                                <div className="col-xs-12 col-sm-6 col-md-6" key={idx}>
-                                                    <div className="property-item">
-                                                        <div className="property--img">
-                                                            <Link to={`/stay/${stay.Homestay.id}`}>
-                                                                <img src={imageURL} alt="property image" className="img-responsive" />
-                                                            </Link>
-                                                        </div>
-                                                        <div className="property--content">
-                                                            <div className="property--info">
-                                                                <h5 className="property--title">
-                                                                    <Link to={`/stay/${stay.Homestay.id}`}>{stay.Homestay.name}</Link>
-                                                                </h5>
-                                                                <p className="property--location">{stay.Homestay.address}</p>
-                                                                <p className="property--price">Rs. {stay.Homestay.base_price}</p>
-                                                                <div className="property-rating">
-                                                                    {Array.from({ length: parseInt(stay.Homestay.rating) }).map((_, idx) => (
-                                                                        <i className="fa fa-star" key={idx}></i>
-                                                                    ))}
-                                                                </div>
+                                {category === 'stay' &&
+                                    <div className="properties properties-grid row">
+                                        {responseData &&
+                                            responseData.map((stay, idx) => {
+                                                const imageURL = `https://www.coorgexpress.com/${stay.HomestayFile[0].file_path}/${stay.HomestayFile[0].file_name}`
+                                                return (
+                                                    <div className="col-xs-12 col-sm-6 col-md-6" key={idx}>
+                                                        <div className="property-item">
+                                                            <div className="property--img">
+                                                                <Link to={`/stay/${stay.Homestay.id}`}>
+                                                                    <img src={imageURL} alt="property image" className="img-responsive" />
+                                                                </Link>
                                                             </div>
+                                                            <div className="property--content">
+                                                                <div className="property--info">
+                                                                    <h5 className="property--title">
+                                                                        <Link to={`/stay/${stay.Homestay.id}`}>{stay.Homestay.name}</Link>
+                                                                    </h5>
+                                                                    <p className="property--location">{stay.Homestay.address}</p>
+                                                                    <p className="property--price">Rs. {stay.Homestay.base_price}</p>
+                                                                    <div className="property-rating">
+                                                                        {Array.from({ length: parseInt(stay.Homestay.rating) }).map((_, idx) => (
+                                                                            <i className="fa fa-star" key={idx}></i>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
 
-                                                        <div className="property--features">
-                                                            <ul className="list-unstyled mb-0">
-                                                                <li><span className="feature">Beds:</span><span className="feature-num">{stay.Homestay.no_of_beds}</span></li>
-                                                                <li><span className="feature">Baths:</span><span className="feature-num">{stay.Homestay.no_of_bathrooms}</span></li>
-                                                                <li style={{float: "right"}}>
-                                                                    <img src={pet_friendly} style={{width : "35px" }}/>   
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+                                                                <div className="property--features">
+                                                                    <ul className="list-unstyled mb-0">
+                                                                        <li><span className="feature">Beds:</span><span className="feature-num">{stay.Homestay.no_of_beds}</span></li>
+                                                                        <li><span className="feature">Baths:</span><span className="feature-num">{stay.Homestay.no_of_bathrooms}</span></li>
+                                                                        <li style={{ float: "right" }}>
+                                                                            <img src={pet_friendly} style={{ width: "35px" }} />
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
 
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            )
-                                        })}
-                                </div>
-
+                                                )
+                                            })}
+                                    </div>}
+                                {category === 'experience' &&
+                                    <div className="properties properties-grid row">
+                                        {responseData &&
+                                            responseData.map((item, idx) => {
+                                                const imageURL = `https://www.coorgexpress.com/${item.ExperienceFile[0].file_path}/${item.ExperienceFile[0].file_name}`
+                                                return (
+                                                    <div className="col-xs-12 col-sm-6 col-md-6" key={idx}>
+                                                        <div className="property-item">
+                                                            <div className="property--img">
+                                                                <Link to={`/experiences/${item.Experience.id}`}>
+                                                                    <img src={imageURL} alt="property image" className="img-responsive" />
+                                                                </Link>
+                                                            </div>
+                                                            <div className="property--content">
+                                                                <div className="property--info">
+                                                                    <h5 className="property--title">
+                                                                        <Link to={`/experiences/${item.Experience.id}`}>{item.Experience.name}</Link>
+                                                                    </h5>
+                                                                    <p className="property--location">{item.Experience.address}</p>
+                                                                    <p className="property--location">{item.ExperienceType.type}</p>
+                                                                    <p className="property--price">Rs. {item.Experience.event_price}</p>
+                                                                    <div className="property-rating">
+                                                                        {Array.from({ length: parseInt(item.Experience.rating) }).map((_, idx) => (
+                                                                            <i className="fa fa-star" key={idx}></i>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })}
+                                    </div>
+                                }
                                 <ReactPaginate
                                     breakLabel="..."
                                     nextLabel="next >"
@@ -308,18 +342,6 @@ class PropertyTypeStrip extends React.Component {
                                     previousLabel="< previous"
                                     renderOnZeroPageCount={null}
                                 />
-                                {/* <div className="col-xs-12 col-sm-12 col-md-12 text-center mt-50">
-                                    <ul className="pagination">
-                                        <li className="active"><span>1</span></li>
-                                        <li><span>2</span></li>
-                                        <li><span>3</span></li>
-                                        <li>
-                                            <a href="#" aria-label="Next">
-                                                <span aria-hidden="true"><i className="fa fa-angle-right"></i></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div> */}
                             </div>
                         </div>
                     </div>
