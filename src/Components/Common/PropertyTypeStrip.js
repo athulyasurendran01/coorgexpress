@@ -233,7 +233,7 @@ console.log("sssssssssssss")
                         </div>
 
                         <div className="col-xs-12 col-sm-12 col-md-8">
-                            <div className="row">
+                            <div className="row property-list">
                                 <div className="col-xs-12 col-sm-12 col-md-12">
                                     <div className="properties-filter clearfix">
                                         <div className="select--box pull-left">
@@ -341,6 +341,7 @@ console.log("sssssssssssss")
                                     pageCount={pageCount}
                                     previousLabel="< previous"
                                     renderOnZeroPageCount={null}
+                                    activeClassName={"pagination-active"}
                                 />
                             </div>
                         </div>

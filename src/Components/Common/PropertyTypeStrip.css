@@ -235,6 +235,38 @@ textarea.form-control {
     padding-left: 5px;
     color: #aaaaaa;
 }
+.property-list ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+.property-list ul li a[aria-label="Previous page"]{
+    color:#34495e;
+}
+.property-list ul li a[aria-label="Next page"]{
+    color:#34495e;
+}
+.property-list ul {
+    display: inline-block;
+}
+.property-list ul li a{
+    color:#34495e;
+}
+ul li.pagination-active {
+    background-color: #fe0100 !important;
+    color: #fff !important;
+    border-color: #fe0100;
+    border-radius: 2px !important;
+    border: none;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    border: none;
+    text-transform: uppercase;
+    width: 33px;
+    height: 33px;
+    line-height: 33px;
+    text-align: center;
+}
 
 a {
     -webkit-transition: all 0.3s ease;

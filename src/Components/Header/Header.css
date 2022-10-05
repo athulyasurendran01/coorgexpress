@@ -1,7 +1,11 @@
 .nav-scroll-default{
-    background-color: green;
+    background-color: #fff;
 }
 
 .nav-scroll-active{
     background-color: red;
+}
+
+.nav-scroll-default.navbar-expand .navbar-nav .nav-link a {
+    color: #000;
 }
