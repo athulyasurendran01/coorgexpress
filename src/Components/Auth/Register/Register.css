@@ -1,0 +1,181 @@
+.registration-modal.tab-content {
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+.tab-content>.active {
+    display: block;
+}
+.text-center {
+    text-align: center;
+}
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+address, blockquote, dd, dl, fieldset, form, ol, p, pre, table, ul {
+    margin-bottom: 20px;
+}
+.tab-content.registration-modal .btn--facebook {
+    background-color: #3b5998;
+    color: #ffffff !important;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 400;
+    margin-bottom: 25px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.registration-modal .btn--facebook:hover {
+    background-color: #5d7dc0 !important;
+    color: #ffffff !important;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 400;
+    margin-bottom: 25px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.registration-modal .btn--google {
+    background-color: #fe0100;
+    color: #ffffff !important;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 400;
+    margin-bottom: 25px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.registration-modal .btn--google:hover {
+    background-color: #fe0100 !important;
+    color: #ffffff !important;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 400;
+    margin-bottom: 25px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.btn--block {
+    width: 100%!important;
+}
+.btn--block {
+    width: 100%;
+}
+.btn {
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    z-index: 2;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 4px;
+    padding: 0;
+    line-height: 39px;
+    width: 150px;
+    height: 42px;
+    border: none;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.registration-modal .btn--facebook i {
+    margin-right: 7px;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.registration-modal .or-text {
+    position: relative;
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 25px;
+}
+.registration-modal .or-text span {
+    background-color: #ffffff;
+    display: inline-block;
+    padding: 0 8px;
+    z-index: 2;
+    position: relative;
+}
+.registration-modal .form-group {
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+select, .form-control, textarea.form-control {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f8f8;
+    border: 1px solid #eeeeee;
+    font-size: 14px !important;
+    color: #aaaaaa;
+    line-height: 44px;
+    height: 44px !important;
+    margin-bottom: 0;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    padding: 0 18px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.input-checkbox {
+    margin-bottom: 30px;
+}
+.label-checkbox {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 14px;
+    z-index: 2;
+    text-align: left;
+}
+.registration-modal .input-checkbox {
+    padding-top: 10px;
+    margin-bottom: 25px;
+}
+.btn--block {
+    width: 100%!important;
+}
+.btn--block {
+    width: 100%;
+}
+.btn--primary {
+    background-color: #ff5e5e00;
+    color: #ffffff;
+    border: 2px solid #fe0100;
+    color: red;
+}
+.registration-modal .forget-password {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+    text-decoration: underline;
+    color: #aaaaaa;
+}
+.btn--primary:active, .btn--primary:focus, .btn--primary:hover {
+    background-color: #fe0100 !important;
+    border: 2px solid #fe0100 !important;
+    color: #ffff !important;
+}
+.btn.focus, .btn:focus, .btn:hover {
+    color: #333;
+    text-decoration: none;
+}

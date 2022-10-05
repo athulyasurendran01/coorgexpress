@@ -9,3 +9,7 @@
 .nav-scroll-default.navbar-expand .navbar-nav .nav-link a {
     color: #000;
 }
+button.login.btn.btn-primary {
+    margin-left: 100px;
+    background: red;
+}

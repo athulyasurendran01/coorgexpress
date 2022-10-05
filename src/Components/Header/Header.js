@@ -10,6 +10,7 @@ import logo from '../../logo/logo-light.png';
 import './Header.css'
 import Register from '../Auth/Register/Register';
 import Login from '../Auth/Login/Login';
+import ForgotPassword from '../Auth/ForgotPassword/ForgotPassword';
 
 function Header({ headerStyle }) {
 
@@ -33,9 +34,7 @@ function Header({ headerStyle }) {
                             <Nav.Link><Link to="/events">Events</Link></Nav.Link>
                             <Nav.Link><Link to="/blog">Blogs</Link></Nav.Link>
                             <Nav.Link>
-                                <Button variant="primary" onClick={handleShow}>
-                                    Login
-                                </Button>
+                                <Button variant="primary" className="login" onClick={handleShow}>Login</Button>
                             </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
@@ -43,33 +42,25 @@ function Header({ headerStyle }) {
             </Navbar>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Tabs
-                        defaultActiveKey="register"
+                        defaultActiveKey="login"
                         id="uncontrolled-tab-example"
                         className="mb-3"
                     >
-                        <Tab eventKey="register" title="Register">
-                            <Register />
-                        </Tab>
                         <Tab eventKey="login" title="Login">
                             <Login />
                         </Tab>
-                        {/* <Tab eventKey="forgotpassword" title="Change Password">
+                        <Tab eventKey="register" title="Register">
                             <Register />
-                        </Tab> */}
+                        </Tab>
+                        
+                        <Tab eventKey="forgotpassword" title="Forgot Password">
+                            <ForgotPassword />
+                        </Tab>
                     </Tabs>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
             </Modal>
         </>
     )
