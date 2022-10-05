@@ -8,6 +8,7 @@ import RangeSlider from './RangeSlider';
 import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
+import pet_friendly from '../../assets/images/property/icons/pet-friendly.png'
 
 const responsive1 = {
     desktop: {
@@ -281,13 +282,15 @@ class PropertyTypeStrip extends React.Component {
                                                                 </div>
                                                             </div>
 
-                                                            <div className="property--features">
-                                                                <ul className="list-unstyled mb-0">
-                                                                    <li><span className="feature">Beds:</span><span className="feature-num">{stay.Homestay.no_of_beds}</span></li>
-                                                                    <li><span className="feature">Baths:</span><span className="feature-num">{stay.Homestay.no_of_bathrooms}</span></li>
-                                                                    <li><span className="feature">Area:</span><span className="feature-num">0 sq ft</span></li>
-                                                                </ul>
-                                                            </div>
+                                                        <div className="property--features">
+                                                            <ul className="list-unstyled mb-0">
+                                                                <li><span className="feature">Beds:</span><span className="feature-num">{stay.Homestay.no_of_beds}</span></li>
+                                                                <li><span className="feature">Baths:</span><span className="feature-num">{stay.Homestay.no_of_bathrooms}</span></li>
+                                                                <li style={{float: "right"}}>
+                                                                    <img src={pet_friendly} style={{width : "35px" }}/>   
+                                                                </li>
+                                                            </ul>
+                                                        </div>
 
                                                         </div>
                                                     </div>
