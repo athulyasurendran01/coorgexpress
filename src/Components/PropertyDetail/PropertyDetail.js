@@ -587,25 +587,60 @@ function PropertyDetail() {
                                         <h5>Enquiry</h5>
                                     </div>
                                     <div className="widget--content">
-                                        <form className="mb-0">
-                                            <div className="form-group">
-                                                <label for="sale-price">Sale Price</label>
-                                                <input type="text" className="form-control" name="sale-price" id="sale-price" placeholder="$" />
+                                        <form className="mb-0 row">
+                                            <div className="form-group col-lg-6">
+                                                <label for="start-date">Start Date</label>
+                                                <input type="date" className="form-control" name="start-date" id="start-date" placeholder="Start Date" />
                                             </div>
 
-                                            <div className="form-group">
-                                                <label for="down-payment">Down Payment</label>
-                                                <input type="text" className="form-control" name="down-payment" id="down-payment" placeholder="$" />
+                                            <div className="form-group col-lg-6">
+                                                <label for="end-date">End Date</label>
+                                                <input type="date" className="form-control" name="end-date" id="end-date" placeholder="End Date" />
                                             </div>
 
-                                            <div className="form-group">
-                                                <label for="term">Term</label>
-                                                <input type="text" className="form-control" name="term" id="term" placeholder="years" />
+                                            <div className="form-group col-lg-6">
+                                                <label for="adults">Adults:(age above 12)</label>
+                                                <input type="text" className="form-control" name="adults" id="adults" placeholder="Adults" />
                                             </div>
 
-                                            <div className="form-group">
-                                                <label for="interest-rate">Interest Rate</label>
-                                                <input type="text" className="form-control" name="interest-rate" id="interest-rate" placeholder="%" />
+                                            <div className="form-group col-lg-6">
+                                                <label for="children">Children:(age below 12)</label>
+                                                <input type="text" className="form-control" name="children" id="children" placeholder="Children"/>
+                                            </div>
+
+                                            <div className="form-group col-lg-12">
+                                                <div className="input-checkbox">
+                                                        <label className="label-checkbox">
+                                                            <span>Do you want an extra bed?</span>
+                                                            <input type="checkbox" />
+                                                            <span className="check-indicator"></span>
+                                                        </label>
+                                                </div>
+                                            </div>
+
+                                            <div className="form-group col-lg-12">
+                                                <label for="price">Final Price</label>
+                                                <input type="text" className="form-control price-box" name="price" id="price" placeholder="Rs. 6000" disabled/>
+                                            </div>
+
+                                            <div className="form-group col-lg-6">
+                                                <label for="name">Name</label>
+                                                <input type="text" className="form-control" name="name" id="name" placeholder="Name"/>
+                                            </div>
+
+                                            <div className="form-group col-lg-6">
+                                                <label for="contact-no">Contact Number</label>
+                                                <input type="text" className="form-control" name="contact-no" id="contact-no" placeholder="Contact Number"/>
+                                            </div>
+
+                                            <div className="form-group col-lg-12">
+                                                <label for="email">Email</label>
+                                                <input type="email" className="form-control" name="email" id="email" placeholder="Email"/>
+                                            </div>
+
+                                            <div className="form-group col-lg-12">
+                                                <label for="message">Message</label>
+                                                <textarea className="form-control" name="message" id="message" placeholder="Message"></textarea>
                                             </div>
 
                                             <input type="submit" value="Enquiry" name="submit" className="btn btn--primary btn--block" />

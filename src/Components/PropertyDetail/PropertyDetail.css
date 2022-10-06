@@ -268,4 +268,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 .col-xs-2 {
     width: 20% !important;
 }
+input.price-box.form-control::placeholder {
+    color: #fe0100;
+    font-size: 20px;
+    font-weight: 900;
+}
+.widget-mortgage-calculator .input-checkbox {
+    margin-bottom: 0px;
+}
 
