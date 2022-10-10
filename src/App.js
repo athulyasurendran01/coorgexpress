@@ -18,6 +18,7 @@ import Booking from './Components/Booking/Booking';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { propertyHighlights, getHomepage } from './reducers/homeBasic';
+import BlogDetail from './Components/Blog/BlogDetail/BlogDetail';
 
 function App() {
 
@@ -71,6 +72,7 @@ function App() {
           <Route path="/" caseSensitive={false} element={<Home />} />
           <Route path="/propertylisting" caseSensitive={false} element={<PropertyListing />} />
           <Route path="/blog" caseSensitive={false} element={<Blog />} />
+          <Route path="/blogdetail" caseSensitive={false} element={<BlogDetail />} />
           <Route path="/booking" caseSensitive={false} element={<Booking />} />
         </Routes>
         <Footer />
