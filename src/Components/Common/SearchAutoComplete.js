@@ -3,7 +3,6 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
 export default function SearchAutoComplete({ data, type, title }) {
-
     if (data.length <= 0) {
         return (
             <></>

@@ -8,8 +8,8 @@ const initialState = {
 
 export const getPropertyDetail = createAsyncThunk(
   'home/fetchPropertyDetail',
-  async (id) => {
-    const response = await httpGetService(id)
+  async ({type, id}) => {
+    const response = await httpGetService(type, id)
     return response;
   }
 );
@@ -24,13 +24,12 @@ export const propertyDetail = createSlice({
         state.status = 'loading';
       })
       .addCase(getPropertyDetail.fulfilled, (state, action) => {
-
         state.status = 'idle';
-        state.homestayDetails = action.payload.homestayDetails;
+        state.data = action.payload.data;
       });
   },
 });
 
-export const propertyData = (state) => state.propertyDetail.homestayDetails;
+export const propertyData = (state) => state.propertyDetail.data;
 
 export default propertyDetail.reducer;

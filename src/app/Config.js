@@ -1,1 +1,1 @@
-export const serverURL = '';
+export const serverURL = 'https://www.coorgexpress.com';

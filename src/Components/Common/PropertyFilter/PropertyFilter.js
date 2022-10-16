@@ -3,6 +3,7 @@ import CampIcon from '../../../assets/images/stay/stay_icon_camp.png'
 import HomeStayIcon from '../../../assets/images/stay/stay_icon_homestay.png'
 import ResortIcon from '../../../assets/images/stay/stay_icon_resort.png'
 import Carousel from "react-multi-carousel";
+import { serverURL } from "../../../app/Config"
 
 const responsive = {
     desktop: {
@@ -21,6 +22,7 @@ const responsive = {
         slidesToSlide: 1 // optional, default to 1.
     }
 };
+
 function PropertyFilter({ data }) {
     let url = "";
     if (data && data.length > 0) {
@@ -35,11 +37,12 @@ function PropertyFilter({ data }) {
                     ssr={false}
                     autoPlay={true}>
                     {data.map((category, idx) => {
+                        let logo_ = `${serverURL}/uploads/property_type/${category.logo ? category.logo : 'homestay.png'}`
                         return (
                             <div className="filter-stay-item" key={idx}>
                                 <div className="filter-stay-icon">
                                     <a href={url}>
-                                        <img src={HomeStayIcon} alt="property image" className="img-responsive" />
+                                        <img src={logo_} alt="property image" className="img-responsive" />
                                     </a>
                                 </div>
                                 <h6>{category.title}</h6>

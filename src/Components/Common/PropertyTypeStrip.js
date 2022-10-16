@@ -1,14 +1,14 @@
-import ProperyImage from '../../assets/images/stay/property-list_img-1.png'
 import './PropertyTypeStrip.css'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import PropertyFilter from './PropertyFilter/PropertyFilter'
 import SearchAutoComplete from './SearchAutoComplete';
 import RangeSlider from './RangeSlider';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import pet_friendly from '../../assets/images/property/icons/pet-friendly.png'
+import Checkbox from './Checkbox';
 
 const responsive1 = {
     desktop: {
@@ -54,7 +54,7 @@ class PropertyTypeStrip extends React.Component {
         const newOffset = (event.selected * itemsPerPage) % responseData.length;
         this.setState({ itemOffset: newOffset })
 
-        let { propertyHighlight, category } = this.props
+        let { category } = this.props
         fetch(`https://www.coorgexpress.com/${category}.json?page=${event.selected + 1}`)
             .then(response => response.json())
             .then(data => {
@@ -62,11 +62,18 @@ class PropertyTypeStrip extends React.Component {
             })
     }
 
+    onSearch = () => {
+        alert("search")
+    }
+
+    handleClick = (event) => {
+        console.log(event)
+    }
+
     render() {
-        let url = ''
         let { propertyHighlight, category } = this.props
         let { responseData, pageCount } = this.state
-console.log("sssssssssssss")
+        console.log(responseData)
         return (
             <section id="properties-grid" style={{ "overflow": "inherit" }}>
                 <div className="search-properties" >
@@ -96,8 +103,11 @@ console.log("sssssssssssss")
                                 </div>
                                 <div className="input-checkbox">
                                     <label className="label-checkbox">
-                                        <span>Instant Booking</span>
-                                        <input type="checkbox" />
+                                        {/* <span>Instant Booking</span> */}
+                                        {/* <input type="checkbox" /> */}
+
+                                        <Checkbox label="Instant Booking"
+                                            handleClick={event => this.handleClick(event)} />
                                         <span className="check-indicator"></span>
                                     </label>
                                 </div>
@@ -134,18 +144,24 @@ console.log("sssssssssssss")
                                             propertyHighlight.amenities.map((item, idx) => {
                                                 return (
                                                     <div className="input-checkbox" key={idx}>
-                                                        <label className="label-checkbox">
+                                                        <Checkbox label={item.Amenity.amenity} 
+                                                        handleClick={event => this.handleClick(event)}/>
+                                                        {/* <label className="label-checkbox">
                                                             <span>{item.Amenity.amenity}</span>
                                                             <input type="checkbox" />
                                                             <span className="check-indicator"></span>
-                                                        </label>
+                                                        </label> */}
                                                     </div>
                                                 )
                                             })}
                                     </div>
                                 </div>
-                                <input type="submit" value="Clear All" name="submit" className="btn btn--primary" style={{ "width": "135px" }} />
-                                <input type="submit" value="Search" name="submit" className="btn btn--success" style={{ "width": "135px" }} />
+                                <input type="submit" value="Clear All"
+                                    className="btn btn--primary"
+                                    style={{ "width": "135px" }} />&nbsp;
+                                <input type="submit" value="Search"
+                                    className="btn btn--success"
+                                    style={{ "width": "135px" }} onClick={() => this.onSearch()} />
                             </div>
                             {/* Featured Properties
                             <div className="widget widget-featured-property">
@@ -300,6 +316,40 @@ console.log("sssssssssssss")
                                             })}
                                     </div>}
                                 {category === 'experience' &&
+                                    <div className="properties properties-grid row">
+                                        {responseData &&
+                                            responseData.map((item, idx) => {
+                                                const imageURL = `https://www.coorgexpress.com/${item.ExperienceFile[0].file_path}/${item.ExperienceFile[0].file_name}`
+                                                return (
+                                                    <div className="col-xs-12 col-sm-6 col-md-6" key={idx}>
+                                                        <div className="property-item">
+                                                            <div className="property--img">
+                                                                <Link to={`/experiences/${item.Experience.id}`}>
+                                                                    <img src={imageURL} alt="property image" className="img-responsive" />
+                                                                </Link>
+                                                            </div>
+                                                            <div className="property--content">
+                                                                <div className="property--info">
+                                                                    <h5 className="property--title">
+                                                                        <Link to={`/experiences/${item.Experience.id}`}>{item.Experience.name}</Link>
+                                                                    </h5>
+                                                                    <p className="property--location">{item.Experience.address}</p>
+                                                                    <p className="property--location">{item.ExperienceType.type}</p>
+                                                                    <p className="property--price">Rs. {item.Experience.event_price}</p>
+                                                                    <div className="property-rating">
+                                                                        {Array.from({ length: parseInt(item.Experience.rating) }).map((_, idx) => (
+                                                                            <i className="fa fa-star" key={idx}></i>
+                                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })}
+                                    </div>
+                                }
+                                {category === 'events' &&
                                     <div className="properties properties-grid row">
                                         {responseData &&
                                             responseData.map((item, idx) => {

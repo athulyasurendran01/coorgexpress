@@ -1,6 +1,4 @@
 function Blogs(props) {
-    const blogs = [1, 2, 3]
-
     return (
         <section id={props.title} className="blog blog-grid bg-white">
             <div className="container">
@@ -13,7 +11,7 @@ function Blogs(props) {
                     </div>
                 </div>
                 <div className="row mb-50">
-                    {blogs.map(blog => {
+                    {props.data && props.data.map(blog => {
                         return (
                             <div className="col-xs-12 col-sm-6 col-md-4">
                                 <div className="blog-entry">
@@ -24,13 +22,13 @@ function Blogs(props) {
                                     </div>
                                     <div className="entry--content">
                                         <div className="entry--meta">
-                                            <a href="#">March 09, 2018</a><a href="#">Team Coorgexpress</a>
+                                            <a href="#">{blog.BlogPost.modified}</a><a href="#">{blog.BlogPost.posted_by}</a>
                                         </div>
                                         <div className="entry--title">
-                                            <h4><a href="#">10 Quick Tips About Real Estate</a></h4>
+                                            <h4><a href="#">{blog.BlogPost.title}</a></h4>
                                         </div>
                                         <div className="entry--bio">
-                                            In contrast with New York City’s urban atmosphere, the vast majority of the state...
+                                            {blog.BlogPost.title}...
                                         </div>
                                         <div className="entry--more">
                                             <a href="#">Read More<i className="fa fa-angle-double-right"></i></a>

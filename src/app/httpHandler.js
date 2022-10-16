@@ -1,8 +1,9 @@
 import { serverURL } from "./Config"
 
-export function httpGetService(url) {
-    let urlStr = url ? `/${url}` : ''
-    const apiURL = `https://www.coorgexpress.com/home${urlStr}.json`
+export function httpGetService(url, id) {
+    let idStr = id ? `/${id}` : ''
+    let urlStr = url ? `/${url}` : '/home'
+    const apiURL = `${serverURL}${urlStr}${idStr}.json`
     return fetch(`${apiURL}`)
         .then((response) => response.json())
         .then((data) => {
@@ -12,19 +13,14 @@ export function httpGetService(url) {
 }
 
 export function httpPostService(url, data) {
-    const apiURL = `${serverURL}/${url}`
-    fetch(apiURL, {
+    const apiURL = url ? `${url}.json`:`home.json`
+    return fetch(`${serverURL}/${apiURL}`, {
         method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify(data)
       })
       .then((response) => response.json())
       .then((data) => {
-          console.log(data)
+        return data
       })
       .catch(err => console.log(err))
-    
 }

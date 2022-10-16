@@ -33,7 +33,7 @@ export const homeBasic = createSlice({
 
         const result1 = []
         for (const [key, value] of Object.entries(action.payload.property_type)) {
-          result1.push({ id: key, title: value });
+          result1.push({ id: key, title: value.PropertyType.name, logo: value.PropertyType.logo });
         }
 
         state.status = 'idle';

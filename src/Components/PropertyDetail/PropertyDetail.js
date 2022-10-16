@@ -1,9 +1,9 @@
-import PropertyBanner from '../../assets/images/property/property_banner.jpg';
 import PropertyImage from '../../assets/images/property/property_image.jpg';
 import './PropertyDetail.css';
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ImageSliderComponent from './ImageSliderComponent';
+import { serverURL } from "../../app/Config"
 
 import { useSelector, useDispatch } from 'react-redux';
 import { propertyData, getPropertyDetail } from '../../reducers/propertyDetail';
@@ -28,6 +28,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+
+import { Container, Row, Col } from 'react-bootstrap';
 
 const responsive1 = {
     desktop: {
@@ -54,7 +56,9 @@ function PropertyDetail() {
     const params = useParams();
 
     const [dateRange, setDateRange] = useState([null, null]);
+    const [no_guest, setPerson] = useState(0);
     const [startDate, endDate] = dateRange;
+    const [rooms, setRooms] = useState([]);
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const carouselInner = useRef(null);
@@ -79,12 +83,40 @@ function PropertyDetail() {
     //Get product detail API
     const propertyDetails = useSelector(propertyData)
 
+    console.log(propertyDetails)
     useEffect(() => {
-        dispatch(getPropertyDetail(params.id))
+        dispatch(getPropertyDetail({ type: 'stay', id: params.id }))
     }, [])
 
+
+    const handleChange = (e) => {
+        const { value, checked } = e.target;
+        if (checked) {
+            setRooms((prev) => [...prev, value]);
+        } else {
+            setRooms((prev) => prev.filter((x) => x !== value));
+        }
+    };
+
+    const roomRent = () => {
+        let roomPrice = 0;
+        rooms.map(room => {
+            roomPrice += parseFloat(propertyDetails.RoomPriceDetail[room].room_base_price)
+        })
+        return roomPrice
+    }
+
     if (propertyDetails) {
-        let bannerURL = `https://www.coorgexpress.com/${propertyDetails.HomestayFile.file_path}/${propertyDetails.HomestayFile.file_name}`
+        let bannerURL = `${serverURL}/${propertyDetails.HomestayFile.file_path}/${propertyDetails.HomestayFile.file_name}`
+        const bookingDetails = {
+            name: propertyDetails.Homestay.name,
+            image: bannerURL,
+            daterange: dateRange,
+            check_in_time: propertyDetails.Homestay.check_in_time,
+            check_out_time: propertyDetails.Homestay.check_out_time,
+            no_guest: no_guest,
+            total: (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.Homestay.base_price
+        }
         return (
             <>
                 <section id="page-title" className="page-title bg-overlay bg-overlay-dark2">
@@ -346,8 +378,6 @@ function PropertyDetail() {
                                     </div>
                                 </div>
 
-
-
                                 <div className="property-single-reviews inner-box room-details">
                                     <div className="row">
                                         <div className="col-xs-12 col-sm-12 col-md-12">
@@ -357,11 +387,19 @@ function PropertyDetail() {
                                         </div>
 
                                         <div className="col-xs-12 col-sm-12 col-md-12">
-                                            <ul className="property-review">
+                                            <Container className="property-review">
                                                 {propertyDetails.RoomPriceDetail && propertyDetails.RoomPriceDetail.map((room, idx) => {
                                                     return (
-                                                        <li className="review-comment row" key={idx}>
-                                                            <div className="col-xs-10">
+                                                        <Row className="review-comment row" key={idx}>
+                                                            <Col sm={2}>
+                                                                <input
+                                                                    type="checkbox"
+                                                                    name="lang"
+                                                                    value={idx}
+                                                                    onChange={handleChange}
+                                                                />
+                                                            </Col>
+                                                            <Col>
                                                                 <div className="avatar">R</div>
                                                                 <div className="comment">
                                                                     <h6>{room.room_no_name}</h6>
@@ -374,14 +412,11 @@ function PropertyDetail() {
                                                                     </div>
                                                                     <p>{room.room_description}</p>
                                                                 </div>
-                                                            </div>
-                                                            <div className="col-xs-2">
-                                                                <input type="submit" value="Book Now" name="submit" className="btn btn--success mb-20" style={{ background: "#34a20d", color: "#fff" }} />
-                                                            </div>
-                                                        </li>
+                                                            </Col>
+                                                        </Row>
                                                     )
                                                 })}
-                                            </ul>
+                                            </Container>
                                         </div>
                                     </div>
                                 </div>
@@ -554,7 +589,9 @@ function PropertyDetail() {
                             <div className="col-xs-12 col-sm-12 col-md-4">
                                 <div className="widget widget-request">
                                     <div className="widget--title">
-                                        <h5><span><i className="fa fa-rupee"></i> {propertyDetails.Homestay.base_price}</span> per night</h5>
+                                        <h5><span><i className="fa fa-rupee"></i>
+                                            {(rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.Homestay.base_price}
+                                        </span> per night</h5>
                                         <hr />
                                     </div>
                                     <div className="widget--content">
@@ -573,11 +610,14 @@ function PropertyDetail() {
                                             </div>
 
                                             <div className="form-group">
-                                                <label for="contact-email">No of Person*</label>
-                                                <input type="email" className="form-control" name="contact-email" id="contact-email" required />
+                                                <label for="">No of Person*</label>
+                                                <input type="number" className="form-control" required onChange={(e)=> setPerson(e.target.value)}/>
                                             </div>
 
-                                            <input type="submit" value="Book Now" name="submit" className="btn btn--success mb-20" style={{ width: "100%", background: "#34a20d", color: "#fff" }} />
+                                            <button className="btn btn--success mb-20"
+                                                style={{ width: "100%", background: "#34a20d", color: "#fff" }} >
+                                                <Link to="/booking" state={bookingDetails}>Book Now</Link>
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
@@ -605,37 +645,37 @@ function PropertyDetail() {
 
                                             <div className="form-group col-lg-6">
                                                 <label for="children">Children:(age below 12)</label>
-                                                <input type="text" className="form-control" name="children" id="children" placeholder="Children"/>
+                                                <input type="text" className="form-control" name="children" id="children" placeholder="Children" />
                                             </div>
 
                                             <div className="form-group col-lg-12">
                                                 <div className="input-checkbox">
-                                                        <label className="label-checkbox">
-                                                            <span>Do you want an extra bed?</span>
-                                                            <input type="checkbox" />
-                                                            <span className="check-indicator"></span>
-                                                        </label>
+                                                    <label className="label-checkbox">
+                                                        <span>Do you want an extra bed?</span>
+                                                        <input type="checkbox" />
+                                                        <span className="check-indicator"></span>
+                                                    </label>
                                                 </div>
                                             </div>
 
                                             <div className="form-group col-lg-12">
                                                 <label for="price">Final Price</label>
-                                                <input type="text" className="form-control price-box" name="price" id="price" placeholder="Rs. 6000" disabled/>
+                                                <input type="text" className="form-control price-box" name="price" id="price" placeholder="Rs. 6000" disabled />
                                             </div>
 
                                             <div className="form-group col-lg-6">
                                                 <label for="name">Name</label>
-                                                <input type="text" className="form-control" name="name" id="name" placeholder="Name"/>
+                                                <input type="text" className="form-control" name="name" id="name" placeholder="Name" />
                                             </div>
 
                                             <div className="form-group col-lg-6">
                                                 <label for="contact-no">Contact Number</label>
-                                                <input type="text" className="form-control" name="contact-no" id="contact-no" placeholder="Contact Number"/>
+                                                <input type="text" className="form-control" name="contact-no" id="contact-no" placeholder="Contact Number" />
                                             </div>
 
                                             <div className="form-group col-lg-12">
                                                 <label for="email">Email</label>
-                                                <input type="email" className="form-control" name="email" id="email" placeholder="Email"/>
+                                                <input type="email" className="form-control" name="email" id="email" placeholder="Email" />
                                             </div>
 
                                             <div className="form-group col-lg-12">

@@ -16,7 +16,7 @@ import GridContainer from '../Common/GridContainer'
 import Blogs from '../Home/Blogs/Blogs'
 import React from 'react'
 
-function Layout({ homeStayItem, experienceItem, eventsItem }) {
+function Layout({ homeStayItem, experienceItem, eventsItem, blogs }) {
     const propsData = [{
         title: 'about',
         img1: stay_head,
@@ -51,7 +51,7 @@ function Layout({ homeStayItem, experienceItem, eventsItem }) {
                     })
                 }
 
-                <Blogs title={'blog'} blog={blog} />
+                <Blogs title={'blog'} blog={blog} data={blogs}/>
 
                 <section id="instagram-feeds" className="instagram-feeds text-center pb-70">
                     <div className="container">

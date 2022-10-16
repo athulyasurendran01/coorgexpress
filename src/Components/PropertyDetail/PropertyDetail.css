@@ -194,14 +194,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
     margin-bottom: 0;
     padding: 0;
 }
-.property-review li {
+.property-review .row {
     margin-bottom: 40px;
     position: relative;
 }
-.property-review li .avatar {
+.property-review .avatar {
     position: absolute;
-    left: 0;
-    top: 0;
     width: 70px;
     height: 70px;
     line-height: 70px;
@@ -214,11 +212,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
-.property-review li .comment {
+.property-review .comment {
     padding-left: 100px;
     overflow: hidden;
 }
-.property-review li .comment h6 {
+.property-review .comment h6 {
     font-size: 18px;
     font-weight: 500;
     text-transform: capitalize;
@@ -228,7 +226,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
     float: left;
     margin-right: 18px;
 }
-.property-review li .comment .property-rating {
+.property-review .comment .property-rating {
     font-size: 14px;
     font-weight: 400;
     text-transform: capitalize;
@@ -236,7 +234,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
     line-height: 30px;
     float: right;
 }
-.property-review li .comment p {
+.property-review .comment p {
     clear: both;
     margin-bottom: 0;
 }
