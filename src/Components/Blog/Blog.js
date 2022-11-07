@@ -19,11 +19,11 @@ class Blog extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`${serverURL}/blogs.json`)
+        fetch(`${serverURL}/blogs.php`)
             .then(response => response.json())
             .then(data => {
-                this.setState({ responseData: data.data })
-                this.setState({ realatedPosts: data.realatedPosts })
+                this.setState({ responseData: data[0].data })
+                this.setState({ realatedPosts: data[0].data })
                 // this.setState({ pageCount: Math.ceil(data.total / 10) })
             })
     }
@@ -62,15 +62,15 @@ class Blog extends React.Component {
                                                         </div>
                                                         <div className="entry--content">
                                                             <div className="entry--meta">
-                                                                <a href="#">{blog.BlogPost.created}
+                                                                <a href="#">{blog.created}
                                                                     {/* March 09, 2018 */}
                                                                 </a><a href="#">3 Comments</a>
                                                             </div>
                                                             <div className="entry--title">
-                                                                <h4><a href="#">{blog.BlogPost.title}</a></h4>
+                                                                <h4><a href="#">{blog.title}</a></h4>
                                                             </div>
                                                             <div className="entry--bio">
-                                                                {blog.BlogPost.title}...
+                                                                {blog.title}...
                                                                 {/* <div dangerouslySetInnerHTML={{ __html: blog.BlogPost.content }} /> */}
                                                             </div>
                                                             <div className="entry--more">
@@ -118,7 +118,7 @@ class Blog extends React.Component {
                                                         </a>
                                                         <div className="entry-desc">
                                                             <div className="entry-title">
-                                                                <a href="#">{item.BlogPost.title}</a>
+                                                                <a href="#">{item.title}</a>
                                                             </div>
                                                             <div className="entry-meta">
                                                                 <a href="#">April 05, 2018</a>

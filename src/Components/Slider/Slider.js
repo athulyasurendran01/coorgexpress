@@ -14,11 +14,11 @@ function Slider({sliderItem}) {
                             <img
                                 className="d-block w-100"
                                 src={slider1}
-                                alt={slide.Slider.title}
+                                alt={slide.title}
                             />
                             <Carousel.Caption>
-                                <h3>{slide.Slider.title}</h3>
-                                <p>{slide.Slider.description}</p>
+                                <h3>{slide.title}</h3>
+                                <p>{slide.description}</p>
                             </Carousel.Caption>
                         </Carousel.Item>
                     )

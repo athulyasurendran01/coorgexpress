@@ -1,9 +1,9 @@
 import PropertyImage from '../../assets/images/property/property_image.jpg';
 import './PropertyDetail.css';
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import ImageSliderComponent from './ImageSliderComponent';
-import { serverURL } from "../../app/Config"
+import { serverURL_ } from "../../app/Config"
 
 import { useSelector, useDispatch } from 'react-redux';
 import { propertyData, getPropertyDetail } from '../../reducers/propertyDetail';
@@ -54,11 +54,13 @@ function PropertyDetail() {
 
     const dispatch = useDispatch();
     const params = useParams();
+    const navigate = useNavigate()
 
     const [dateRange, setDateRange] = useState([null, null]);
     const [no_guest, setPerson] = useState(0);
     const [startDate, endDate] = dateRange;
     const [rooms, setRooms] = useState([]);
+    const [message, setMessage] = useState('')
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const carouselInner = useRef(null);
@@ -83,7 +85,6 @@ function PropertyDetail() {
     //Get product detail API
     const propertyDetails = useSelector(propertyData)
 
-    console.log(propertyDetails)
     useEffect(() => {
         dispatch(getPropertyDetail({ type: 'stay', id: params.id }))
     }, [])
@@ -101,22 +102,34 @@ function PropertyDetail() {
     const roomRent = () => {
         let roomPrice = 0;
         rooms.map(room => {
-            roomPrice += parseFloat(propertyDetails.RoomPriceDetail[room].room_base_price)
+            roomPrice += parseFloat(propertyDetails.rooms[room].room_base_price)
         })
         return roomPrice
     }
 
-    if (propertyDetails) {
-        let bannerURL = `${serverURL}/${propertyDetails.HomestayFile.file_path}/${propertyDetails.HomestayFile.file_name}`
+    const booknow = () => {
+        setMessage("")
+
+        if(no_guest <=0 || dateRange[0] == null || dateRange[1] == null ){
+            setMessage("Please check the input")
+            return;
+        }
+        
+        let bannerURL = `${serverURL_}/${propertyDetails.data[0].file_path}/${propertyDetails.data[0].file_name}`
         const bookingDetails = {
-            name: propertyDetails.Homestay.name,
+            name: propertyDetails.data[0].name,
             image: bannerURL,
             daterange: dateRange,
-            check_in_time: propertyDetails.Homestay.check_in_time,
-            check_out_time: propertyDetails.Homestay.check_out_time,
+            check_in_time: propertyDetails.data[0].check_in_time,
+            check_out_time: propertyDetails.data[0].check_out_time,
             no_guest: no_guest,
-            total: (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.Homestay.base_price
+            total: (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price
         }
+        navigate('/booking', {state: bookingDetails})
+    }
+
+    if (propertyDetails) {
+        let bannerURL = `${serverURL_}/${propertyDetails.data[0].file_path}/${propertyDetails.data[0].file_name}`
         return (
             <>
                 <section id="page-title" className="page-title bg-overlay bg-overlay-dark2">
@@ -132,8 +145,8 @@ function PropertyDetail() {
                                 <div className="property-single-gallery-info">
                                     <div className="property--info clearfix">
                                         <div className="pull-left">
-                                            <h5 className="property--title">{propertyDetails.Homestay.name}</h5>
-                                            <p className="property--location">{propertyDetails.Homestay.address} </p>
+                                            <h5 className="property--title">{propertyDetails.data[0].name}</h5>
+                                            <p className="property--location">{propertyDetails.data[0].address} </p>
                                             <p className="property--location">Address Address </p>
                                         </div>
                                         <div className="pull-right verified-listing">
@@ -158,7 +171,7 @@ function PropertyDetail() {
                                 <div className="property-single-carousel inner-box">
                                     <div className="row">
                                         <div className="col-xs-12 col-sm-12 col-md-12">
-                                            <ImageSliderComponent images={propertyDetails.HomestayFile} />
+                                            <ImageSliderComponent images={propertyDetails.files} />
                                         </div>
                                     </div>
                                 </div>
@@ -170,8 +183,8 @@ function PropertyDetail() {
                                                     <h2 className="heading--title">Opening Hours</h2>
                                                 </div>
                                                 <div className="feature--content">
-                                                    <p>Check In Timing<span>{propertyDetails.Homestay.check_in_time}</span></p>
-                                                    <p>Check Out Timing<span>{propertyDetails.Homestay.check_out_time}</span></p>
+                                                    <p>Check In Timing<span>{propertyDetails.data[0].check_in_time}</span></p>
+                                                    <p>Check Out Timing<span>{propertyDetails.data[0].check_out_time}</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -182,8 +195,8 @@ function PropertyDetail() {
                                                 </div>
                                                 <div className="feature--content">
                                                     <p>coorgexpress.com</p>
-                                                    <p><strong>T</strong> - {propertyDetails.Homestay.telephone}, {propertyDetails.Homestay.mobile1}</p>
-                                                    <p><strong>M</strong> - {propertyDetails.Homestay.email}</p>
+                                                    <p><strong>T</strong> - {propertyDetails.data[0].telephone}, {propertyDetails.data[0].mobile1}</p>
+                                                    <p><strong>M</strong> - {propertyDetails.data[0].email}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -203,7 +216,7 @@ function PropertyDetail() {
                                                     <img src={guests} alt="icon" />
                                                 </div>
                                                 <div className="feature--content">
-                                                    <h5>{propertyDetails.Homestay.max_no_of_guest} Guests</h5>
+                                                    <h5>{propertyDetails.data[0].max_no_of_guest} Guests</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,7 +226,7 @@ function PropertyDetail() {
                                                     <img src={beds} alt="icon" />
                                                 </div>
                                                 <div className="feature--content">
-                                                    <h5>{propertyDetails.Homestay.no_of_beds} Beds</h5>
+                                                    <h5>{propertyDetails.data[0].no_of_beds} Beds</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -223,7 +236,7 @@ function PropertyDetail() {
                                                     <img src={baths} alt="icon" />
                                                 </div>
                                                 <div className="feature--content">
-                                                    <h5>{propertyDetails.Homestay.no_of_bathrooms} Baths</h5>
+                                                    <h5>{propertyDetails.data[0].no_of_bathrooms} Baths</h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,7 +254,7 @@ function PropertyDetail() {
 
                                         <div className="col-xs-12 col-sm-12 col-md-12">
                                             <div className="property--details">
-                                                <p>{propertyDetails.Homestay.description}</p>
+                                                <p>{propertyDetails.data[0].description}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -255,126 +268,20 @@ function PropertyDetail() {
                                                 <h2 className="heading--title">Amenities</h2>
                                             </div>
                                         </div>
-                                        <div className="col-xs-6 col-sm-4 col-md-4">
-                                            <div className="feature-panel">
-                                                <div className="feature--img">
-                                                    <img src={center_cooling} alt="icon" />
+                                        {propertyDetails.amenities && propertyDetails.amenities.map((amenity, idx) => {
+                                            return (
+                                                <div className="col-xs-6 col-sm-4 col-md-4">
+                                                    <div className="feature-panel">
+                                                        <div className="feature--img">
+                                                            <img src={amenity.icon ? amenity.icon : balcony} alt="icon" />
+                                                        </div>
+                                                        <div className="feature--content">
+                                                            <h5>{amenity.amenity}</h5>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="feature--content">
-                                                    <h5>Center Cooling</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-6 col-sm-4 col-md-4">
-                                            <div className="feature-panel">
-                                                <div className="feature--img">
-                                                    <img src={balcony} alt="icon" />
-                                                </div>
-                                                <div className="feature--content">
-                                                    <h5>Balcony</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-6 col-sm-4 col-md-4">
-                                            <div className="feature-panel">
-                                                <div className="feature--img">
-                                                    <img src={pet_friendly} alt="icon" />
-                                                </div>
-                                                <div className="feature--content">
-                                                    <h5>Pet Friendly</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-6 col-sm-4 col-md-4">
-                                            <div className="feature-panel">
-                                                <div className="feature--img">
-                                                    <img src={fire_alarm} alt="icon" />
-                                                </div>
-                                                <div className="feature--content">
-                                                    <h5>Fire Alarm</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-6 col-sm-4 col-md-4">
-                                            <div className="feature-panel">
-                                                <div className="feature--img">
-                                                    <img src={modern_kitchen} alt="icon" />
-                                                </div>
-                                                <div className="feature--content">
-                                                    <h5>Modern Kitchen</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-6 col-sm-4 col-md-4">
-                                            <div className="feature-panel">
-                                                <div className="feature--img">
-                                                    <img src={storage} alt="icon" />
-                                                </div>
-                                                <div className="feature--content">
-                                                    <h5>Storage</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-6 col-sm-4 col-md-4">
-                                            <div className="feature-panel">
-                                                <div className="feature--img">
-                                                    <img src={heating} alt="icon" />
-                                                </div>
-                                                <div className="feature--content">
-                                                    <h5>Heating</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-6 col-sm-4 col-md-4">
-                                            <div className="feature-panel">
-                                                <div className="feature--img">
-                                                    <img src={pool} alt="icon" />
-                                                </div>
-                                                <div className="feature--content">
-                                                    <h5>Pool</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-6 col-sm-4 col-md-4">
-                                            <div className="feature-panel">
-                                                <div className="feature--img">
-                                                    <img src={laundry} alt="icon" />
-                                                </div>
-                                                <div className="feature--content">
-                                                    <h5>Laundry</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-6 col-sm-4 col-md-4">
-                                            <div className="feature-panel">
-                                                <div className="feature--img">
-                                                    <img src={gym} alt="icon" />
-                                                </div>
-                                                <div className="feature--content">
-                                                    <h5>Gym</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-6 col-sm-4 col-md-4">
-                                            <div className="feature-panel">
-                                                <div className="feature--img">
-                                                    <img src={elevator} alt="icon" />
-                                                </div>
-                                                <div className="feature--content">
-                                                    <h5>Elevator</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-6 col-sm-4 col-md-4">
-                                            <div className="feature-panel">
-                                                <div className="feature--img">
-                                                    <img src={dish_washer} alt="icon" />
-                                                </div>
-                                                <div className="feature--content">
-                                                    <h5>Dish Washer</h5>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            )
+                                        })}
                                     </div>
                                 </div>
 
@@ -388,7 +295,7 @@ function PropertyDetail() {
 
                                         <div className="col-xs-12 col-sm-12 col-md-12">
                                             <Container className="property-review">
-                                                {propertyDetails.RoomPriceDetail && propertyDetails.RoomPriceDetail.map((room, idx) => {
+                                                {propertyDetails.rooms && propertyDetails.rooms.map((room, idx) => {
                                                     return (
                                                         <Row className="review-comment row" key={idx}>
                                                             <Col sm={2}>
@@ -430,7 +337,7 @@ function PropertyDetail() {
                                         <div className="col-xs-12 col-sm-12 col-md-12">
                                             <div className="col-xs-12 col-sm-12 col-md-12">
                                                 <div className="property--details">
-                                                    <div dangerouslySetInnerHTML={{ __html: propertyDetails.Homestay.other_details }} />
+                                                    <div dangerouslySetInnerHTML={{ __html: propertyDetails.data[0].other_details }} />
                                                 </div>
                                             </div>
                                         </div>
@@ -444,7 +351,7 @@ function PropertyDetail() {
                                             </div>
                                         </div>
                                         <div className="col-xs-12 col-sm-12 col-md-12">
-                                            <ReactPlayer url='https://www.youtube.com/watch?v=nrJtHemSPW4' />
+                                            <ReactPlayer url='https://youtu.be/A2p8CuTt4_Y' width="100%"/>
                                         </div>
                                     </div>
                                 </div>
@@ -457,10 +364,9 @@ function PropertyDetail() {
                                         </div>
                                         <div className="col-xs-12 col-sm-12 col-md-12">
                                             <div className="google-map-code">
-                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15282225.79979123!2d73.7250245393691!3d20.750301298393563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1587818542745!5m2!1sen!2sin" width="100%" height="450" frameBorder="0" style={{ border: 0 }} aria-hidden="false" tabIndex="0"></iframe>
+                                                <iframe src={`https://maps.google.com/maps?q=${propertyDetails.data[0].latitude}, ${propertyDetails.data[0].longitude}&z=15&output=embed`} width="100%" height="450" frameBorder="0"></iframe>
                                             </div>
                                         </div>
-
                                     </div>
 
                                 </div>
@@ -590,7 +496,7 @@ function PropertyDetail() {
                                 <div className="widget widget-request">
                                     <div className="widget--title">
                                         <h5><span><i className="fa fa-rupee"></i>
-                                            {(rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.Homestay.base_price}
+                                            {(rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price}
                                         </span> per night</h5>
                                         <hr />
                                     </div>
@@ -601,22 +507,27 @@ function PropertyDetail() {
                                                 <DatePicker selectsRange={true}
                                                     startDate={startDate}
                                                     endDate={endDate}
+                                                    minDate={new Date()}
                                                     onChange={(update) => {
                                                         setDateRange(update);
                                                     }}
                                                     isClearable={true}
+                                                    style={{zIndex: 1}}
                                                 />
 
                                             </div>
 
                                             <div className="form-group">
                                                 <label for="">No of Person*</label>
-                                                <input type="number" className="form-control" required onChange={(e)=> setPerson(e.target.value)}/>
+                                                <input type="number" className="form-control" required
+                                                 onChange={(e) => setPerson(e.target.value)} />
                                             </div>
-
+                                            <span style={{color: 'red'}}>{message}</span>
                                             <button className="btn btn--success mb-20"
-                                                style={{ width: "100%", background: "#34a20d", color: "#fff" }} >
-                                                <Link to="/booking" state={bookingDetails}>Book Now</Link>
+                                                onClick={booknow}
+                                                type="button"
+                                                style={{ width: "100%", background: "#34a20d", color: "#fff", zIndex: 0 }} >
+                                                Book Now
                                             </button>
                                         </form>
                                     </div>
@@ -639,12 +550,12 @@ function PropertyDetail() {
                                             </div>
 
                                             <div className="form-group col-lg-6">
-                                                <label for="adults">Adults:(age above 12)</label>
+                                                <label for="adults">Adults: &gt; 12</label>
                                                 <input type="text" className="form-control" name="adults" id="adults" placeholder="Adults" />
                                             </div>
 
                                             <div className="form-group col-lg-6">
-                                                <label for="children">Children:(age below 12)</label>
+                                                <label for="children">Children: &lt; 12</label>
                                                 <input type="text" className="form-control" name="children" id="children" placeholder="Children" />
                                             </div>
 

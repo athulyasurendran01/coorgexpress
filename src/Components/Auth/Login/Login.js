@@ -4,6 +4,7 @@ import { userData, authLogin } from '../../../reducers/authentication';
 import { useForm } from "react-hook-form";
 
 import "./Login.css"
+import SocialLogin from "./SocialLogin";
 
 function Login() {
     const dispatch = useDispatch();
@@ -13,17 +14,15 @@ function Login() {
         dispatch(authLogin(data))
     }
     // const user = useSelector(userData);
-
-    // console.log(user)
     return (
         <>
             <div className="tab-content login-modal">
                 <div className="tab-pane active" id="login">
                     <div className="signup-form-container text-center">
                         <form className="mb-0" onSubmit={handleSubmit(doLogin)}>
-                            <a href="#" className="btn btn--facebook btn--block"><i className="fa fa-facebook-square"></i>Login with Facebook</a>
-                            <a href="#" className="btn btn--google btn--block"><i className="fa fa-facebook-square"></i>Login with Google</a>
-
+                            {/* <a href="#" className="btn btn--facebook btn--block"><i className="fa fa-facebook-square"></i>Login with Facebook</a>
+                            <a href="#" className="btn btn--google btn--block"><i className="fa fa-facebook-square"></i>Login with Google</a> */}
+                            <SocialLogin />
                             <div className="or-text">
                                 <span>or</span>
                             </div>

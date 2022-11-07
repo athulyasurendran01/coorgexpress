@@ -25,7 +25,7 @@ export const propertyDetail = createSlice({
       })
       .addCase(getPropertyDetail.fulfilled, (state, action) => {
         state.status = 'idle';
-        state.data = action.payload.data;
+        state.data = action.payload[0];
       });
   },
 });

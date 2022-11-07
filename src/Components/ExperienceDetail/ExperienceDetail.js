@@ -8,9 +8,10 @@ import "react-multi-carousel/lib/styles.css";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { propertyData, getPropertyDetail } from '../../reducers/propertyDetail';
 import ImageSliderComponent from '../PropertyDetail/ImageSliderComponent';
+import { serverURL_ } from "../../app/Config"
 
 const responsive1 = {
     desktop: {
@@ -32,12 +33,15 @@ const responsive1 = {
 
 function ExperienceDetail() {
 
-    const [dateRange, setDateRange] = useState([null, null]);
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const params = useParams();
 
+    const [message, setMessage] = useState('')
+    const [dateRange, setDateRange] = useState([null, null]);
     const [startDate, endDate] = dateRange;
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [no_guest, setPerson] = useState(0);
     const carouselInner = useRef(null);
     const slideChanged = useCallback(() => {
         const activeItem = carouselInner.current.querySelector(".active");
@@ -64,7 +68,30 @@ function ExperienceDetail() {
         dispatch(getPropertyDetail({ type: 'experience', id: params.id }))
     }, [])
 
-    if (experienceDetails) {
+    const booknow = () => {
+        setMessage("")
+
+        if(no_guest <=0 || dateRange[0] == null || dateRange[1] == null ){
+            setMessage("Please check the input")
+            return;
+        }
+        
+        let bannerURL = `${serverURL_}/${experienceDetails.files[0].file_path}/${experienceDetails.files[0].file_name}`
+        const bookingDetails = {
+            name: experienceDetails.data[0].name,
+            image: bannerURL,
+            daterange: dateRange,
+            check_in_time: experienceDetails.data[0].check_in_time,
+            check_out_time: experienceDetails.data[0].check_out_time,
+            no_guest: no_guest,
+            total: experienceDetails.data[0].event_price
+        }
+        navigate('/booking', {state: bookingDetails})
+    }
+
+    if (experienceDetails &&
+        experienceDetails.data &&
+        experienceDetails.data.length > 0) {
         return (
             <>
                 <section id="page-title" className="page-title">
@@ -80,21 +107,22 @@ function ExperienceDetail() {
                                 <div className="property-single-gallery-info">
                                     <div className="property--info clearfix">
                                         <div className="pull-left">
-                                            <h5 className="property--title">{experienceDetails.Experience.name}</h5>
-                                            <p className="property--location" style={{ "margin-bottom": "15px" }}>{experienceDetails.Experience.address}</p>
+                                            <h5 className="property--title">{experienceDetails.data[0].name}</h5>
+                                            <p className="property--location" style={{ "margin-bottom": "15px" }}>{experienceDetails.data[0].address}</p>
                                             { /*<p className="property--location">Address Address </p>*/}
                                             <p>
-                                                <span className="property--status"><i className="fa fa-pencil"></i> <span>{experienceDetails.TrailType.name} </span>
-                                                    <span>|</span> <i className="fa fa fa-pencil"></i> <span>{experienceDetails.Experience.duration} Hours</span></span>
+                                                <span className="property--status"><i className="fa fa-pencil"></i>
+                                                    <span>{experienceDetails.data[0].trialtype_name} </span>
+                                                    <span>|</span> <i className="fa fa fa-pencil"></i> <span>{experienceDetails.data[0].duration} Hours</span></span>
                                             </p>
                                         </div>
                                         <div className="pull-right verified-listing">
                                             <input type="submit" value="Verified Listing" name="submit" className="btn btn--success mb-20" style={{ width: "275px", background: "#34a20d", color: "#fff" }} />
                                             <div className="property-rating" style={{ "margin-top": "0px", "margin-bottom": "20px" }}>
-                                                <span>Hosted By : </span>{experienceDetails.Experience.hosted_by}
+                                                <span>Hosted By : </span>{experienceDetails.data[0].hosted_by}
                                             </div>
-                                            <span className="property--status"><i className="fa fa-phone"></i> <span>{experienceDetails.Experience.host_contact_no}</span>
-                                                <span>|</span> <i className="fa fa-envelope"></i> <span>{experienceDetails.Experience.host_contact_email}</span></span>
+                                            <span className="property--status"><i className="fa fa-phone"></i> <span>{experienceDetails.data[0].host_contact_no}</span>
+                                                <span>|</span> <i className="fa fa-envelope"></i> <span>{experienceDetails.data[0].host_contact_email}</span></span>
                                         </div>
                                     </div>
 
@@ -106,7 +134,7 @@ function ExperienceDetail() {
                                 <div className="property-single-carousel inner-box">
                                     <div className="row">
                                         <div className="col-xs-12 col-sm-12 col-md-12">
-                                            <ImageSliderComponent images={experienceDetails.ExperienceFile} />
+                                            <ImageSliderComponent images={experienceDetails.files} />
                                         </div>
                                     </div>
                                 </div>
@@ -119,10 +147,9 @@ function ExperienceDetail() {
                                             </div>
                                         </div>
 
-
                                         <div className="col-xs-12 col-sm-12 col-md-12">
                                             <div className="property--details">
-                                                <p>{experienceDetails.Experience.about_experience}</p>
+                                                <p>{experienceDetails.data[0].about_experience}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -136,8 +163,8 @@ function ExperienceDetail() {
                                                     <h2 className="heading--title">Inclusion</h2>
                                                 </div>
                                                 <div>
-                                                    {experienceDetails.Experience.includes_in &&
-                                                        experienceDetails.Experience.includes_in.split(',').map(item => {
+                                                    {experienceDetails.data[0].includes_in &&
+                                                        experienceDetails.data[0].includes_in.split(',').map(item => {
                                                             return <p>{item}</p>
                                                         })}
                                                 </div>
@@ -149,8 +176,8 @@ function ExperienceDetail() {
                                                     <h2 className="heading--title">Who can attend</h2>
                                                 </div>
                                                 <div>
-                                                    {experienceDetails.Experience.who_can_attend &&
-                                                        experienceDetails.Experience.who_can_attend.split(',').map(item => {
+                                                    {experienceDetails.data[0].who_can_attend &&
+                                                        experienceDetails.data[0].who_can_attend.split(',').map(item => {
                                                             return <p>{item}</p>
                                                         })}
                                                 </div>
@@ -179,7 +206,7 @@ function ExperienceDetail() {
                                         <div className="col-xs-12 col-sm-12 col-md-12">
                                             <div className="col-xs-12 col-sm-12 col-md-12">
                                                 <div className="property--details">
-                                                    <p>{experienceDetails.Experience.about_host}</p>
+                                                    <p>{experienceDetails.data[0].about_host}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -193,7 +220,7 @@ function ExperienceDetail() {
                                             </div>
                                         </div>
                                         <div className="col-xs-12 col-sm-12 col-md-12">
-                                            <ReactPlayer url='https://www.youtube.com/watch?v=nrJtHemSPW4' />
+                                            <ReactPlayer url='https://youtu.be/A2p8CuTt4_Y' width="100%" />
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +233,7 @@ function ExperienceDetail() {
                                         </div>
                                         <div className="col-xs-12 col-sm-12 col-md-12">
                                             <div className="google-map-code">
-                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15282225.79979123!2d73.7250245393691!3d20.750301298393563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1587818542745!5m2!1sen!2sin" width="100%" height="450" frameBorder="0" style={{ border: 0 }} aria-hidden="false" tabIndex="0"></iframe>
+                                                <iframe src={`https://maps.google.com/maps?q=${experienceDetails.data[0].latitude}, ${experienceDetails.data[0].longitude}&z=15&output=embed`} width="100%" height="450" ></iframe>
                                             </div>
                                         </div>
 
@@ -330,15 +357,13 @@ function ExperienceDetail() {
                                                 </div>
                                             </form>
                                         </div>
-
                                     </div>
-
                                 </div>
                             </div>
                             <div className="col-xs-12 col-sm-12 col-md-4">
                                 <div className="widget widget-request">
                                     <div className="widget--title">
-                                        <h5><span><i className="fa fa-rupee"></i> {experienceDetails.Experience.event_price}</span> per night</h5>
+                                        <h5><span><i className="fa fa-rupee"></i> {experienceDetails.data[0].event_price}</span> per night</h5>
                                         <hr />
                                     </div>
                                     <div className="widget--content">
@@ -351,17 +376,24 @@ function ExperienceDetail() {
                                                     onChange={(update) => {
                                                         setDateRange(update);
                                                     }}
+                                                    minDate={new Date()}
                                                     isClearable={true}
+                                                    style={{ zIndex: 1 }}
                                                 />
-
                                             </div>
 
                                             <div className="form-group">
                                                 <label for="contact-email">No of Person*</label>
-                                                <input type="email" className="form-control" name="contact-email" id="contact-email" required />
+                                                <input type="email" className="form-control"
+                                                    name="contact-email"
+                                                    onChange={(e) => setPerson(e.target.value)}
+                                                    id="contact-email" required />
                                             </div>
-
-                                            <input type="submit" value="Book Now" name="submit" className="btn btn--success mb-20" style={{ width: "100%", background: "#34a20d", color: "#fff" }} />
+                                            <span style={{color: 'red'}}>{message}</span>
+                                            <input type="submit" value="Book Now" name="submit"
+                                                className="btn btn--success mb-20"
+                                                onClick={booknow}
+                                                style={{ width: "100%", background: "#34a20d", color: "#fff", zIndex: 0 }} />
                                         </form>
                                     </div>
                                 </div>

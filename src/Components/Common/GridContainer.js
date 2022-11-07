@@ -26,8 +26,7 @@ function GridContainer(props) {
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
                                                 <h5 className='property--title'>
-                                                    {props.data.title === 'about' && props.response[0].PropertyType.name}
-                                                    {props.data.title === 'experience' && props.response[0].ExperienceSlot.name}
+                                                    {props.response[0].name}
                                                 </h5>
                                                 <p className='property--numbers'>Read More &nbsp;
                                                     <FontAwesomeIcon icon={faAngleDoubleRight} /></p>
@@ -46,8 +45,7 @@ function GridContainer(props) {
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
                                                 <h5 className='property--title'>
-                                                    {props.data.title === 'about' && props.response[1].PropertyType.name}
-                                                    {props.data.title === 'experience' && props.response[1].ExperienceSlot.name}
+                                                    {props.response[1].name}
                                                 </h5>
                                                 <p className='property--numbers'>Read More &nbsp;
                                                     <FontAwesomeIcon icon={faAngleDoubleRight} /></p>
@@ -68,8 +66,7 @@ function GridContainer(props) {
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
                                                 <h5 className='property--title'>
-                                                    {props.data.title === 'about' && props.response[2].PropertyType.name}
-                                                    {props.data.title === 'experience' && props.response[2].ExperienceSlot.name}
+                                                    {props.response[2].name}
                                                 </h5>
                                                 <p className='property--numbers'>Read More &nbsp;
                                                     <FontAwesomeIcon icon={faAngleDoubleRight} /></p>
@@ -88,8 +85,7 @@ function GridContainer(props) {
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
                                                 <h5 className='property--title'>
-                                                    {props.data.title === 'about' && props.response[3].PropertyType.name}
-                                                    {props.data.title === 'experience' && props.response[3].ExperienceSlot.name}
+                                                    {props.response[3].name}
                                                 </h5>
                                                 <p className='property--numbers'>Read More &nbsp;
                                                     <FontAwesomeIcon icon={faAngleDoubleRight} /></p>

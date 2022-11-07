@@ -23,8 +23,7 @@ const responsive = {
     }
 };
 
-function PropertyFilter({ data }) {
-    let url = "";
+function PropertyFilter({ data, filterProperty }) {
     if (data && data.length > 0) {
         return (
             <>
@@ -37,13 +36,11 @@ function PropertyFilter({ data }) {
                     ssr={false}
                     autoPlay={true}>
                     {data.map((category, idx) => {
-                        let logo_ = `${serverURL}/uploads/property_type/${category.logo ? category.logo : 'homestay.png'}`
+                        let logo_ = `https://www.coorgexpress.com/uploads/property_type/${category.logo ? category.logo : 'homestay.png'}`
                         return (
-                            <div className="filter-stay-item" key={idx}>
+                            <div className="filter-stay-item" key={idx} onClick={() => filterProperty(category.key)}>
                                 <div className="filter-stay-icon">
-                                    <a href={url}>
-                                        <img src={logo_} alt="property image" className="img-responsive" />
-                                    </a>
+                                    <img src={logo_} alt="property image" className="img-responsive" />
                                 </div>
                                 <h6>{category.title}</h6>
                             </div>
