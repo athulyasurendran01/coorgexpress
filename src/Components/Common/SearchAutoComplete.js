@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-export default function SearchAutoComplete({ data, type, title }) {
-    if (data.length <= 0) {
+export default function SearchAutoComplete({ data, type, title, setOptions }) {
+    if (data && data.length <= 0) {
         return (
             <></>
         )
@@ -16,8 +16,9 @@ export default function SearchAutoComplete({ data, type, title }) {
                 options={data}
                 getOptionLabel={(option) => option.title}
                 defaultValue={type? [] : null}
+                onChange={(event, value) => setOptions(value)}
                 renderInput={(params) => (
-                    <TextField {...params} label={title} />
+                    <TextField {...params} label={title}/>
                 )}
             />
         );

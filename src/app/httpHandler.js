@@ -1,15 +1,28 @@
 import { serverURL } from "./Config"
 
-export function httpGetService(url, id) {
-    let idStr = id ? `/${id}` : ''
-    let urlStr = url ? `/${url}` : '/home'
-    const apiURL = `${serverURL}${urlStr}${idStr}.json`
+export function httpGetService(url, id, page) {
+    let pageStr = page ? `?page=${page}` : ''
+    let idStr = id ? `?id=${id}` : ''
+    let urlStr = url ? `/${url}` : '/index'
+    const apiURL = `${serverURL}${urlStr}.php${pageStr}${idStr}`
     return fetch(`${apiURL}`)
         .then((response) => response.json())
         .then((data) => {
             return data
         })
         .catch(err => console.log(err))
+}
+
+export function httpFilterGetService(url, page, option) {
+  // let pageStr = page ? `?page=${page}` : ''
+  let urlStr = url ? `/${url}` : '/index'
+  const apiURL = `${serverURL}${urlStr}.php?${option}`
+  return fetch(`${apiURL}`)
+      .then((response) => response.json())
+      .then((data) => {
+          return data
+      })
+      .catch(err => console.log(err))
 }
 
 export function httpPostService(url, data) {

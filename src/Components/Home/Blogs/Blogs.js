@@ -22,13 +22,13 @@ function Blogs(props) {
                                     </div>
                                     <div className="entry--content">
                                         <div className="entry--meta">
-                                            <a href="#">{blog.BlogPost.modified}</a><a href="#">{blog.BlogPost.posted_by}</a>
+                                            <a href="#">{blog.modified}</a><a href="#">{blog.posted_by}</a>
                                         </div>
                                         <div className="entry--title">
-                                            <h4><a href="#">{blog.BlogPost.title}</a></h4>
+                                            <h4><a href="#">{blog.title}</a></h4>
                                         </div>
                                         <div className="entry--bio">
-                                            {blog.BlogPost.title}...
+                                            {blog.title}...
                                         </div>
                                         <div className="entry--more">
                                             <a href="#">Read More<i className="fa fa-angle-double-right"></i></a>
