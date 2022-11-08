@@ -101,7 +101,7 @@ function GridContainer(props) {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-xs-12 col-sm-12 col-md-12 col-md-offset-3">
+                        <div className="col-xs-12 col-sm-12 col-md-12">
                             <Link className="btn btn--primary" to={`/${props.title}`}>View All</Link>
                         </div>
                     </div>

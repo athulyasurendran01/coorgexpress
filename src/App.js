@@ -9,7 +9,8 @@ import Stay from './Components/Stay/Stay';
 import Blog from './Components/Blog/Blog';
 import './App.css';
 import Contact from './Components/Contact/Contact';
-import About from './Components/About/About';
+import AboutCoorg from './Components/About/AboutCoorg/AboutCoorg';
+import OurStory from './Components/About/OurStory/OurStory';
 import Footer from './Components/Footer/Footer';
 import ExperienceDetail from './Components/ExperienceDetail/ExperienceDetail';
 import PropertyDetail from './Components/PropertyDetail/PropertyDetail';
@@ -19,6 +20,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { propertyHighlights, getHomepage } from './reducers/homeBasic';
 import BlogDetail from './Components/Blog/BlogDetail/BlogDetail';
+import WhyCoorg from './Components/About/WhyCoorg/WhyCoorg';
+import ResponsibleTourism from './Components/About/ResponsibleTourism/ResponsibleTourism';
 
 function App() {
 
@@ -62,7 +65,10 @@ function App() {
       <div className="App">
         <Header headerStyle={headerStyle} />
         <Routes>
-          <Route path="/about" caseSensitive={false} element={<About />} />
+          <Route path="/about-coorg" caseSensitive={false} element={<AboutCoorg />} />
+          <Route path="/our-story" caseSensitive={false} element={<OurStory />} />
+          <Route path="/why-coorg" caseSensitive={false} element={<WhyCoorg />} />
+          <Route path="/responsible-tourism" caseSensitive={false} element={<ResponsibleTourism />} />
           <Route path="/stay" caseSensitive={false} element={<Stay propertyHighlight={propertyHighlight} />} />
           <Route path="/stay/:id" caseSensitive={false} element={<PropertyDetail />} />
           <Route path="/experiences" caseSensitive={false} element={<Experiences propertyHighlight={propertyHighlight} />} />

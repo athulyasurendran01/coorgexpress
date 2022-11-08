@@ -28,7 +28,10 @@ function Header({ headerStyle }) {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link><Link to="/">Home</Link></Nav.Link>
-                            <Nav.Link><Link to="/about">About Us</Link></Nav.Link>
+                            <Nav.Link><Link to="/about-coorg">About Coorg</Link></Nav.Link>
+                            <Nav.Link><Link to="/our-story">Our Story</Link></Nav.Link>
+                            {/*<Nav.Link><Link to="/why-coorg">Why Coorgexpress</Link></Nav.Link>*/}
+                            {/*<Nav.Link><Link to="/responsible-tourism">Responsible Tourism</Link></Nav.Link>*/}
                             <Nav.Link><Link to="/stay">Stay</Link></Nav.Link>
                             <Nav.Link><Link to="/experiences">Experiences</Link></Nav.Link>
                             <Nav.Link><Link to="/events">Events</Link></Nav.Link>

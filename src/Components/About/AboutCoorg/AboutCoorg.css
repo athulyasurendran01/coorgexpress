@@ -1,0 +1,45 @@
+
+.inner-box.about-page-sec h2.heading--title {
+    font-size: 28px;
+    font-weight: 600;
+}
+.inner-box.about-page-sec .property--details p {
+    font-size: 17px;
+    line-height: 37px;
+    color: #767676;
+}
+.inner-box.about-page-sec .heading {
+    margin-bottom: 15px;
+}
+.inner-box.about-page-sec ul li {
+    font-size: 17px;
+    line-height: 37px;
+    color: #767676;
+    margin-bottom: 10px;
+}
+.text-right {
+    text-align: right;
+}
+.text-left {
+    text-align: left;
+}
+.about-page-sec .prev-page {
+    margin-top: 50px;
+}
+.about-page-sec .next-page {
+    margin-top: 50px;
+}
+.about-page-sec .prev-page h3 {
+    font-size: 20px;
+    font-weight: 600;
+}
+.about-page-sec .next-page h3 {
+    font-size: 20px;
+    font-weight: 600;
+}
+.about-page-sec .prev-page h3 i.fa {
+    margin-right: 30px;
+}
+.about-page-sec .next-page h3 i.fa {
+    margin-left: 30px;
+}

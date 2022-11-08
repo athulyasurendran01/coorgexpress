@@ -1,3 +1,4 @@
+import AboutBanner from '../../assets/images/banner/about_banner.png'
 import StayBanner from '../../assets/images/stay/stay_banner.jpg'
 import ExperienceBanner from '../../assets/images/stay/experience_banner.jpg'
 import EventBanner from '../../assets/images/stay/events_banner.jpg'
@@ -20,10 +21,15 @@ function Banner({category}){
     {
         title: 'blog',
         banner: BlogBanner
+    },
+    {
+        title: 'about',
+        banner: AboutBanner
     }]
     return(
-        <section id="page-title" className ="page-title" style={{"height": "75vh"}}>
+        <section id="page-title" className ="page-title" >
             <div className="bg-section">
+                {category === 'about' && <img src={AboutBanner} alt="Coorge Express About Banner" />}
                 {category === 'stay' && <img src={StayBanner} alt="Coorge Express Stay Banner" />}
                 {category === 'experience' && <img src={ExperienceBanner} alt="Coorge Express Stay Banner" />}
                 {category === 'events' && <img src={EventBanner} alt="Coorge Express Stay Banner" />}
