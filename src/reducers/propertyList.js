@@ -3,8 +3,7 @@ import { httpGetService } from '../app/httpHandler';
 
 const initialState = {
   value: 0,
-  status: 'idle',
-  data: []
+  status: false
 };
 
 export const getItemsArray = createAsyncThunk(
@@ -22,15 +21,15 @@ export const propertyList = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getItemsArray.pending, (state) => {
-        state.status = 'loading';
+        state.status = false;
       })
       .addCase(getItemsArray.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.data = action.payload[0];
+        state.status = true;
+        state.value = action.payload[0];
       });
   },
 });
 
-export const itemsArray = (state) => state.propertyList.data;
+export const itemsArray = (state) => state.propertyList;
 
 export default propertyList.reducer;

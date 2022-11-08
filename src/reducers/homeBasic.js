@@ -3,7 +3,7 @@ import { httpGetService } from '../app/httpHandler';
 
 const initialState = {
   value: 0,
-  status: 'idle',
+  status: false,
 };
 
 export const getHomepage = createAsyncThunk(
@@ -21,7 +21,7 @@ export const homeBasic = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getHomepage.pending, (state) => {
-        state.status = 'loading';
+        state.status = false;
       })
       .addCase(getHomepage.fulfilled, (state, action) => {
         // making object array for autocomplete search location
@@ -36,7 +36,7 @@ export const homeBasic = createSlice({
         //   result1.push({ id: key, title: value.PropertyType.name, logo: value.PropertyType.logo });
         // }
 
-        state.status = 'idle';
+        state.status = true;
         state.value = action.payload[0];
         // state.propertyHighlights = {
         //   "amenities" : action.payload.amenities,
@@ -49,7 +49,7 @@ export const homeBasic = createSlice({
   },
 });
 
-export const homeBasics = (state) => state.homeBasic.value;
+export const homeBasics = (state) => state.homeBasic;
 export const propertyHighlights = (state) => state.homeBasic.propertyHighlights;
 
 export default homeBasic.reducer;

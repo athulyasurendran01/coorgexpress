@@ -3,7 +3,7 @@ import { httpPostService } from '../app/httpHandler';
 
 const initialState = {
   value: 0,
-  status: 'idle',
+  status: false,
 };
 
 export const authLogin = createAsyncThunk(
@@ -29,10 +29,10 @@ export const login = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(authLogin.pending, (state) => {
-        state.status = 'loading';
+        state.status = false;
       })
       .addCase(authLogin.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = true;
         state.value = action.payload.response;
       });
   },

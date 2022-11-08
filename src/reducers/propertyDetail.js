@@ -3,7 +3,7 @@ import { httpGetService } from '../app/httpHandler';
 
 const initialState = {
   value: 0,
-  status: 'idle',
+  status: false,
 };
 
 export const getPropertyDetail = createAsyncThunk(
@@ -21,15 +21,15 @@ export const propertyDetail = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getPropertyDetail.pending, (state) => {
-        state.status = 'loading';
+        state.status = false;
       })
       .addCase(getPropertyDetail.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.data = action.payload[0];
+        state.status = true;
+        state.value = action.payload[0];
       });
   },
 });
 
-export const propertyData = (state) => state.propertyDetail.data;
+export const propertyData = (state) => state.propertyDetail;
 
 export default propertyDetail.reducer;

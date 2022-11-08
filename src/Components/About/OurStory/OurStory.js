@@ -1,14 +1,35 @@
 import Banner from "../../Common/Banner"
 import './OurStory.css'
-import AboutGallery from "../AboutGallery/AboutGallery"
+
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { homeBasics, getHomepage } from '../../../reducers/homeBasic';
+import ImageSliderComponent from "../../PropertyDetail/ImageSliderComponent";
+import Loader from "../../Loader/Loader";
 
 function OurStory() {
-    return (
-        <>
-            <Banner category={'about'}/>
-            <section id="property-single-gallery" className="property-single-gallery">
+    const dispatch = useDispatch();
+    const response = useSelector(homeBasics);
+    const homeBasic = response.value;
+    const loadingStatus = response.status;
+
+    useEffect(() => {
+        dispatch(getHomepage(0))
+    }, [])
+
+    if (!loadingStatus) {
+        return (
+            <>
+                <Loader />
+            </>
+        )
+    } else {
+        return (
+            <>
+                <Banner category={'about'} />
+                <section id="property-single-gallery" className="property-single-gallery">
                     <div className="container">
-                        
+
                         <div className="row">
                             <div className="col-xs-12 col-sm-12 col-md-12">
                                 <div className="property-single-carousel inner-box about-page-sec">
@@ -26,8 +47,8 @@ function OurStory() {
                                         </div>
                                     </div>
                                     <div className="row">
-                                        <div className="col-xs-12 col-sm-12 col-md-12" style={{"margin-top" : "50px" }}>
-                                        <AboutGallery />
+                                        <div className="col-xs-12 col-sm-12 col-md-12" style={{ "margin-top": "50px" }}>
+                                            <ImageSliderComponent images={homeBasic.sliders ? homeBasic.sliders : []} />
                                         </div>
                                     </div>
                                     <div className="row">
@@ -42,19 +63,16 @@ function OurStory() {
                                             </a>
                                         </div>
                                     </div>
-                                        
-                                </div>
-                                
 
-                                
+                                </div>
                             </div>
                         </div>
-                        </div>
-            </section>        
+                    </div>
+                </section>
+            </>
+        )
+    }
 
-
-        </>
-    )
 }
 
 export default OurStory

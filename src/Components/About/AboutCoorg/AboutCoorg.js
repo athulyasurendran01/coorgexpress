@@ -2,13 +2,36 @@ import Banner from "../../Common/Banner"
 import './AboutCoorg.css'
 import AboutGallery from "../AboutGallery/AboutGallery"
 
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { homeBasics, getHomepage } from '../../../reducers/homeBasic';
+import ImageSliderComponent from "../../PropertyDetail/ImageSliderComponent";
+import Loader from "../../Loader/Loader";
+
 function AboutUs() {
-    return (
-        <>
-            <Banner category={'about'}/>
-            <section id="property-single-gallery" className="property-single-gallery">
+
+    const dispatch = useDispatch();
+    const response = useSelector(homeBasics);
+    const homeBasic = response.value;
+    const loadingStatus = response.status;
+
+    useEffect(() => {
+        dispatch(getHomepage(0))
+    }, [])
+
+    if (!loadingStatus) {
+        return (
+            <>
+                <Loader />
+            </>
+        )
+    } else {
+        return (
+            <>
+                <Banner category={'about'} />
+                <section id="property-single-gallery" className="property-single-gallery">
                     <div className="container">
-                        
+
                         <div className="row">
                             <div className="col-xs-12 col-sm-12 col-md-12">
                                 <div className="property-single-carousel inner-box about-page-sec">
@@ -23,7 +46,7 @@ function AboutUs() {
                                                 <p>The land of Coorg is a different facet of India: unsullied, beautiful, green, and exciting with the lovely blue Sahyadri Mountains, dense forested valleys, gurgling mountain streams and waterfalls. It is the land of coffee resplendent with red berries, cardamom fields covered with white and purple blossoms, long stretches of paddy fields, old silver oak trees laden with huge hives, and of a sturdy handsome people called the Coorgs, who charm by their hospitality and cuisine, their intriguing customs and the reverence with which they worship their river, the Cauvery.</p>
                                                 <p>The hill station of Coorg in the Western Ghats of Karnataka unveils like a Pandora box, where there is something for everyone. From the nature buffs to tranquillity loving folks, religiously inclined to honeymooners and audacious souls, Coorg is an ideal place for everyone. Coorg due to its location has various sightseeing places and adventure activities for adrenaline junkies. It can also be your quiet escape.Trekking,Zip line rafting , Kayaking , Coffee plantation tours ,Experiential kodava Dining , jungle safari , sport fishing camping you’ve got it all . In addition, there are number of traveller attractions in vicinity like Madikeri Fort, Abbi Falls, Iruppu Falls, Talakaveri, Bhagamandala, Padi Iggutappa Temple, Somwarpet, Little Tibet (Tibetan refugee's colony). To make your stay in Coorg unforgettable we have number of adventures and experience Packages minutely crafted to suit the new as well as the frequent travellers.</p>
                                                 <p>Coorg has a pleasant climate throughout the year; the best time to visit Coorg depends on what activities you would like to do. Rain in Coorg lasts from June to October, during this time the vegetation is lush green, the streams and waterfalls are full. This is the time to go rafting. Trekking and camping become is done on the drier months of year.</p>
-                                                
+
                                             </div>
                                         </div>
                                         <div className="col-xs-12 col-sm-12 col-md-12">
@@ -32,10 +55,10 @@ function AboutUs() {
                                             </div>
                                             <div className="property--details">
                                                 <p>The Kodavas or the Coorgs are primarily a warrior community. Over the centuries,
-                                                     many of the Royal dynasties of South India, Including the Kadambas, the Gangas, 
-                                                     the cholas, and the hoysalas ruled the Kodagu region, influencing the original 
-                                                     culture and customs of the Kodavas.The Kodavas have immensely contributed to the 
-                                                     Indian Army and to the game of field Hockey
+                                                    many of the Royal dynasties of South India, Including the Kadambas, the Gangas,
+                                                    the cholas, and the hoysalas ruled the Kodagu region, influencing the original
+                                                    culture and customs of the Kodavas.The Kodavas have immensely contributed to the
+                                                    Indian Army and to the game of field Hockey
                                                     The Kodavas are worshipers of ancestors and traditionally celebrate festivals.
                                                 </p>
                                             </div>
@@ -57,8 +80,8 @@ function AboutUs() {
 
                                     </div>
                                     <div className="row">
-                                        <div className="col-xs-12 col-sm-12 col-md-12" style={{"margin-top" : "50px" }}>
-                                        <AboutGallery />
+                                        <div className="col-xs-12 col-sm-12 col-md-12" style={{ "margin-top": "50px" }}>
+                                            <ImageSliderComponent images={homeBasic.sliders ? homeBasic.sliders : []} />
                                         </div>
                                     </div>
                                     <div className="row">
@@ -74,17 +97,13 @@ function AboutUs() {
                                         </div>
                                     </div>
                                 </div>
-                                
-
-                                
                             </div>
                         </div>
-                        </div>
-            </section>        
-
-
-        </>
-    )
+                    </div>
+                </section>
+            </>
+        )
+    }
 }
 
 export default AboutUs

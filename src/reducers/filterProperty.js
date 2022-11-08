@@ -3,7 +3,7 @@ import { httpFilterGetService } from '../app/httpHandler';
 
 const initialState = {
   value: 0,
-  status: 'idle',
+  status: false,
   data: []
 };
 
@@ -22,10 +22,10 @@ export const filterProperty = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(filterItem.pending, (state) => {
-        state.status = 'loading';
+        state.status = false;
       })
       .addCase(filterItem.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = true;
         state.data = action.payload[0];
       });
   },
