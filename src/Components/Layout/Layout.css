@@ -68,10 +68,10 @@ p {
 }
 .property-city-item .property--title {
     color: #ffffff;
-    font-size: 30px;
+    font-size: 23px;
     line-height: 1;
-    margin-bottom: 9px;
-    font-weight: 500;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 .property-city-item .property--numbers {
     color: #ffffff;

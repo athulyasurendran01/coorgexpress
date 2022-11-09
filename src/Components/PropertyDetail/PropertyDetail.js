@@ -143,13 +143,45 @@ function PropertyDetail() {
             let bannerURL = `${serverURL_}/${propertyDetails.data[0].file_path}/${propertyDetails.data[0].file_name}`
             return (
                 <>
+                    <section id="page-title" className ="page-title" >
+                        <div className="bg-section">
+                            <img src={bannerURL} alt="Background" 
+                                style={{
+                                    height : "500px",
+                                    width: "100%",
+                                    objectFit: "cover"
+                                }}    
+                            />
+                        </div>
+                    </section>
+                    {/*
+                    <section id="page-title" className="page-title bg-overlay bg-overlay-dark2">
+                        <div className="bg-section">
+                            <img src={bannerURL} alt="Background" />
+                        </div>
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+                                    <div className="title title-1 text-center">
+                                        <div className="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    */}
+                    {/*
                     <section id="page-title" className="page-title bg-overlay bg-overlay-dark2">
                         <div className="bg-section">
                             <img src={bannerURL} alt="Background" style={{ width: "100%" }} />
                         </div>
                     </section>
-
-                    <section id="property-single-gallery" className="property-single-gallery">
+                     */}
+                    <section id="property-single-gallery" className="property-single-gallery"
+                        style={{
+                            paddingTop: "60px"
+                        }}
+                    >
                         <div className="container">
                             <div className="row">
                                 <div className="col-xs-12 col-sm-12 col-md-12">
@@ -161,7 +193,18 @@ function PropertyDetail() {
                                                 <p className="property--location">Address Address </p>
                                             </div>
                                             <div className="pull-right verified-listing">
-                                                <input type="submit" value="Verified Listing" name="submit" className="btn btn--success mb-20" style={{ width: "275px", background: "#34a20d", color: "#fff" }} />
+                                                <input 
+                                                    type="submit" 
+                                                    value="Verified Listing" 
+                                                    name="submit" 
+                                                    className="btn btn--success mb-20" 
+                                                    style={{ 
+                                                        cursor: "auto",
+                                                        width: "275px", 
+                                                        background: "#34a20d", 
+                                                        color: "#fff" 
+                                                    }} 
+                                                />
                                                 <span className="property--status"><i className="fa fa-share-alt"></i> <span>Share</span> <span>|</span> <i className="fa fa fa-pencil"></i> <span>Review</span></span>
                                                 <div className="property-rating">
                                                     <span>Rating : </span>
@@ -573,7 +616,11 @@ function PropertyDetail() {
                                                 <div className="form-group col-lg-12">
                                                     <div className="input-checkbox">
                                                         <label className="label-checkbox">
-                                                            <span>Do you want an extra bed?</span>
+                                                            <span
+                                                                style={{
+                                                                    marginRight : "10px"
+                                                                }}
+                                                            >Do you want an extra bed?</span>
                                                             <input type="checkbox" />
                                                             <span className="check-indicator"></span>
                                                         </label>
@@ -582,7 +629,18 @@ function PropertyDetail() {
 
                                                 <div className="form-group col-lg-12">
                                                     <label for="price">Final Price</label>
-                                                    <input type="text" className="form-control price-box" name="price" id="price" placeholder="Rs. 6000" disabled />
+                                                    <input 
+                                                        type="text" 
+                                                        className="form-control price-box" 
+                                                        name="price" 
+                                                        id="price" 
+                                                        placeholder="Rs. 6000" 
+                                                        disabled 
+                                                        style={{
+                                                            backgroundColor: "#fff",
+                                                            borderColor: "#fff"
+                                                        }}
+                                                    />
                                                 </div>
 
                                                 <div className="form-group col-lg-6">

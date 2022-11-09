@@ -21,16 +21,22 @@ function SocialLogin(props) {
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 cookiePolicy={"single_host_origin"}
-                className="GOOGLE"
+                className="btn--google"
+                style={{
+                    backgroundColor : "#d0463b"
+                }}
 
             />
-            <br />
+            <div className="or-text">
+                <span>or</span>
+            </div>
             <FacebookLogin
                 btnContent="LOGIN With Facebook"
                 appId="185202659227880"
                 fields="name,email,picture"
                 onSuccess={responseFacebook}
                 onFailure={responseFacebook}
+                className="btn--facebook"
             />
         </>
     );

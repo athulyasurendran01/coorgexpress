@@ -141,9 +141,62 @@ button, html input[type=button], input[type=reset], input[type=submit] {
     margin-bottom: 36px;
 }
 .properties-filter .select--box {
-    display: inline-block;
+    display: inline-flex;
 }
-
+.pull-left {
+    float: left!important;
+}
+.properties-filter label {
+    font-size: 14px;
+    margin: 0;
+}
+label {
+    line-height: 1;
+    font-weight: 400;
+    font-size: 16px;
+    color: #34495e;
+    margin-bottom: 12px;
+}
+select, .form-control, textarea.form-control {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f8f8;
+    border: 1px solid #eeeeee;
+    font-size: 14px;
+    color: #aaaaaa;
+    line-height: 42px;
+    height: 42px;
+    margin-bottom: 0;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    padding: 0 18px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+select {
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+.properties-filter .select--box i:last-of-type {
+    top: 6px;
+}
+.properties-filter .select--box i {
+    right: 5px;
+    top: 0;
+}
+.select--box i {
+    position: absolute;
+    top: 14px;
+    right: 20px;
+    font-size: 14px;
+    color: #aaaaaa;
+    cursor: pointer;
+}
 .select--box {
     position: relative;
 }
@@ -180,11 +233,15 @@ label {
 }
 .properties-filter .select--box select {
     width: auto;
-    padding: 0 23px 0 5px;
+    padding: 0 23px 0 12px;
     background-color: transparent;
     border: none;
-    height: auto;
-    line-height: 17px;
+    height: 16px !important;
+    line-height: 13px;
+    margin: 0px 10px;
+}
+.widget--content .input-checkbox {
+    margin-bottom: 12px;
 }
 
 select {

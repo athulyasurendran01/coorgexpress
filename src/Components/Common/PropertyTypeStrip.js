@@ -316,11 +316,12 @@ function PropertyTypeStrip(props) {
                                             </Form.Select>
 
                                         </div>
-
+                                        {/*
                                         <div className="view--type pull-right">
                                             <a id="switch-list" className="active" onClick={() => setListView(true)}><i className="fa fa-th-list"></i></a>
                                             <a id="switch-grid" className="" onClick={() => setListView(false)}><i className="fa fa-th-large"></i></a>
                                         </div>
+                                        */}
                                     </div>
                                 </div>
 
@@ -436,6 +437,7 @@ function PropertyTypeStrip(props) {
                                     </div>
                                 }
                                 <ReactPaginate
+                                    className='text-center'
                                     breakLabel="..."
                                     nextLabel="next >"
                                     onPageChange={(e) => getPaginationData(e)}

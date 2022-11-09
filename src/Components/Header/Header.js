@@ -23,7 +23,7 @@ function Header({ headerStyle }) {
         <>
             <Navbar fixed="top" variant="dark" className={headerStyle}>
                 <Container>
-                    <Navbar.Brand href="#home"><img src={logo} /></Navbar.Brand>
+                    <Navbar.Brand href="/"><img src={logo} /></Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">

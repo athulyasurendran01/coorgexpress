@@ -39,26 +39,37 @@ address, blockquote, dd, dl, fieldset, form, ol, p, pre, table, ul {
     border-radius: 2px;
 }
 .login-modal .btn--google {
-    background-color: #fe0100;
+    background-color: #d0463b !important;
     color: #ffffff !important;
     font-size: 14px;
     text-transform: capitalize;
     font-weight: 400;
-    margin-bottom: 25px;
+    margin-bottom: 17px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
 }
 .login-modal .btn--google:hover {
-    background-color: #fe0100 !important;
+    background-color: #d65449 !important;
     color: #ffffff !important;
     font-size: 14px;
     text-transform: capitalize;
     font-weight: 400;
-    margin-bottom: 25px;
+    margin-bottom: 17px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
+}
+button.kep-login-facebook.metro {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Roboto, sans-serif;
+    color: #fff;
+    padding: 8px 19px;
+    margin-bottom: 12px;
+}
+.login-modal .input-checkbox span {
+    margin-right: 12px;
 }
 .btn--block {
     width: 100%!important;
@@ -100,7 +111,7 @@ address, blockquote, dd, dl, fieldset, form, ol, p, pre, table, ul {
     position: relative;
     text-align: center;
     line-height: 1;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 .login-modal .or-text span {
     background-color: #ffffff;
