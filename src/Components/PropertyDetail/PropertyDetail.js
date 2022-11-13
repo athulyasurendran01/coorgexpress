@@ -205,7 +205,7 @@ function PropertyDetail() {
                                                         color: "#fff" 
                                                     }} 
                                                 />
-                                                <span className="property--status"><i className="fa fa-share-alt"></i> <span>Share</span> <span>|</span> <i className="fa fa fa-pencil"></i> <span>Review</span></span>
+                                                <span className="property--status"><i className="fa fa-share-alt"></i> <span>Share</span> <span>|</span> <span onClick={() => window.scrollTo(0, 4800)}><i className="fa fa fa-pencil"></i> <span>Review</span></span></span>
                                                 <div className="property-rating">
                                                     <span>Rating : </span>
                                                     <i className="fa fa-star"></i>
@@ -363,7 +363,7 @@ function PropertyDetail() {
                                                                 <Col>
                                                                     <div className="avatar">R</div>
                                                                     <div className="comment">
-                                                                        <h6>{room.room_no_name}</h6>
+                                                                        <h6>{room.room_no_name} - ₹ {room.room_base_price}</h6>
                                                                         <div className="property-rating">
                                                                             <i className="fa fa-star"></i>
                                                                             <i className="fa fa-star"></i>
@@ -493,7 +493,7 @@ function PropertyDetail() {
                                     </div>
 
 
-                                    <div className="property-single-leave-review inner-box">
+                                    <div id="review_section" className="property-single-leave-review inner-box">
                                         <div className="row">
                                             <div className="col-xs-12 col-sm-12 col-md-12">
                                                 <div className="heading">
