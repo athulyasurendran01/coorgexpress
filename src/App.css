@@ -620,7 +620,7 @@ div#preloader {
 
 #hero .carousel-control-next-icon,
 #hero .carousel-control-prev-icon {
-  background: none;
+  /* background: none; */
   font-size: 32px;
   line-height: 1;
 }

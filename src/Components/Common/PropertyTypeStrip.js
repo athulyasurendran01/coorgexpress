@@ -160,9 +160,9 @@ function PropertyTypeStrip(props) {
                                         {/* <span>Instant Booking</span> */}
                                         {/* <input type="checkbox" /> */}
 
-                                        <Checkbox label="Instant Booking"
-                                        // handleClick={handleClick(label,value)} 
-                                        />
+                                        {/* <Checkbox label="Instant Booking"
+                                        handleClick={handleClick(label,value)} 
+                                        /> */}
                                         <span className="check-indicator"></span>
                                     </label>
                                 </div>
