@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { httpGetService } from '../app/httpHandler';
+import { httpGetService, httpMailService } from '../app/httpHandler';
 
 const initialState = {
   value: 0,
@@ -11,6 +11,15 @@ export const getPropertyDetail = createAsyncThunk(
   async ({type, id}) => {
     const response = await httpGetService(type, id)
     return response;
+  }
+);
+
+export const sendMail = createAsyncThunk(
+  'home/sendMail',
+  async () => {
+    const response = await httpMailService()
+    alert("Mail sent successfully")
+    // return response;
   }
 );
 

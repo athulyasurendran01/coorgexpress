@@ -6,7 +6,7 @@ import ImageSliderComponent from './ImageSliderComponent';
 import { serverURL_ } from "../../app/Config"
 
 import { useSelector, useDispatch } from 'react-redux';
-import { propertyData, getPropertyDetail } from '../../reducers/propertyDetail';
+import { propertyData, getPropertyDetail, sendMail } from '../../reducers/propertyDetail';
 
 import guests from '../../assets/images/property/icons/guests.png'
 import beds from '../../assets/images/property/icons/beds.png'
@@ -109,6 +109,10 @@ function PropertyDetail() {
             roomPrice += parseFloat(propertyDetails.rooms[room].room_base_price)
         })
         return roomPrice
+    }
+
+    const sendEnquiry = () => {
+        dispatch(sendMail())
     }
 
     const booknow = () => {
@@ -663,7 +667,7 @@ function PropertyDetail() {
                                                     <textarea className="form-control" name="message" id="message" placeholder="Message"></textarea>
                                                 </div>
 
-                                                <input type="button" value="Enquiry" name="submit" onClick={() => alert("Mail sent successfully")} className="btn btn--primary btn--block" />
+                                                <input type="button" value="Enquiry" name="submit" onClick={() => sendEnquiry()} className="btn btn--primary btn--block" />
                                             </form>
                                         </div>
                                     </div>
