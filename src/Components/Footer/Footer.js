@@ -39,11 +39,10 @@ function Footer() {
                             </div>
                             <div className="widget--content">
                                 <ul className="list-unstyled mb-0">
-                                    <li><a href="#">About us</a></li>
-                                    <li><a href="#">Career</a></li>
-                                    <li><a href="#">Services</a></li>
-                                    <li><a href="#">Properties</a></li>
-                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="/about-coorg">About us</a></li>
+                                    <li><a href="/stay">Stay</a></li>
+                                    <li><a href="/experiences">Experience</a></li>
+                                    <li><a href="/events">Events</a></li>
                                 </ul>
                             </div>
                         </div>

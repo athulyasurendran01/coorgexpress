@@ -1,0 +1,11 @@
+.carousel-caption h3.mainhead {
+    font-size: 35px;
+    font-weight: 600;
+    color: #fff;
+    font-family: system-ui;
+}
+.carousel-caption p.subhead {
+    font-size: 27px !important;
+    font-weight: 100;
+    font-family: system-ui;
+}

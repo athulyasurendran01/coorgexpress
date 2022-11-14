@@ -1,4 +1,11 @@
 import Carousel from 'react-bootstrap/Carousel';
+
+//import slider1 from '../../assets/images/home/slider_1.png'
+// import slider2 from '../../assets/images/home/slider_2.png'
+// import slider3 from '../../assets/images/home/3.jpg'
+import "./Slider.css"
+
+
 function Slider({ sliderItem }) {
     return (
         <section id="hero">
@@ -13,8 +20,8 @@ function Slider({ sliderItem }) {
                                 alt={slide.title}
                             />
                             <Carousel.Caption>
-                                <h3>{slide.title}</h3>
-                                <p>{slide.description}</p>
+                                <h3 className="mainhead">{slide.title}</h3>
+                                <p className='subhead'>{slide.description}</p>
                             </Carousel.Caption>
                         </Carousel.Item>
                     )
