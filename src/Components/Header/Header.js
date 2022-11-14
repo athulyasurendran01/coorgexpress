@@ -1,11 +1,7 @@
 
 import React, { useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import {NavDropdown, Nav, Navbar, Container, Button, Tab, Modal, Tabs} from 'react-bootstrap';
 import { Link } from "react-router-dom";
-
-import { Button, Tab, Modal, Tabs } from 'react-bootstrap';
 import logo from '../../logo/logo-light.png';
 import './Header.css'
 import Register from '../Auth/Register/Register';
@@ -28,13 +24,18 @@ function Header({ headerStyle }) {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link><Link to="/">Home</Link></Nav.Link>
-                            <Nav.Link><Link to="/about-coorg">About Coorg</Link></Nav.Link>
-                            <Nav.Link><Link to="/our-story">Our Story</Link></Nav.Link>
+                            {/* <Nav.Link><Link to="/our-story">Our Story</Link></Nav.Link> */}
                             {/*<Nav.Link><Link to="/why-coorg">Why Coorgexpress</Link></Nav.Link>*/}
                             {/*<Nav.Link><Link to="/responsible-tourism">Responsible Tourism</Link></Nav.Link>*/}
                             <Nav.Link><Link to="/stay">Stay</Link></Nav.Link>
                             <Nav.Link><Link to="/experiences">Experiences</Link></Nav.Link>
                             <Nav.Link><Link to="/events">Events</Link></Nav.Link>
+                            <NavDropdown title="About Us">
+                                <NavDropdown.Item><Link to="/about-coorg">About Coorg</Link></NavDropdown.Item>
+                                <NavDropdown.Item><Link to="/our-story">Our Story</Link></NavDropdown.Item>
+                                <NavDropdown.Item><Link to="/why-coorg">Why Coorgexpress</Link></NavDropdown.Item>
+                                <NavDropdown.Item><Link to="/responsible-tourism">Responsible Tourism</Link></NavDropdown.Item>
+                            </NavDropdown>
                             <Nav.Link><Link to="/blog">Blogs</Link></Nav.Link>
                             <Nav.Link>
                                 <Button variant="primary" className="login" onClick={handleShow}>Login</Button>
@@ -58,7 +59,7 @@ function Header({ headerStyle }) {
                         <Tab eventKey="register" title="Register">
                             <Register />
                         </Tab>
-                        
+
                         <Tab eventKey="forgotpassword" title="Forgot Password">
                             <ForgotPassword />
                         </Tab>

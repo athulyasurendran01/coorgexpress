@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { homeBasics, getHomepage } from '../../../reducers/homeBasic';
 import ImageSliderComponent from "../../PropertyDetail/ImageSliderComponent";
 import Loader from "../../Loader/Loader";
+import { Link } from "react-router-dom";
 
 function AboutUs() {
 
@@ -86,14 +87,14 @@ function AboutUs() {
                                     </div>
                                     <div className="row">
                                         <div className="col-lg-6 text-left prev-page">
-                                            <a href="responsible-tourism">
+                                            <Link to="/responsible-tourism">
                                                 <h3><i className="fa fa-arrow-left"></i>Responsible Tourism</h3>
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="col-lg-6 text-right next-page">
-                                            <a href="our-story">
+                                            <Link to="/our-story">
                                                 <h3>Our Story<i className="fa fa-arrow-right"></i></h3>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

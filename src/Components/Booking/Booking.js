@@ -7,26 +7,20 @@ function Booking() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const location = useLocation();
     const propertyDetails = location.state;
+    const cleaning_charge = 10;
 
     const getDate = (idx) => {
         let date_ = propertyDetails.daterange[idx].toString()
         return new Date(date_).toLocaleDateString("en-US")
     }
 
-    // const confirmBooking = () => {
-    //     fetch(`https://www.coorgexpress.com/booking.json`, {
-    //         method: 'POST',
-    //         body: JSON.stringify({
-    //             order_id: 1665909419,
-    //             no_of_days: 2
-    //         })
-    //     })
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             console.log(data)
-    //         })
-    //         .catch(err => console.log(err))
-    // }
+    const getNight = () => {
+        let date_1 = new Date(propertyDetails.daterange[0].toString())
+        let date_2 = new Date(propertyDetails.daterange[1].toString())
+        let diff = date_2.getTime() - date_1.getTime();   
+        let daydiff = diff / (1000 * 60 * 60 * 24);   
+        return daydiff;
+    }
 
     const confirmBooking = (data) => {
         console.log(data)
@@ -34,7 +28,7 @@ function Booking() {
 
     return (
         <>
-            <Banner category={'blog'} />
+            <Banner category={'property'} image={propertyDetails.image} />
             <section id="add-property" className="add-property">
                 <div className="container">
                     <div className="row">
@@ -205,20 +199,20 @@ function Booking() {
                                         <h6>Check In Time <span>{propertyDetails.check_in_time}</span></h6>
                                     </div>
                                     <div className="col-xs-12">
-                                        <h6>Check Out Time <span>{propertyDetails.check_out_time} AM</span></h6>
+                                        <h6>Check Out Time <span>{propertyDetails.check_out_time}</span></h6>
                                     </div>
                                     <div className="col-xs-12">
-                                        <h6 className="guest-detail">Guests <span>{propertyDetails.no_guest} Adult(s) & 0 Child & 1 Infant(s)</span></h6>
+                                        <h6 className="guest-detail">Guests <span>{propertyDetails.no_guest} Adult(s) & 0 Child & 0 Infant(s)</span></h6>
                                     </div>
                                     <div className="col-xs-12">
-                                        <h6 className="amount-detail">Rs. 4,250.00 X 1 night(s) <span>Rs. 4,250.00</span></h6>
+                                        <h6 className="amount-detail">Rs. {propertyDetails.total} X {getNight()} night(s) <span>Rs. {propertyDetails.total * getNight()}</span></h6>
                                     </div>
                                     <div className="col-xs-12">
-                                        <h6 className="cleaning-detail">Cleaning Charges <span>Rs. 0</span></h6>
+                                        <h6 className="cleaning-detail">Cleaning Charges <span>Rs. {cleaning_charge}</span></h6>
                                     </div>
                                     <div className="col-xs-12">
                                         <h6 className="grand-total">Grand Total (INR)</h6>
-                                        <h6 className="grand-total"><span>Rs. {propertyDetails.total} (Inclusive of GST)</span></h6>
+                                        <h6 className="grand-total"><span>Rs. {propertyDetails.total * getNight() + cleaning_charge} (Inclusive of GST)</span></h6>
                                     </div>
                                 </div>
                             </div>
@@ -229,7 +223,7 @@ function Booking() {
 
 
 
-            <form name="frmPayment" action="ccavRequestHandler.php" method="POST">
+            {/* <form name="frmPayment" action="ccavRequestHandler.php" method="POST">
                 <input type="hidden" name="merchant_id" value="<?php echo CCA_MERCHANT_ID; ?>" />
                 <input type="hidden" name="language" value="EN" />
                 <input type="hidden" name="amount" value="1" />
@@ -249,7 +243,7 @@ function Booking() {
                 <input type="text" name="billing_email" value="" class="form-field" Placeholder="Email" />
 
                 <button class="btn-payment" type="submit">Pay Now</button>
-            </form>
+            </form> */}
 
         </>
     )

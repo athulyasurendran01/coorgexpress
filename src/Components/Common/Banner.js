@@ -5,27 +5,8 @@ import EventBanner from '../../assets/images/stay/events_banner.jpg'
 import BlogBanner from '../../assets/images/blog/blog_banner.jpg'
 import './Banner.css'
 
-function Banner({category}){
-    const propsData = [{
-        title: 'stay',
-        banner: StayBanner
-    },
-    {
-        title: 'experience',
-        banner: ExperienceBanner
-    },
-    {
-        title: 'events',
-        banner: EventBanner
-    },
-    {
-        title: 'blog',
-        banner: BlogBanner
-    },
-    {
-        title: 'about',
-        banner: AboutBanner
-    }]
+function Banner({category, image = ''}){
+    
     return(
         <section id="page-title" className ="page-title" >
             <div className="bg-section">
@@ -34,6 +15,7 @@ function Banner({category}){
                 {category === 'experience' && <img src={ExperienceBanner} alt="Coorge Express Stay Banner" />}
                 {category === 'events' && <img src={EventBanner} alt="Coorge Express Stay Banner" />}
                 {category === 'blog' && <img src={BlogBanner} alt="Coorge Express Blog Banner" />}
+                {category === 'property' && <img src={image} alt="Coorge Express Blog Banner" style={{width: '100%', height:'500px'}}/>}
             </div>
         </section>
     )

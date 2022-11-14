@@ -1,9 +1,5 @@
-import BungalowIcon from '../../../assets/images/stay/stay_icon_bungalow.png'
-import CampIcon from '../../../assets/images/stay/stay_icon_camp.png'
-import HomeStayIcon from '../../../assets/images/stay/stay_icon_homestay.png'
-import ResortIcon from '../../../assets/images/stay/stay_icon_resort.png'
 import Carousel from "react-multi-carousel";
-import { serverURL } from "../../../app/Config"
+import { serverURL, serverURL_ } from "../../../app/Config";
 
 const responsive = {
     desktop: {
@@ -23,7 +19,7 @@ const responsive = {
     }
 };
 
-function PropertyFilter({ data, filterProperty }) {
+function PropertyFilter({ data, filterProperty, type }) {
     if (data && data.length > 0) {
         return (
             <>
@@ -36,7 +32,13 @@ function PropertyFilter({ data, filterProperty }) {
                     ssr={false}
                     autoPlay={true}>
                     {data.map((category, idx) => {
-                        let logo_ = `https://www.coorgexpress.com/uploads/property_type/${category.logo ? category.logo : 'homestay.png'}`
+                        let url_ = ''
+                        if(type === 'stay'){
+                            url_ = serverURL_ + '/uploads/property_type'
+                        }else{
+                            url_ = serverURL + '/experience'
+                        }
+                        let logo_ = `${url_}/${category.logo ? category.logo : 'homestay.png'}`
                         return (
                             <div className="filter-stay-item" key={idx} onClick={() => filterProperty(category.key)}>
                                 <div className="filter-stay-icon">

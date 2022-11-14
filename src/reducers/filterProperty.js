@@ -2,9 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { httpFilterGetService } from '../app/httpHandler';
 
 const initialState = {
-  value: 0,
-  status: false,
-  data: []
+  value: [],
+  status: false
 };
 
 export const filterItem = createAsyncThunk(
@@ -26,11 +25,11 @@ export const filterProperty = createSlice({
       })
       .addCase(filterItem.fulfilled, (state, action) => {
         state.status = true;
-        state.data = action.payload[0];
+        state.value = action.payload[0];
       });
   },
 });
 
-export const itemsArray = (state) => state.filterProperty.data;
+export const filterItemsArray = (state) => state.filterProperty;
 
 export default filterProperty.reducer;

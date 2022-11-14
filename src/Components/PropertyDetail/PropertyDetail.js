@@ -644,7 +644,7 @@ function PropertyDetail() {
                                                         className="form-control price-box" 
                                                         name="price" 
                                                         id="price" 
-                                                        placeholder="Rs. 6000" 
+                                                        placeholder={`Rs. ${(rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price}`} 
                                                         disabled 
                                                         style={{
                                                             backgroundColor: "#fff",
@@ -673,7 +673,7 @@ function PropertyDetail() {
                                                     <textarea className="form-control" name="message" id="message" placeholder="Message"></textarea>
                                                 </div>
 
-                                                <input type="submit" value="Enquiry" name="submit" className="btn btn--primary btn--block" />
+                                                <input type="button" value="Enquiry" name="submit" onClick={() => alert("Mail sent successfully")} className="btn btn--primary btn--block" />
                                             </form>
                                         </div>
                                     </div>

@@ -13,6 +13,34 @@ function Home() {
     const homeBasic = response.value;
     const loadingStatus = response.status;
 
+    const expArray = [{
+        id: 1,
+        name: "Hiking"
+    }, {
+        id: 7,
+        name: "Outdoor Activity"
+    }, {
+        id: 8,
+        name: "Experiential Tour"
+    }, {
+        id: 2,
+        name: "Culinary"
+    }]
+
+    const stayArray = [{
+        id: 1,
+        name: "Resort"
+    }, {
+        id: 2,
+        name: "Homestay"
+    }, {
+        id: 3,
+        name: "Bungalow"
+    }, {
+        id: 5,
+        name: "Camping"
+    }]
+
     useEffect(() => {
         dispatch(getHomepage(0))
     }, [])
@@ -27,7 +55,7 @@ function Home() {
         return (
             <>
                 <Slider sliderItem={homeBasic.sliders} />
-                <Layout homeStayItem={homeBasic.homeStay} experienceItem={homeBasic.experience} eventsItem={homeBasic.events} blogs={homeBasic.blogs} />
+                <Layout homeStayItem={stayArray} experienceItem={expArray} eventsItem={homeBasic.events} blogs={homeBasic.blogs} />
             </>
         )
     }
