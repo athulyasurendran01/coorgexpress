@@ -240,7 +240,10 @@ function PropertyTypeStrip(props) {
                                 </div>
                                 <input type="submit" value="Clear All"
                                     className="btn btn--primary"
-                                    style={{ "width": "135px" }} />&nbsp;
+                                    style={{ 
+                                        "width": "135px",
+                                        "marginRight": "15px"
+                                        }} />
                                 <input type="submit" value="Search"
                                     className="btn btn--success"
                                     style={{ "width": "135px" }} onClick={onSearch} />

@@ -576,11 +576,21 @@ function PropertyDetail() {
                                                 </div>
 
                                                 <div className="form-group">
-                                                    <label for="">No of Person*</label>
+                                                    <label for="">Adults*</label>
                                                     <input type="number" className="form-control" required
                                                         onChange={(e) => setPerson(e.target.value)} />
                                                 </div>
                                                 <span style={{ color: 'red' }}>{message}</span>
+                                                <div className="form-group">
+                                                    <label for="">Infants (0 - 5 years)*</label>
+                                                    <input type="number" className="form-control" required
+                                                        onChange={(e) => setPerson(e.target.value)} />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label for="">Children (6 - 12)*</label>
+                                                    <input type="number" className="form-control" required
+                                                        onChange={(e) => setPerson(e.target.value)} />
+                                                </div>
                                                 <button className="btn btn--success mb-20"
                                                     onClick={booknow}
                                                     type="button"

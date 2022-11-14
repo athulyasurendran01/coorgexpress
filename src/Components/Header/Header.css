@@ -1,7 +1,9 @@
 .nav-scroll-default{
     background-color: #fff;
 }
-
+.navbar-expand {
+    background: #3d3d3da6;
+}
 .nav-scroll-active{
     background-color:#5a5a5aa6;
 }
@@ -9,7 +11,37 @@
 .nav-scroll-default.navbar-expand .navbar-nav .nav-link a {
     color: #000;
 }
+.navbar a, .navbar a:focus {
+    text-decoration: none;
+}
 button.login.btn.btn-primary {
     margin-left: 100px;
     background: red;
+    border: none;
+}
+.navbar-brand img {
+    width: 270px;
+}
+.navbar a .dropdown-item a, .navbar a .dropdown-item a:focus {
+    color: #000 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0 5px 0px !important;
+    font-size: 15px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+.navbar-expand .navbar-nav .dropdown-menu {
+    width: 204px;
+}
+.navbar .navbar-nav a, .navbar .navbar-nav a:focus {
+    padding: 10px 10px 10px 10px;
+}
+a.navbar-brand {
+    margin-right: 100px;
+}
+.navbar .navbar-nav a .dropdown-item, .navbar .navbar-nav a .dropdown-item:focus {
+    padding: 7px 20px 7px 20px;
 }

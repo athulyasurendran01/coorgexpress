@@ -30,12 +30,14 @@ function Header({ headerStyle }) {
                             <Nav.Link><Link to="/stay">Stay</Link></Nav.Link>
                             <Nav.Link><Link to="/experiences">Experiences</Link></Nav.Link>
                             <Nav.Link><Link to="/events">Events</Link></Nav.Link>
+                            <Nav.Link>
                             <NavDropdown title="About Us">
                                 <NavDropdown.Item><Link to="/about-coorg">About Coorg</Link></NavDropdown.Item>
                                 <NavDropdown.Item><Link to="/our-story">Our Story</Link></NavDropdown.Item>
                                 <NavDropdown.Item><Link to="/why-coorg">Why Coorgexpress</Link></NavDropdown.Item>
                                 <NavDropdown.Item><Link to="/responsible-tourism">Responsible Tourism</Link></NavDropdown.Item>
                             </NavDropdown>
+                            </Nav.Link>
                             <Nav.Link><Link to="/blog">Blogs</Link></Nav.Link>
                             <Nav.Link>
                                 <Button variant="primary" className="login" onClick={handleShow}>Login</Button>
