@@ -43,3 +43,9 @@
 .about-page-sec .next-page h3 i.fa {
     margin-left: 30px;
 }
+.about-page-sec .prev-page a {
+    text-decoration: none;
+}
+.about-page-sec .next-page a {
+    text-decoration: none;
+}

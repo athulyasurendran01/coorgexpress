@@ -1,13 +1,18 @@
 .nav-scroll-default{
     background-color: #fff;
 }
-
+.navbar-expand {
+    background: #3d3d3da6;
+}
 .nav-scroll-active{
     background-color:#5a5a5aa6;
 }
 
 .nav-scroll-default.navbar-expand .navbar-nav .nav-link a {
     color: #000;
+}
+.navbar a, .navbar a:focus {
+    text-decoration: none;
 }
 button.login.btn.btn-primary {
     margin-left: 100px;
