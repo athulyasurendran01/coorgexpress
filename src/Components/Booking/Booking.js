@@ -175,14 +175,20 @@ function Booking() {
                                     <h5>Property Details</h5>
                                 </div>
                                 <div className="widget--content">
-                                    <a href="#">
+                                    {/*<a href="#">
                                         <div className="agent--img">
                                             <img src={propertyDetails.image} alt="agent" className="img-responsive" />
                                         </div>
-                                        <div className="agent--info">
+                                    </a>*/}
+                                    <div className="agent--info">
                                             <h5 className="agent--title">{propertyDetails.name}</h5>
                                         </div>
-                                    </a>
+                                        <div className="property--details">
+                                            <p><b>Location:</b> Address</p>
+                                        </div>
+                                        <div className="property--details">
+                                            <p>This is dummy discription</p>
+                                        </div>
 
                                 </div>
                             </div>

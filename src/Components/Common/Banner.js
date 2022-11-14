@@ -15,7 +15,7 @@ function Banner({category, image = ''}){
                 {category === 'experience' && <img src={ExperienceBanner} alt="Coorge Express Stay Banner" />}
                 {category === 'events' && <img src={EventBanner} alt="Coorge Express Stay Banner" />}
                 {category === 'blog' && <img src={BlogBanner} alt="Coorge Express Blog Banner" />}
-                {category === 'property' && <img src={image} alt="Coorge Express Blog Banner" style={{width: '100%', height:'500px'}}/>}
+                {category === 'property' && <img src={image} alt="Coorge Express Blog Banner" style={{ objectFit: 'cover',width: '100%', height:'500px'}}/>}
             </div>
         </section>
     )
