@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { homeBasics, getHomepage } from '../../../reducers/homeBasic';
 import ImageSliderComponent from "../../PropertyDetail/ImageSliderComponent";
 import Loader from "../../Loader/Loader";
+import { Link } from "react-router-dom";
 
 function OurStory() {
     const dispatch = useDispatch();
@@ -53,14 +54,14 @@ function OurStory() {
                                     </div>
                                     <div className="row">
                                         <div className="col-lg-6 text-left prev-page">
-                                            <a href="about-coorg">
+                                            <Link to="/about-coorg">
                                                 <h3><i className="fa fa-arrow-left"></i>About Coorg</h3>
-                                            </a>
+                                            </Link>
                                         </div>
                                         <div className="col-lg-6 text-right next-page">
-                                            <a href="why-coorg">
+                                            <Link to="/why-coorg">
                                                 <h3>Why Coorgexpress<i className="fa fa-arrow-right"></i></h3>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
 

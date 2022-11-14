@@ -21,7 +21,7 @@ function GridContainer(props) {
                         <div className="col-md-8 col-sm-8 col-xs-12">
                             <div className="well-left property-city-item">
                                 <div className="single-well property--city-img">
-                                    <a href="#">
+                                    <Link to={`${props.title}`} state={{type: props.response[0].id}}>
                                         <img src={props.data.img2} alt="" />
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
@@ -32,7 +32,7 @@ function GridContainer(props) {
                                                     <FontAwesomeIcon icon={faAngleDoubleRight} /></p>
                                             </div>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +40,7 @@ function GridContainer(props) {
                         <div className="col-md-4 col-sm-4 col-xs-12">
                             <div className="well-left property-city-item">
                                 <div className="single-well property--city-img">
-                                    <a href="#">
+                                    <Link to={`${props.title}`} state={{type: props.response[1].id}}>
                                         <img src={props.data.img3} alt="" />
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
@@ -51,7 +51,7 @@ function GridContainer(props) {
                                                     <FontAwesomeIcon icon={faAngleDoubleRight} /></p>
                                             </div>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@ function GridContainer(props) {
                         <div className="col-md-4 col-sm-4 col-xs-12">
                             <div className="well-left property-city-item">
                                 <div className="single-well property--city-img">
-                                    <a href="#">
+                                    <Link to={`${props.title}`} state={{type: props.response[2].id}}>
                                         <img src={props.data.img3} alt="" />
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
@@ -72,7 +72,7 @@ function GridContainer(props) {
                                                     <FontAwesomeIcon icon={faAngleDoubleRight} /></p>
                                             </div>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@ function GridContainer(props) {
                         <div className="col-md-8 col-sm-8 col-xs-12">
                             <div className="well-left property-city-item">
                                 <div className="single-well property--city-img">
-                                    <a href="#">
+                                    <Link to={`${props.title}`} state={{type: props.response[3].id}}>
                                         <img src={props.data.img2} alt="" />
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
@@ -91,7 +91,7 @@ function GridContainer(props) {
                                                     <FontAwesomeIcon icon={faAngleDoubleRight} /></p>
                                             </div>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

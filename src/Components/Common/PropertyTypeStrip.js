@@ -5,7 +5,7 @@ import PropertyFilter from './PropertyFilter/PropertyFilter'
 import SearchAutoComplete from './SearchAutoComplete';
 import RangeSlider from './RangeSlider';
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import pet_friendly from '../../assets/images/property/icons/pet-friendly.png'
 import Checkbox from './Checkbox';
@@ -13,7 +13,7 @@ import Form from 'react-bootstrap/Form';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { itemsArray, getItemsArray } from '../../reducers/propertyList';
-import { filterItem } from '../../reducers/filterProperty';
+import { filterItem, filterItemsArray } from '../../reducers/filterProperty';
 import { serverURL } from "../../app/Config"
 import Loader from "../Loader/Loader";
 
@@ -40,8 +40,9 @@ function PropertyTypeStrip(props) {
     const [propertyArray, setPropertyArray] = useState([])
     const [locations, setLocations] = useState([])
     const [properties, setProperties] = useState([])
+    const [trialProperties, setTrialProperties] = useState([])
     const [amenitiesArray, setAmenitiesArray] = useState([])
-    const [priceRange, setPriceRange] = useState([])
+    const [priceRange, setPriceRange] = useState([500, 10000])
     const [itemsPerPage, setItemsPerPage] = useState(10)
     const [pageCount, setPageCount] = useState(0)
     const [itemOffset, setItemOffset] = useState(0)
@@ -49,16 +50,29 @@ function PropertyTypeStrip(props) {
 
     const dispatch = useDispatch();
     const response = useSelector(itemsArray);
+    const filterResponse = useSelector(filterItemsArray);
     const itemsDetails = response.value;
-    const loadingStatus = response.status;
+    const loadingStatus = response.status || filterResponse.status;
+
+    const location = useLocation();
 
     useEffect(() => {
-        dispatch(getItemsArray({ type: props.category, page: 1 }))
+        if (location.state && location.state.type) {
+            const searchOpts = `price_start=${priceRange[0]}&price_end=${priceRange[1]}
+            &properties=${location.state.type}`
+            dispatch(filterItem({ type: props.category, page: 1, option: searchOpts }))
+        } else {
+            dispatch(getItemsArray({ type: props.category, page: 1 }))
+        }
     }, [])
 
     useEffect(() => {
         setResponseData(itemsDetails.data)
     }, [itemsDetails])
+
+    useEffect(() => {
+        setResponseData(filterResponse.value.data)
+    }, [filterResponse])
 
     const getPaginationData = (event) => {
         let responseData = itemsDetails.data
@@ -76,6 +90,10 @@ function PropertyTypeStrip(props) {
         setProperties(value)
     }
 
+    const setTrialPropOptions = (value) => {
+        setTrialProperties(value)
+    }
+
     const handlePriceChange = (value) => {
         setPriceRange(value)
     }
@@ -89,8 +107,8 @@ function PropertyTypeStrip(props) {
         for (let i = 0; i < locations.length; i++) {
             locArray.push(locations[i].key)
         }
-        const searchOpts = `price_start=${priceRange[0]}&price_end=${priceRange[1]}&aminities=${amenitiesArray.join()}&locations=${locArray.join()}&properties=${properties.key}`
-
+        const searchOpts = `price_start=${priceRange[0]}&price_end=${priceRange[1]}&aminities=${amenitiesArray.join()}
+        &locations=${locArray.join()}&properties=${properties.key}&trialProperties=${trialProperties.key}`
         dispatch(filterItem({ type: props.category, page: 1, option: searchOpts }))
     }
 
@@ -111,8 +129,7 @@ function PropertyTypeStrip(props) {
     const filterProperty = (value) => {
         let arrayForSort = [...itemsDetails.data]
         arrayForSort = arrayForSort.filter((item) => {
-            console.log(item.property_type_id == value)
-            return item.property_type_id == value;
+            return props.category === 'stay' ? item.property_type_id == value : item.experience_type == value;
         });
         setResponseData(arrayForSort);
     }
@@ -126,27 +143,28 @@ function PropertyTypeStrip(props) {
     } else {
         return (
             <section id="properties-grid" style={{ "overflow": "inherit" }}>
-                {props.category === 'stay' &&
-                    <div className="search-properties" >
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-xs-12 col-sm-12 col-md-12">
-                                    <form className="mb-0 ">
-                                        <div className="form-box col-lg-10">
-                                            <div className="row">
-                                                <div className="col-xs-12 col-sm-12 col-md-12">
-                                                    <PropertyFilter
-                                                        data={itemsDetails.propety_types}
-                                                        filterProperty={filterProperty} />
-                                                </div>
+                {/* {props.category === 'stay' && */}
+                <div className="search-properties" >
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-xs-12 col-sm-12 col-md-12">
+                                <form className="mb-0 ">
+                                    <div className="form-box col-lg-10">
+                                        <div className="row">
+                                            <div className="col-xs-12 col-sm-12 col-md-12">
+                                                <PropertyFilter
+                                                    type={props.category}
+                                                    data={itemsDetails.propety_types}
+                                                    filterProperty={filterProperty} />
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                }
+                </div>
+                {/* } */}
 
                 <div className="container">
                     <div className="row">
@@ -184,26 +202,40 @@ function PropertyTypeStrip(props) {
                                         </div>
                                     </div>
 
-                                    <div className="widget--title">
-                                        <h5>PRICE RANGE</h5>
-                                    </div>
-                                    <div className="widget--content">
-                                        <RangeSlider handlePriceChange={handlePriceChange} />
+                                    {props.category !== 'stay' &&
+
+                                        <div className="form-group">
+                                            <div className="select--box">
+                                                <SearchAutoComplete
+                                                    data={itemsDetails.trial_types ? itemsDetails.trial_types : []}
+                                                    title={'Trial Type'} setOptions={setTrialPropOptions} />
+                                            </div>
+                                        </div>
+                                    }
+                                    <div className="form-group">
+                                        <div className="widget--title">
+                                            <h5>PRICE RANGE</h5>
+                                        </div>
+                                        <div className="widget--content">
+                                            <RangeSlider handlePriceChange={handlePriceChange} />
+                                        </div>
                                     </div>
 
-                                    <div className="widget--title">
-                                        <h5>OTHER FILTERS</h5>
-                                    </div>
-                                    <div className="widget--content">
-                                        {itemsDetails.amenities &&
-                                            itemsDetails.amenities.map((item, idx) => {
-                                                return (
-                                                    <div className="input-checkbox" key={idx}>
-                                                        <Checkbox label={item.amenity} id={item.id}
-                                                            handleClick={handleClick} />
-                                                    </div>
-                                                )
-                                            })}
+                                    <div className="form-group">
+                                        <div className="widget--title">
+                                            <h5>OTHER FILTERS</h5>
+                                        </div>
+                                        <div className="widget--content">
+                                            {itemsDetails.amenities &&
+                                                itemsDetails.amenities.map((item, idx) => {
+                                                    return (
+                                                        <div className="input-checkbox" key={idx}>
+                                                            <Checkbox label={item.amenity} id={item.id}
+                                                                handleClick={handleClick} />
+                                                        </div>
+                                                    )
+                                                })}
+                                        </div>
                                     </div>
                                 </div>
                                 <input type="submit" value="Clear All"
