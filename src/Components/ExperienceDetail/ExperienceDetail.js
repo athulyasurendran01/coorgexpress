@@ -379,7 +379,9 @@ function ExperienceDetail() {
                                         <div className="widget--content">
                                             <form className="mb-0">
                                                 <div className="form-group">
-                                                    <label for="contact-name">Pick a Date Range*</label>
+                                                    <label for="contact-name">Pick a Date*</label>
+                                                    <input type="date" className="form-control" name="date" id="date" placeholder="Date" />
+                                                    {/*
                                                     <DatePicker selectsRange={true}
                                                         startDate={startDate}
                                                         endDate={endDate}
@@ -390,11 +392,12 @@ function ExperienceDetail() {
                                                         isClearable={true}
                                                         style={{ zIndex: 1 }}
                                                     />
+                                                    */}
                                                 </div>
 
                                                 <div className="form-group">
                                                     <label for="contact-email">No of Person*</label>
-                                                    <input type="email" className="form-control"
+                                                    <input type="number" className="form-control"
                                                         name="contact-email"
                                                         onChange={(e) => setPerson(e.target.value)}
                                                         id="contact-email" required />
@@ -409,32 +412,67 @@ function ExperienceDetail() {
                                     </div>
 
                                     <div className="widget widget-mortgage-calculator">
-                                        <div className="widget--title">
+                                    <div className="widget--title">
                                             <h5>Enquiry</h5>
                                         </div>
                                         <div className="widget--content">
-                                            <form className="mb-0">
-                                                <div className="form-group">
-                                                    <label for="sale-price">Sale Price</label>
-                                                    <input type="text" className="form-control" name="sale-price" id="sale-price" placeholder="$" />
+                                            <form className="mb-0 row">
+                                                <div className="form-group col-lg-6">
+                                                    <label for="date">Date</label>
+                                                    <input type="date" className="form-control" name="date" id="date" placeholder="Date" />
                                                 </div>
 
-                                                <div className="form-group">
-                                                    <label for="down-payment">Down Payment</label>
-                                                    <input type="text" className="form-control" name="down-payment" id="down-payment" placeholder="$" />
+                                                <div className="form-group col-lg-6">
+                                                    <label for="adults">Adults: &gt; 12</label>
+                                                    <input type="text" className="form-control" name="adults" id="adults" placeholder="Adults" />
                                                 </div>
 
-                                                <div className="form-group">
-                                                    <label for="term">Term</label>
-                                                    <input type="text" className="form-control" name="term" id="term" placeholder="years" />
+                                                <div className="form-group col-lg-12">
+                                                    <input type="checkbox" name="lang"  
+                                                        style={{
+                                                            marginRight : "20px"
+                                                        }}
+                                                    />
+                                                    12:00 PM − 11:00 AM ₹ 3,333(per person)
                                                 </div>
 
-                                                <div className="form-group">
-                                                    <label for="interest-rate">Interest Rate</label>
-                                                    <input type="text" className="form-control" name="interest-rate" id="interest-rate" placeholder="%" />
+                                                <div className="form-group col-lg-12">
+                                                    <label for="price">Final Price</label>
+                                                    <input 
+                                                        type="text" 
+                                                        className="form-control price-box" 
+                                                        name="price" 
+                                                        id="price" 
+                                                        placeholder='Rs. 3333'
+                                                        disabled 
+                                                        style={{
+                                                            backgroundColor: "#fff",
+                                                            borderColor: "#fff"
+                                                        }}
+                                                    />
                                                 </div>
 
-                                                <input type="submit" value="Enquiry" name="submit" className="btn btn--primary btn--block" />
+                                                <div className="form-group col-lg-6">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" className="form-control" name="name" id="name" placeholder="Name" />
+                                                </div>
+
+                                                <div className="form-group col-lg-6">
+                                                    <label for="contact-no">Contact Number</label>
+                                                    <input type="text" className="form-control" name="contact-no" id="contact-no" placeholder="Contact Number" />
+                                                </div>
+
+                                                <div className="form-group col-lg-12">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" className="form-control" name="email" id="email" placeholder="Email" />
+                                                </div>
+
+                                                <div className="form-group col-lg-12">
+                                                    <label for="message">Message</label>
+                                                    <textarea className="form-control" name="message" id="message" placeholder="Message"></textarea>
+                                                </div>
+
+                                                <input type="button" value="Enquiry" name="submit"  className="btn btn--primary btn--block" />
                                             </form>
                                         </div>
                                     </div>
