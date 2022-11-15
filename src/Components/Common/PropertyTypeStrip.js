@@ -149,7 +149,7 @@ function PropertyTypeStrip(props) {
                         <div className="row">
                             <div className="col-xs-12 col-sm-12 col-md-12">
                                 <form className="mb-0 ">
-                                    <div className="form-box col-lg-10">
+                                    <div className="form-box col-lg-12">
                                         <div className="row">
                                             <div className="col-xs-12 col-sm-12 col-md-12">
                                                 <PropertyFilter
@@ -241,12 +241,12 @@ function PropertyTypeStrip(props) {
                                 <input type="submit" value="Clear All"
                                     className="btn btn--primary"
                                     style={{ 
-                                        "width": "135px",
-                                        "marginRight": "15px"
+                                        "width": "125px",
+                                        "marginRight": "10px"
                                         }} />
                                 <input type="submit" value="Search"
                                     className="btn btn--success"
-                                    style={{ "width": "135px" }} onClick={onSearch} />
+                                    style={{ "width": "125px" }} onClick={onSearch} />
                             </div>
                             {/* Featured Properties
                         <div className="widget widget-featured-property">
@@ -333,14 +333,12 @@ function PropertyTypeStrip(props) {
                         </div> */}
                         </div>
 
-                        <div className="col-xs-12 col-sm-12 col-md-8" style={{ marginTop: '63px' }}>
+                        <div className="col-xs-12 col-sm-12 col-md-8" style={{ marginTop: '5px' }}>
                             <div className="row property-list">
                                 <div className="col-xs-12 col-sm-12 col-md-12">
                                     <div className="properties-filter clearfix">
                                         <div className="select--box pull-left">
                                             <label>Sort by:</label>
-                                            <i className="fa fa-angle-up"></i>
-                                            <i className="fa fa-angle-down"></i>
                                             <Form.Select onChange={(e) => onListSort(e)}>
                                                 {/* <option value="">Default Sorting</option> */}
                                                 {/* <option value="1">Newest Items</option>
