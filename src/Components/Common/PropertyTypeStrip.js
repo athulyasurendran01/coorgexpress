@@ -149,7 +149,7 @@ function PropertyTypeStrip(props) {
                         <div className="row">
                             <div className="col-xs-12 col-sm-12 col-md-12">
                                 <form className="mb-0 ">
-                                    <div className="form-box col-lg-10">
+                                    <div className="form-box col-lg-12">
                                         <div className="row">
                                             <div className="col-xs-12 col-sm-12 col-md-12">
                                                 <PropertyFilter
@@ -333,14 +333,12 @@ function PropertyTypeStrip(props) {
                         </div> */}
                         </div>
 
-                        <div className="col-xs-12 col-sm-12 col-md-8" style={{ marginTop: '63px' }}>
+                        <div className="col-xs-12 col-sm-12 col-md-8" style={{ marginTop: '5px' }}>
                             <div className="row property-list">
                                 <div className="col-xs-12 col-sm-12 col-md-12">
                                     <div className="properties-filter clearfix">
                                         <div className="select--box pull-left">
                                             <label>Sort by:</label>
-                                            <i className="fa fa-angle-up"></i>
-                                            <i className="fa fa-angle-down"></i>
                                             <Form.Select onChange={(e) => onListSort(e)}>
                                                 {/* <option value="">Default Sorting</option> */}
                                                 {/* <option value="1">Newest Items</option>
