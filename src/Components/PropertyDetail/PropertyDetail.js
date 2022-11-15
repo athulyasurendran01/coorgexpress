@@ -60,6 +60,8 @@ function PropertyDetail() {
 
     const [dateRange, setDateRange] = useState([null, null]);
     const [no_guest, setPerson] = useState(0);
+    const [no_guest_child, setChild] = useState(0);
+    const [no_guest_infant, setInfant] = useState(0);
     const [startDate, endDate] = dateRange;
     const [rooms, setRooms] = useState([]);
     const [message, setMessage] = useState('')
@@ -131,6 +133,8 @@ function PropertyDetail() {
             check_in_time: propertyDetails.data[0].check_in_time,
             check_out_time: propertyDetails.data[0].check_out_time,
             no_guest: no_guest,
+            no_guest_child: no_guest_child,
+            no_guest_infant: no_guest_infant,
             total: (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price
         }
         navigate('/booking', { state: bookingDetails })
@@ -147,14 +151,14 @@ function PropertyDetail() {
             let bannerURL = `${serverURL_}/${propertyDetails.data[0].file_path}/${propertyDetails.data[0].file_name}`
             return (
                 <>
-                    <section id="page-title" className ="page-title" >
+                    <section id="page-title" className="page-title" >
                         <div className="bg-section">
-                            <img src={bannerURL} alt="Background" 
+                            <img src={bannerURL} alt="Background"
                                 style={{
-                                    height : "500px",
+                                    height: "500px",
                                     width: "100%",
                                     objectFit: "cover"
-                                }}    
+                                }}
                             />
                         </div>
                     </section>
@@ -197,17 +201,17 @@ function PropertyDetail() {
                                                 <p className="property--location">Address Address </p>
                                             </div>
                                             <div className="pull-right verified-listing">
-                                                <input 
-                                                    type="submit" 
-                                                    value="Verified Listing" 
-                                                    name="submit" 
-                                                    className="btn btn--success mb-20" 
-                                                    style={{ 
+                                                <input
+                                                    type="submit"
+                                                    value="Verified Listing"
+                                                    name="submit"
+                                                    className="btn btn--success mb-20"
+                                                    style={{
                                                         cursor: "auto",
-                                                        width: "275px", 
-                                                        background: "#34a20d", 
-                                                        color: "#fff" 
-                                                    }} 
+                                                        width: "275px",
+                                                        background: "#34a20d",
+                                                        color: "#fff"
+                                                    }}
                                                 />
                                                 <span className="property--status"><i className="fa fa-share-alt"></i> <span>Share</span> <span>|</span> <span onClick={() => window.scrollTo(0, 4800)}><i className="fa fa fa-pencil"></i> <span>Review</span></span></span>
                                                 <div className="property-rating">
@@ -584,12 +588,12 @@ function PropertyDetail() {
                                                 <div className="form-group">
                                                     <label for="">Infants (0 - 5 years)*</label>
                                                     <input type="number" className="form-control" required
-                                                        onChange={(e) => setPerson(e.target.value)} />
+                                                        onChange={(e) => setInfant(e.target.value)} />
                                                 </div>
                                                 <div className="form-group">
                                                     <label for="">Children (6 - 12)*</label>
                                                     <input type="number" className="form-control" required
-                                                        onChange={(e) => setPerson(e.target.value)} />
+                                                        onChange={(e) => setChild(e.target.value)} />
                                                 </div>
                                                 <button className="btn btn--success mb-20"
                                                     onClick={booknow}
@@ -632,7 +636,7 @@ function PropertyDetail() {
                                                         <label className="label-checkbox">
                                                             <span
                                                                 style={{
-                                                                    marginRight : "10px"
+                                                                    marginRight: "10px"
                                                                 }}
                                                             >Do you want an extra bed?</span>
                                                             <input type="checkbox" />
@@ -643,13 +647,13 @@ function PropertyDetail() {
 
                                                 <div className="form-group col-lg-12">
                                                     <label for="price">Final Price</label>
-                                                    <input 
-                                                        type="text" 
-                                                        className="form-control price-box" 
-                                                        name="price" 
-                                                        id="price" 
-                                                        placeholder={`Rs. ${(rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price}`} 
-                                                        disabled 
+                                                    <input
+                                                        type="text"
+                                                        className="form-control price-box"
+                                                        name="price"
+                                                        id="price"
+                                                        placeholder={`Rs. ${(rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price}`}
+                                                        disabled
                                                         style={{
                                                             backgroundColor: "#fff",
                                                             borderColor: "#fff"

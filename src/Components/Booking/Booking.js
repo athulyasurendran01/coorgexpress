@@ -208,7 +208,7 @@ function Booking() {
                                         <h6>Check Out Time <span>{propertyDetails.check_out_time}</span></h6>
                                     </div>
                                     <div className="col-xs-12">
-                                        <h6 className="guest-detail">Guests <span>{propertyDetails.no_guest} Adult(s) & 0 Child & 0 Infant(s)</span></h6>
+                                        <h6 className="guest-detail">Guests <span>{propertyDetails.no_guest} Adult(s) & {propertyDetails.no_guest_child} Child & {propertyDetails.no_guest_infant} Infant(s)</span></h6>
                                     </div>
                                     <div className="col-xs-12">
                                         <h6 className="amount-detail">Rs. {propertyDetails.total} X {getNight()} night(s) <span>Rs. {propertyDetails.total * getNight()}</span></h6>

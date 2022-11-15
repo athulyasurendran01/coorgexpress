@@ -16,6 +16,7 @@ import { itemsArray, getItemsArray } from '../../reducers/propertyList';
 import { filterItem, filterItemsArray } from '../../reducers/filterProperty';
 import { serverURL } from "../../app/Config"
 import Loader from "../Loader/Loader";
+import { httpFilterGetService } from '../../app/httpHandler';
 
 const responsive1 = {
     desktop: {
@@ -47,10 +48,12 @@ function PropertyTypeStrip(props) {
     const [pageCount, setPageCount] = useState(0)
     const [itemOffset, setItemOffset] = useState(0)
     const [listView, setListView] = useState(true)
+    const [isLoader, setLoader] = useState(false)
 
     const dispatch = useDispatch();
-    const response = useSelector(itemsArray);
+    let response = useSelector(itemsArray);
     const filterResponse = useSelector(filterItemsArray);
+    if (response.value === 0) response = filterResponse;
     const itemsDetails = response.value;
     const loadingStatus = response.status || filterResponse.status;
 
@@ -76,10 +79,21 @@ function PropertyTypeStrip(props) {
 
     const getPaginationData = (event) => {
         let responseData = itemsDetails.data
-        let itemsPerPage = itemsDetails.total
+        let itemsPerPage = itemsDetails.data.length
         const newOffset = (event.selected * itemsPerPage) % responseData.length;
         setItemOffset(newOffset)
-        dispatch(getItemsArray({ type: props.category, page: (event.selected + 1) }))
+        // setLoader(true)
+        let pageStr = (event.selected + 1) ? `?page=${(event.selected + 1)}` : ''
+        const apiURL = `${serverURL}/${props.category}.php${pageStr}`
+
+        fetch(`${apiURL}`)
+            .then((response) => response.json())
+            .then((itemsDetails) => {
+                setResponseData(itemsDetails[0].data)
+                // setLoader(false)
+            })
+            .catch(err => console.log(err))
+        // dispatch(getItemsArray({ type: props.category, page: (event.selected + 1) }))
     }
 
     const setLocOptions = (value) => {
@@ -99,7 +113,8 @@ function PropertyTypeStrip(props) {
     }
 
     const handleClick = (id, value) => {
-        setAmenitiesArray([id, ...amenitiesArray])
+        const replacementList = [...amenitiesArray, id];
+        setAmenitiesArray(replacementList);
     }
 
     const onSearch = () => {
@@ -108,8 +123,17 @@ function PropertyTypeStrip(props) {
             locArray.push(locations[i].key)
         }
         const searchOpts = `price_start=${priceRange[0]}&price_end=${priceRange[1]}&aminities=${amenitiesArray.join()}
-        &locations=${locArray.join()}&properties=${properties.key}&trialProperties=${trialProperties.key}`
-        dispatch(filterItem({ type: props.category, page: 1, option: searchOpts }))
+        &locations=${locArray.join()}&properties=${properties && properties.key}&trialProperties=${trialProperties.key}`
+
+        const apiURL = `${serverURL}/${props.category}.php?${searchOpts}`
+        fetch(`${apiURL}`)
+            .then((response) => response.json())
+            .then((itemsDetails) => {
+                setResponseData(itemsDetails[0].data)
+            })
+            .catch(err => console.log(err))
+
+        // dispatch(filterItem({ type: props.category, page: 1, option: searchOpts }))
     }
 
     const onListSort = (e) => {
@@ -134,7 +158,7 @@ function PropertyTypeStrip(props) {
         setResponseData(arrayForSort);
     }
 
-    if (!loadingStatus) {
+    if (!loadingStatus || isLoader) {
         return (
             <>
                 <Loader />
@@ -143,7 +167,7 @@ function PropertyTypeStrip(props) {
     } else {
         return (
             <section id="properties-grid" style={{ "overflow": "inherit" }}>
-                {/* {props.category === 'stay' && */}
+                {props.category !== 'events' &&
                 <div className="search-properties" >
                     <div className="container">
                         <div className="row">
@@ -164,7 +188,7 @@ function PropertyTypeStrip(props) {
                         </div>
                     </div>
                 </div>
-                {/* } */}
+               }
 
                 <div className="container">
                     <div className="row">
@@ -201,9 +225,7 @@ function PropertyTypeStrip(props) {
                                                 title={'Property Type'} setOptions={setPropOptions} />
                                         </div>
                                     </div>
-
                                     {props.category === 'events' &&
-
                                         <div className="form-group">
                                             <div className="select--box">
                                                 <SearchAutoComplete
@@ -240,10 +262,10 @@ function PropertyTypeStrip(props) {
                                 </div>
                                 <input type="submit" value="Clear All"
                                     className="btn btn--primary"
-                                    style={{ 
+                                    style={{
                                         "width": "125px",
                                         "marginRight": "10px"
-                                        }} />
+                                    }} />
                                 <input type="submit" value="Search"
                                     className="btn btn--success"
                                     style={{ "width": "125px" }} onClick={onSearch} />
@@ -444,14 +466,14 @@ function PropertyTypeStrip(props) {
                                                     listView ? <div className="col-xs-12 col-sm-6 col-md-6" key={idx}>
                                                         <div className="property-item">
                                                             <div className="property--img">
-                                                                <Link to={`/experiences/${item.id}`}>
+                                                                <Link to={`/events/${item.id}`}>
                                                                     <img src={imageURL} alt="property image" className="img-responsive" />
                                                                 </Link>
                                                             </div>
                                                             <div className="property--content">
                                                                 <div className="property--info">
                                                                     <h5 className="property--title">
-                                                                        <Link to={`/experiences/${item.id}`}>{item.name}</Link>
+                                                                        <Link to={`/events/${item.id}`}>{item.name}</Link>
                                                                     </h5>
                                                                     <p className="property--location">{item.address}</p>
                                                                     <p className="property--location">{item.type}</p>
@@ -469,17 +491,20 @@ function PropertyTypeStrip(props) {
                                             })}
                                     </div>
                                 }
-                                <ReactPaginate
-                                    className='text-center'
-                                    breakLabel="..."
-                                    nextLabel="next >"
-                                    onPageChange={(e) => getPaginationData(e)}
-                                    pageRangeDisplayed={5}
-                                    pageCount={Math.ceil(itemsDetails.total / 10)}
-                                    previousLabel="< previous"
-                                    renderOnZeroPageCount={null}
-                                    activeClassName={"pagination-active"}
-                                />
+
+                                {itemsDetails.data.length > 0 && (filterResponse.value.data && filterResponse.value.data.length) &&
+                                    <ReactPaginate
+                                        className='text-center'
+                                        breakLabel="..."
+                                        nextLabel="next >"
+                                        onPageChange={(e) => getPaginationData(e)}
+                                        pageRangeDisplayed={5}
+                                        pageCount={Math.ceil(itemsDetails.total / 10)}
+                                        previousLabel="< previous"
+                                        renderOnZeroPageCount={null}
+                                        activeClassName={"pagination-active"}
+                                    />
+                                } 
                             </div>
                         </div>
                     </div>
