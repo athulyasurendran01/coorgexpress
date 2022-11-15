@@ -237,8 +237,8 @@ label {
     padding: 0 23px 0 12px;
     background-color: transparent;
     border: none;
-    height: 16px !important;
-    line-height: 13px;
+    height: auto !important;
+    line-height: 18px;
     margin: 0px 10px;
 }
 .widget--content .input-checkbox {
@@ -363,6 +363,7 @@ a {
     width: 100%;
 }
 .property-item .property--info {
+    height: 249px;
     padding: 22px 25px 25px;
 }
 .property-item .property--title {
@@ -383,6 +384,9 @@ a {
     font-weight: 700;
     margin: 0 0 28px;
     line-height: 1;
+}
+.form-select {
+    background-image: none;
 }
 .property-item .property--title a {
     font-weight: 600;
