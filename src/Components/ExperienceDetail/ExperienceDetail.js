@@ -102,11 +102,19 @@ function ExperienceDetail() {
         if (experienceDetails &&
             experienceDetails.data &&
             experienceDetails.data.length > 0) {
+            let bannerURL = `${serverURL_}/${experienceDetails.files[0].file_path}/${experienceDetails.files[0].file_name}`
+
             return (
                 <>
                     <section id="page-title" className="page-title">
                         <div className="bg-section">
-                            <img src={PropertyBanner} alt="Background" />
+                            <img src={bannerURL} alt="Background"
+                                style={{
+                                    height: "500px",
+                                    width: "100%",
+                                    objectFit: "cover"
+                                }}
+                            />
                         </div>
                     </section>
 

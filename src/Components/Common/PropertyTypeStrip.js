@@ -202,7 +202,7 @@ function PropertyTypeStrip(props) {
                                         </div>
                                     </div>
 
-                                    {props.category !== 'stay' &&
+                                    {props.category === 'events' &&
 
                                         <div className="form-group">
                                             <div className="select--box">
