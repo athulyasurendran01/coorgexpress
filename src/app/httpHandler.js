@@ -13,6 +13,16 @@ export function httpGetService(url, id, page) {
         .catch(err => console.log(err))
 }
 
+export function httpMailService() {
+    const apiURL = `${serverURL}/mail.php`
+    return fetch(`${apiURL}`)
+        .then((response) => response.json())
+        .then((data) => {
+            return data
+        })
+        .catch(err => console.log(err))
+}
+
 export function httpFilterGetService(url, page, option) {
   // let pageStr = page ? `?page=${page}` : ''
   let urlStr = url ? `/${url}` : '/index'

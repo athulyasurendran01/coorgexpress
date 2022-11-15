@@ -62,7 +62,7 @@ function GridContainer(props) {
                             <div className="well-left property-city-item">
                                 <div className="single-well property--city-img">
                                     <Link to={`${props.title}`} state={{type: props.response[2].id}}>
-                                        <img src={props.data.img3} alt="" />
+                                        <img src={props.data.img4} alt="" />
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
                                                 <h5 className='property--title'>
@@ -81,7 +81,7 @@ function GridContainer(props) {
                             <div className="well-left property-city-item">
                                 <div className="single-well property--city-img">
                                     <Link to={`${props.title}`} state={{type: props.response[3].id}}>
-                                        <img src={props.data.img2} alt="" />
+                                        <img src={props.data.img5} alt="" />
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
                                                 <h5 className='property--title'>

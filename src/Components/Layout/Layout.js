@@ -2,10 +2,17 @@
 import stay_head from '../../assets/images/home/stay_head.png'
 import experience_head from '../../assets/images/home/experience_head.png'
 import event_head from '../../assets/images/home/events_head.png'
-import stay1 from '../../assets/images/home/resort.png'
-import stay2 from '../../assets/images/home/homestay.png'
-import experience1 from '../../assets/images/home/trucking.png'
-import experience2 from '../../assets/images/home/cycling.png'
+
+import stay0 from '../../assets/images/home/stay/resort.jpg'
+import stay1 from '../../assets/images/home/stay/homestay.jpg'
+import stay2 from '../../assets/images/home/stay/bungalow.jpg'
+import stay3 from '../../assets/images/home/stay/camping.jpg'
+
+import experience0 from '../../assets/images/home/experience/Hiking.jpg'
+import experience1 from '../../assets/images/home/experience/outDoorActivity.jpg'
+import experience2 from '../../assets/images/home/experience/ExperienceTour.jpg'
+import experience3 from '../../assets/images/home/experience/Culinary.jpg'
+
 import event1 from '../../assets/images/home/event1.png'
 import event2 from '../../assets/images/home/event2.png'
 import instagram from '../../assets/images/home/instagram.png'
@@ -20,20 +27,27 @@ function Layout({ homeStayItem, experienceItem, eventsItem, blogs }) {
     const propsData = [{
         title: 'about',
         img1: stay_head,
-        img2: stay1,
-        img3: stay2
+        img2: stay0,
+        img3: stay1,
+        img4: stay2,
+        img5: stay3
     },
     {
         title: 'experience',
         img1: experience_head,
-        img2: experience1,
-        img3: experience2,
+        img2: experience0,
+        img3: experience1,
+        img4: experience2,
+        img5: experience3,
     },
     {
         title: 'events',
         img1: event_head,
         img2: event1,
-        img3: event2
+        img3: event2,
+        img4: event2,
+        img5: event2
+
     }]
 
     return (

@@ -33,9 +33,13 @@ function PropertyFilter({ data, filterProperty, type }) {
                     autoPlay={true}>
                     {data.map((category, idx) => {
                         let url_ = ''
-                        if(type === 'stay'){
-                            url_ = serverURL_ + '/uploads/property_type'
-                        }else{
+                        if (type === 'stay') {
+                            if (category.title === 'Dormitory' || category.title === 'Tour' || category.title === 'Glamping') {
+                                url_ = serverURL + '/stay'
+                            } else{
+                                url_ = serverURL_ + '/uploads/property_type'
+                            }
+                        } else {
                             url_ = serverURL + '/experience'
                         }
                         let logo_ = `${url_}/${category.logo ? category.logo : 'homestay.png'}`
