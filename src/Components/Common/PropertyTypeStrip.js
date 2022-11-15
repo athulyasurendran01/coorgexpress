@@ -241,12 +241,12 @@ function PropertyTypeStrip(props) {
                                 <input type="submit" value="Clear All"
                                     className="btn btn--primary"
                                     style={{ 
-                                        "width": "135px",
-                                        "marginRight": "15px"
+                                        "width": "125px",
+                                        "marginRight": "10px"
                                         }} />
                                 <input type="submit" value="Search"
                                     className="btn btn--success"
-                                    style={{ "width": "135px" }} onClick={onSearch} />
+                                    style={{ "width": "125px" }} onClick={onSearch} />
                             </div>
                             {/* Featured Properties
                         <div className="widget widget-featured-property">
