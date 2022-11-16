@@ -46,7 +46,7 @@ function Layout({ homeStayItem, experienceItem, eventsItem, blogs }) {
         img2: event1,
         img3: event2,
         img4: event2,
-        img5: event2
+        img5: event1
 
     }]
 
