@@ -333,13 +333,11 @@ function PropertyDetail() {
                                             {propertyDetails.amenities && propertyDetails.amenities.map((amenity, idx) => {
                                                 return (
                                                     <div className="col-xs-6 col-sm-4 col-md-4">
-                                                        <div className="feature-panel">
-                                                            <div className="feature--img">
-                                                                <img src={amenity.icon ? amenity.icon : balcony} alt="icon" />
-                                                            </div>
-                                                            <div className="feature--content">
-                                                                <h5>{amenity.amenity}</h5>
-                                                            </div>
+                                                        <div class="feature-item amenities">
+                                                            <p>
+                                                                <i class="fa fa-check" aria-hidden="true" />
+                                                                {amenity.amenity}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 )
@@ -694,7 +692,7 @@ function PropertyDetail() {
 
                     </section>
 
-                    <section id="properties-carousel" className="properties-carousel pt-0">
+                    {/*<section id="properties-carousel" className="properties-carousel pt-0">
                         <div className="container">
                             <div className="row">
                                 <div className="col-xs-12 col-sm-12 col-md-12">
@@ -793,7 +791,7 @@ function PropertyDetail() {
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </section>*/}
                 </>
             )
         } else {

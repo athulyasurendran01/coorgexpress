@@ -175,7 +175,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 .property-single-desc .property--details p:first-of-type {
     padding-top: 6px;
 }
+.property-single-features p i {
+    margin-right: 14px;
+    color: #fe0100;
+}
 .property-single-features p:before {
+    display: none;
     content: "\f00c";
     font-family: fontawesome;
     position: absolute;
@@ -183,9 +188,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
     left: 0;
     color: #fe0100;
 }
-.property-single-features p {
+.property-single-features .amenities p {
     position: relative;
-    padding-left: 22px;
+    padding-left: 0px;
     color: #34495e;
     line-height: 1;
     margin-bottom: 18px;

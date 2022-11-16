@@ -268,3 +268,15 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 .col-xs-2 {
     width: 20% !important;
 }
+.upcoming-slots .slot-availability p {
+    background: #bebebe;
+    color: #fff;
+    padding: 8px 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.upcoming-slots .slot-availability p span.amount {
+    float: right;
+    color: #fe0100;
+    font-weight: 700;
+}

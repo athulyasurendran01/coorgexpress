@@ -134,13 +134,14 @@ function ExperienceDetail() {
                                                         <span>|</span> <i className="fa fa fa-pencil"></i> <span>{experienceDetails.data[0].duration} Hours</span></span>
                                                 </p>
                                             </div>
-                                            <div className="pull-right verified-listing">
+                                            <div className="pull-right verified-listing" style={{textAlign: "end"}}>
                                                 <input type="submit" value="Verified Listing" name="submit" className="btn btn--success mb-20" style={{ width: "275px", background: "#34a20d", color: "#fff" }} />
                                                 <div className="property-rating" style={{ "margin-top": "0px", "margin-bottom": "20px" }}>
                                                     <span>Hosted By : </span>{experienceDetails.data[0].hosted_by}
                                                 </div>
-                                                <span className="property--status"><i className="fa fa-phone"></i> <span>{experienceDetails.data[0].host_contact_no}</span>
-                                                    <span>|</span> <i className="fa fa-envelope"></i> <span>{experienceDetails.data[0].host_contact_email}</span></span>
+                                                <p className="property--status"><i className="fa fa-phone"></i> <span>{experienceDetails.data[0].host_contact_no}</span>
+                                                    <span>|</span> <i className="fa fa-envelope"></i> <span>{experienceDetails.data[0].host_contact_email}</span>
+                                                </p>
                                             </div>
                                         </div>
 
@@ -175,7 +176,7 @@ function ExperienceDetail() {
 
                                     <div className="property-single-desc inner-box property-det">
                                         <div className="row">
-                                            <div className="col-xs-4 col-sm-4 col-md-4">
+                                            <div className="col-xs-6 col-sm-6 col-md-6">
                                                 <div className="feature-panel">
                                                     <div className="heading">
                                                         <h2 className="heading--title">Inclusion</h2>
@@ -188,7 +189,7 @@ function ExperienceDetail() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-xs-4 col-sm-4 col-md-4">
+                                            <div className="col-xs-6 col-sm-6 col-md-6">
                                                 <div className="feature-panel">
                                                     <div className="heading">
                                                         <h2 className="heading--title">Who can attend</h2>
@@ -201,13 +202,17 @@ function ExperienceDetail() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-xs-4 col-sm-4 col-md-4">
-                                                <div className="feature-panel">
+                                            
+                                        </div>
+                                        <div className="row">
+                                            
+                                            <div className="col-xs-12 col-sm-12 col-md-6">
+                                                <div className="feature-panel upcoming-slots">
                                                     <div className="heading">
                                                         <h2 className="heading--title">Upcoming Availability</h2>
                                                     </div>
-                                                    <div>
-                                                        <p>08.00AM - 01.00PM</p>
+                                                    <div className='slot-availability'>
+                                                        <p>08.00AM - 01.00PM <span className='amount'>Rs. 3000</span></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -217,8 +222,48 @@ function ExperienceDetail() {
                                     <div className="property-single-design inner-box">
                                         <div className="row">
                                             <div className="col-xs-12 col-sm-12 col-md-12">
-                                                <div className="heading">
+                                                <div className="heading"
+                                                    style={{
+                                                        marginBottom : "20px"
+                                                    }}
+                                                >
                                                     <h2 className="heading--title">Tour Notes</h2>
+                                                </div>
+                                            </div>
+                                            <div className="col-xs-12 col-sm-12 col-md-12">
+                                                <div className="col-xs-12 col-sm-12 col-md-12">
+                                                    <div className="property--details">
+                                                        <p>{experienceDetails.data[0].about_host}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-xs-12 col-sm-12 col-md-12">
+                                                <div className="heading"
+                                                    style={{
+                                                        marginBottom : "20px"
+                                                    }}
+                                                >
+                                                    <h2 className="heading--title">Things to Bring/Carry</h2>
+                                                </div>
+                                            </div>
+                                            <div className="col-xs-12 col-sm-12 col-md-12">
+                                                <div className="col-xs-12 col-sm-12 col-md-12">
+                                                    <div className="property--details">
+                                                        <p>{experienceDetails.data[0].about_host}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-xs-12 col-sm-12 col-md-12">
+                                                <div className="heading"
+                                                    style={{
+                                                        marginBottom : "20px"
+                                                    }}
+                                                >
+                                                    <h2 className="heading--title">Cancellation Policy</h2>
                                                 </div>
                                             </div>
                                             <div className="col-xs-12 col-sm-12 col-md-12">
@@ -402,7 +447,33 @@ function ExperienceDetail() {
                                                     />
                                                     */}
                                                 </div>
-
+                                                <div className="form-group col-lg-12" 
+                                                    style={{
+                                                        marginBottom : "0px"
+                                                    }}
+                                                >
+                                                <label for="">Available Slots</label>
+                                                </div>
+                                                <div className="form-group col-lg-12" 
+                                                    style={{
+                                                        marginBottom : "0px"
+                                                    }}
+                                                >
+                                                    <input type="radio" name="slots" id=""  
+                                                        style={{
+                                                            marginRight : "20px"
+                                                        }}
+                                                    />
+                                                    <label> 12:00 PM − 11:00 AM</label>
+                                                </div>
+                                                <div className="form-group col-lg-12">
+                                                    <input type="radio" name="slots" id=""   
+                                                        style={{
+                                                            marginRight : "20px"
+                                                        }}
+                                                    />
+                                                   <label> 01:00 PM − 12:00 PM</label> 
+                                                </div>
                                                 <div className="form-group">
                                                     <label for="contact-email">No of Person*</label>
                                                     <input type="number" className="form-control"
@@ -493,7 +564,7 @@ function ExperienceDetail() {
 
                     </section>
 
-                    <section id="properties-carousel" className="properties-carousel pt-0">
+                    {/*<section id="properties-carousel" className="properties-carousel pt-0">
                         <div className="container">
                             <div className="row">
                                 <div className="col-xs-12 col-sm-12 col-md-12">
@@ -591,7 +662,7 @@ function ExperienceDetail() {
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </section>*/}
                 </>
             )
         } else {
