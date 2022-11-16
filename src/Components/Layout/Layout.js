@@ -15,6 +15,7 @@ import experience3 from '../../assets/images/home/experience/Culinary.jpg'
 
 import event1 from '../../assets/images/home/event1.png'
 import event2 from '../../assets/images/home/event2.png'
+
 import instagram from '../../assets/images/home/instagram.png'
 import blog from '../../assets/images/home/blog.jpg'
 import Slider from '../Slider/Slider'
@@ -22,6 +23,7 @@ import './Layout.css';
 import GridContainer from '../Common/GridContainer'
 import Blogs from '../Home/Blogs/Blogs'
 import React from 'react'
+import { serverURL_ } from '../../app/Config'
 
 function Layout({ homeStayItem, experienceItem, eventsItem, blogs }) {
     const propsData = [{
@@ -43,10 +45,10 @@ function Layout({ homeStayItem, experienceItem, eventsItem, blogs }) {
     {
         title: 'events',
         img1: event_head,
-        img2: event1,
-        img3: event2,
-        img4: event2,
-        img5: event1
+        img2: eventsItem && `${serverURL_}/${eventsItem[0].file_path}/${eventsItem[0].file_name}`,
+        img3: eventsItem && `${serverURL_}/${eventsItem[1].file_path}/${eventsItem[1].file_name}`,
+        img4: eventsItem && `${serverURL_}/${eventsItem[2].file_path}/${eventsItem[2].file_name}`,
+        img5: eventsItem && `${serverURL_}/${eventsItem[3].file_path}/${eventsItem[3].file_name}`
 
     }]
 
@@ -64,9 +66,7 @@ function Layout({ homeStayItem, experienceItem, eventsItem, blogs }) {
                         )
                     })
                 }
-
                 <Blogs title={'blog'} blog={blog} data={blogs}/>
-
                 <section id="instagram-feeds" className="instagram-feeds text-center pb-70">
                     <div className="container">
                         <div className="row">
@@ -85,7 +85,6 @@ function Layout({ homeStayItem, experienceItem, eventsItem, blogs }) {
                 </section>
             </main>
         </>
-
     )
 }
 export default Layout

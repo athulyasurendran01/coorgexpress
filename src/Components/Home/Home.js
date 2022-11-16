@@ -12,7 +12,7 @@ function Home() {
     const response = useSelector(homeBasics);
     const homeBasic = response.value;
     const loadingStatus = response.status;
-
+    
     const expArray = [{
         id: 1,
         name: "Hiking"
