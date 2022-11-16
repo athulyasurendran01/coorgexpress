@@ -39,10 +39,10 @@ function ExperienceDetail() {
     const params = useParams();
 
     const [message, setMessage] = useState('')
-    const [dateRange, setDateRange] = useState([null, null]);
-    const [startDate, endDate] = dateRange;
+    const [dateRange, setDateRange] = useState();
     const [currentSlide, setCurrentSlide] = useState(0);
     const [no_guest, setPerson] = useState(0);
+    const [slots, setSlot] = useState();
     const carouselInner = useRef(null);
     const slideChanged = useCallback(() => {
         const activeItem = carouselInner.current.querySelector(".active");
@@ -74,7 +74,7 @@ function ExperienceDetail() {
     const booknow = () => {
         setMessage("")
 
-        if (no_guest <= 0 || dateRange[0] == null || dateRange[1] == null) {
+        if (no_guest <= 0 || !dateRange  || !slots) {
             setMessage("Please check the input")
             return;
         }
@@ -87,7 +87,8 @@ function ExperienceDetail() {
             check_in_time: experienceDetails.data[0].check_in_time,
             check_out_time: experienceDetails.data[0].check_out_time,
             no_guest: no_guest,
-            total: experienceDetails.data[0].event_price
+            total: experienceDetails.data[0].event_price,
+            category: 'experience'
         }
         navigate('/booking', { state: bookingDetails })
     }
@@ -433,7 +434,11 @@ function ExperienceDetail() {
                                             <form className="mb-0">
                                                 <div className="form-group">
                                                     <label for="contact-name">Pick a Date*</label>
-                                                    <input type="date" className="form-control" name="date" id="date" placeholder="Date" />
+                                                    <input type="date" className="form-control" name="date" 
+                                                    onChange={(e) => {
+                                                        setDateRange(e.target.value);
+                                                    }}
+                                                     placeholder="Date" />
                                                     {/*
                                                     <DatePicker selectsRange={true}
                                                         startDate={startDate}
@@ -459,7 +464,8 @@ function ExperienceDetail() {
                                                         marginBottom : "0px"
                                                     }}
                                                 >
-                                                    <input type="radio" name="slots" id=""  
+                                                    <input type="radio" name="slots" value="first"
+                                                    onChange={(e) => setSlot(e.target.value)}  
                                                         style={{
                                                             marginRight : "20px"
                                                         }}
@@ -467,7 +473,8 @@ function ExperienceDetail() {
                                                     <label> 12:00 PM − 11:00 AM</label>
                                                 </div>
                                                 <div className="form-group col-lg-12">
-                                                    <input type="radio" name="slots" id=""   
+                                                    <input type="radio" name="slots" value="second"
+                                                    onChange={(e) => setSlot(e.target.value)}  
                                                         style={{
                                                             marginRight : "20px"
                                                         }}
@@ -482,7 +489,7 @@ function ExperienceDetail() {
                                                         id="contact-email" required />
                                                 </div>
                                                 <span style={{ color: 'red' }}>{message}</span>
-                                                <input type="submit" value="Book Now" name="submit"
+                                                <input type="button" value="Book Now" name="submit"
                                                     className="btn btn--success mb-20"
                                                     onClick={booknow}
                                                     style={{ width: "100%", background: "#34a20d", color: "#fff", zIndex: 0 }} />
@@ -512,7 +519,7 @@ function ExperienceDetail() {
                                                             marginRight : "20px"
                                                         }}
                                                     />
-                                                    12:00 PM − 11:00 AM ₹ 3,333(per person)
+                                                    12:00 PM − 11:00 AM ₹ {experienceDetails.data[0].event_price}(per person)
                                                 </div>
 
                                                 <div className="form-group col-lg-12">
@@ -522,7 +529,7 @@ function ExperienceDetail() {
                                                         className="form-control price-box" 
                                                         name="price" 
                                                         id="price" 
-                                                        placeholder='Rs. 3333'
+                                                        placeholder={`Rs ${experienceDetails.data[0].event_price}`}
                                                         disabled 
                                                         style={{
                                                             backgroundColor: "#fff",

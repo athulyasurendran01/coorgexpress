@@ -4,7 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import PropertyFilter from './PropertyFilter/PropertyFilter'
 import SearchAutoComplete from './SearchAutoComplete';
 import RangeSlider from './RangeSlider';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import ReactPaginate from 'react-paginate';
 import pet_friendly from '../../assets/images/property/icons/pet-friendly.png'
@@ -13,10 +13,10 @@ import Form from 'react-bootstrap/Form';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { itemsArray, getItemsArray } from '../../reducers/propertyList';
-import { filterItem, filterItemsArray } from '../../reducers/filterProperty';
 import { serverURL } from "../../app/Config"
 import Loader from "../Loader/Loader";
 import { httpFilterGetService } from '../../app/httpHandler';
+import Pagination from './Pagination/Pagination';
 
 const responsive1 = {
     desktop: {
@@ -36,15 +36,21 @@ const responsive1 = {
     }
 };
 
+const PageSize = 10
+
 function PropertyTypeStrip(props) {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [total, setTotal] = useState(1);
+
     const [responseData, setResponseData] = useState([])
     const [propertyArray, setPropertyArray] = useState([])
     const [locations, setLocations] = useState([])
-    const [properties, setProperties] = useState([])
+    const [properties, setProperties] = useState()
     const [trialProperties, setTrialProperties] = useState([])
     const [amenitiesArray, setAmenitiesArray] = useState([])
     const [priceRange, setPriceRange] = useState([500, 10000])
-    const [itemsPerPage, setItemsPerPage] = useState(10)
+    const [propSelected, selectedProp] = useState()
+    const [isSearch, searchEnable] = useState(false)
     const [pageCount, setPageCount] = useState(0)
     const [itemOffset, setItemOffset] = useState(0)
     const [listView, setListView] = useState(true)
@@ -52,49 +58,55 @@ function PropertyTypeStrip(props) {
 
     const dispatch = useDispatch();
     let response = useSelector(itemsArray);
-    const filterResponse = useSelector(filterItemsArray);
-    if (response.value === 0) response = filterResponse;
     const itemsDetails = response.value;
-    const loadingStatus = response.status || filterResponse.status;
+    const loadingStatus = response.status;
 
     const location = useLocation();
 
-    useEffect(() => {
-        if (location.state && location.state.type) {
-            const searchOpts = `price_start=${priceRange[0]}&price_end=${priceRange[1]}
-            &properties=${location.state.type}`
-            dispatch(filterItem({ type: props.category, page: 1, option: searchOpts }))
-        } else {
-            dispatch(getItemsArray({ type: props.category, page: 1 }))
-        }
-    }, [])
-
-    useEffect(() => {
+    useMemo(() => {
         setResponseData(itemsDetails.data)
-    }, [itemsDetails])
+        setTotal(itemsDetails.total)
+    }, [response]);
 
-    useEffect(() => {
-        setResponseData(filterResponse.value.data)
-    }, [filterResponse])
+    useMemo(() => {
+        if (propSelected) {
+            const searchOpts = `properties=${propSelected}&page=${currentPage}`
+            dispatch(getItemsArray({ type: props.category, page: { currentPage }, option: searchOpts }))
+        } else if (location.state && location.state.type) {
+            const searchOpts = `properties=${location.state.type}&page=${currentPage}`
+            dispatch(getItemsArray({ type: props.category, page: 1, option: searchOpts }))
+        } else if (isSearch) {
+            let locArray = [];
+            for (let i = 0; i < locations.length; i++) {
+                locArray.push(locations[i].key)
+            }
+            const searchOpts = `price_start=${priceRange[0]}&price_end=${priceRange[1]}&aminities=${amenitiesArray.join()}
+            &locations=${locArray.join()}&properties=${properties && properties.key}&trialProperties=${trialProperties.key}&page=${currentPage}`
+            dispatch(getItemsArray({ type: props.category, page: currentPage, option: searchOpts }))
 
-    const getPaginationData = (event) => {
-        let responseData = itemsDetails.data
-        let itemsPerPage = itemsDetails.data.length
-        const newOffset = (event.selected * itemsPerPage) % responseData.length;
-        setItemOffset(newOffset)
-        // setLoader(true)
-        let pageStr = (event.selected + 1) ? `?page=${(event.selected + 1)}` : ''
-        const apiURL = `${serverURL}/${props.category}.php${pageStr}`
+        }
+        else
+            dispatch(getItemsArray({ type: props.category, page: (currentPage) }))
+    }, [currentPage, location]);
 
-        fetch(`${apiURL}`)
-            .then((response) => response.json())
-            .then((itemsDetails) => {
-                setResponseData(itemsDetails[0].data)
-                // setLoader(false)
-            })
-            .catch(err => console.log(err))
-        // dispatch(getItemsArray({ type: props.category, page: (event.selected + 1) }))
-    }
+    // const getPaginationData = (event) => {
+    //     let responseData = itemsDetails.data
+    //     let itemsPerPage = itemsDetails.total
+    //     const newOffset = (event.selected * itemsPerPage) % responseData.length;
+    //     setItemOffset(newOffset)
+    //     // setLoader(true)
+    //     let pageStr = (event.selected + 1) ? `?page=${(event.selected + 1)}` : ''
+    //     const apiURL = `${serverURL}/${props.category}.php${pageStr}`
+
+    //     fetch(`${apiURL}`)
+    //         .then((response) => response.json())
+    //         .then((itemsDetails) => {
+    //             setResponseData(itemsDetails[0].data)
+    //             // setLoader(false)
+    //         })
+    //         .catch(err => console.log(err))
+    //     // dispatch(getItemsArray({ type: props.category, page: (event.selected + 1) }))
+    // }
 
     const setLocOptions = (value) => {
         setLocations(value)
@@ -113,27 +125,29 @@ function PropertyTypeStrip(props) {
     }
 
     const handleClick = (id, value) => {
-        const replacementList = [...amenitiesArray, id];
-        setAmenitiesArray(replacementList);
+        console.log(amenitiesArray, value)
+
+        if (value == false) {
+            let idx = amenitiesArray.indexOf(id)
+            amenitiesArray.splice(idx, 1)
+            setAmenitiesArray(amenitiesArray)
+        }else{
+            const replacementList = [...amenitiesArray, id];
+            setAmenitiesArray(replacementList);
+        }
+        
     }
 
     const onSearch = () => {
+        searchEnable(true)
+        setCurrentPage(1)
         let locArray = [];
         for (let i = 0; i < locations.length; i++) {
             locArray.push(locations[i].key)
         }
         const searchOpts = `price_start=${priceRange[0]}&price_end=${priceRange[1]}&aminities=${amenitiesArray.join()}
-        &locations=${locArray.join()}&properties=${properties && properties.key}&trialProperties=${trialProperties.key}`
-
-        const apiURL = `${serverURL}/${props.category}.php?${searchOpts}`
-        fetch(`${apiURL}`)
-            .then((response) => response.json())
-            .then((itemsDetails) => {
-                setResponseData(itemsDetails[0].data)
-            })
-            .catch(err => console.log(err))
-
-        // dispatch(filterItem({ type: props.category, page: 1, option: searchOpts }))
+        &locations=${locArray.join()}&properties=${properties && properties.key}&trialProperties=${trialProperties.key}&page=${currentPage}`
+        dispatch(getItemsArray({ type: props.category, page: 1, option: searchOpts }))
     }
 
     const onListSort = (e) => {
@@ -151,11 +165,15 @@ function PropertyTypeStrip(props) {
     }
 
     const filterProperty = (value) => {
-        let arrayForSort = [...itemsDetails.data]
-        arrayForSort = arrayForSort.filter((item) => {
-            return props.category === 'stay' ? item.property_type_id == value : item.experience_type == value;
-        });
-        setResponseData(arrayForSort);
+        setCurrentPage(1)
+        selectedProp(value)
+        const searchOpts = `properties=${value}&page=${currentPage}`
+        dispatch(getItemsArray({ type: props.category, page: 1, option: searchOpts }))
+        // let arrayForSort = [...itemsDetails.data]
+        // arrayForSort = arrayForSort.filter((item) => {
+        //     return props.category === 'stay' ? item.property_type_id == value : item.experience_type == value;
+        // });
+        // setResponseData(arrayForSort);
     }
 
     if (!loadingStatus || isLoader) {
@@ -168,27 +186,27 @@ function PropertyTypeStrip(props) {
         return (
             <section id="properties-grid" style={{ "overflow": "inherit" }}>
                 {props.category !== 'events' &&
-                <div className="search-properties" >
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-xs-12 col-sm-12 col-md-12">
-                                <form className="mb-0 ">
-                                    <div className="form-box col-lg-12">
-                                        <div className="row">
-                                            <div className="col-xs-12 col-sm-12 col-md-12">
-                                                <PropertyFilter
-                                                    type={props.category}
-                                                    data={itemsDetails.propety_types}
-                                                    filterProperty={filterProperty} />
+                    <div className="search-properties" >
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-12 col-md-12">
+                                    <form className="mb-0 ">
+                                        <div className="form-box col-lg-12">
+                                            <div className="row">
+                                                <div className="col-xs-12 col-sm-12 col-md-12">
+                                                    <PropertyFilter
+                                                        type={props.category}
+                                                        data={itemsDetails.propety_types}
+                                                        filterProperty={filterProperty} />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-               }
+                }
 
                 <div className="container">
                     <div className="row">
@@ -215,14 +233,14 @@ function PropertyTypeStrip(props) {
                                             <SearchAutoComplete
                                                 data={itemsDetails.locations ? itemsDetails.locations : []}
                                                 title={'Location'}
-                                                type={'multiple'} setOptions={setLocOptions} />
+                                                type={'multiple'} setOptions={setLocOptions} selectedVal={locations} />
                                         </div>
                                     </div>
                                     <div className="form-group">
                                         <div className="select--box">
                                             <SearchAutoComplete
                                                 data={itemsDetails.propety_types ? itemsDetails.propety_types : []}
-                                                title={'Property Type'} setOptions={setPropOptions} />
+                                                title={'Property Type'} setOptions={setPropOptions} selectedVal={properties} />
                                         </div>
                                     </div>
                                     {props.category === 'events' &&
@@ -230,7 +248,7 @@ function PropertyTypeStrip(props) {
                                             <div className="select--box">
                                                 <SearchAutoComplete
                                                     data={itemsDetails.trial_types ? itemsDetails.trial_types : []}
-                                                    title={'Trial Type'} setOptions={setTrialPropOptions} />
+                                                    title={'Trial Type'} setOptions={setTrialPropOptions} selectedVal={trialProperties} />
                                             </div>
                                         </div>
                                     }
@@ -239,7 +257,7 @@ function PropertyTypeStrip(props) {
                                             <h5>PRICE RANGE</h5>
                                         </div>
                                         <div className="widget--content">
-                                            <RangeSlider handlePriceChange={handlePriceChange} />
+                                            <RangeSlider handlePriceChange={handlePriceChange} selectedVal={priceRange} />
                                         </div>
                                     </div>
 
@@ -253,6 +271,7 @@ function PropertyTypeStrip(props) {
                                                     return (
                                                         <div className="input-checkbox" key={idx}>
                                                             <Checkbox label={item.amenity} id={item.id}
+                                                                selectedVal={amenitiesArray}
                                                                 handleClick={handleClick} />
                                                         </div>
                                                     )
@@ -355,6 +374,7 @@ function PropertyTypeStrip(props) {
                         </div> */}
                         </div>
 
+
                         <div className="col-xs-12 col-sm-12 col-md-8" style={{ marginTop: '5px' }}>
                             <div className="row property-list">
                                 <div className="col-xs-12 col-sm-12 col-md-12">
@@ -379,6 +399,7 @@ function PropertyTypeStrip(props) {
                                         */}
                                     </div>
                                 </div>
+                                {total === 0 && <p>No data found</p>}
 
                                 {props.category === 'stay' &&
                                     <div className="properties properties-grid row">
@@ -492,7 +513,14 @@ function PropertyTypeStrip(props) {
                                     </div>
                                 }
 
-                                {itemsDetails.data.length > 0 && (filterResponse.value.data && filterResponse.value.data.length) &&
+                                <Pagination
+                                    className="pagination-bar"
+                                    currentPage={currentPage}
+                                    totalCount={total}
+                                    pageSize={PageSize}
+                                    onPageChange={page => setCurrentPage(page)}
+                                />
+                                {/* {itemsDetails.total && itemsDetails.total > 0 &&
                                     <ReactPaginate
                                         className='text-center'
                                         breakLabel="..."
@@ -504,7 +532,7 @@ function PropertyTypeStrip(props) {
                                         renderOnZeroPageCount={null}
                                         activeClassName={"pagination-active"}
                                     />
-                                } 
+                                }  */}
                             </div>
                         </div>
                     </div>

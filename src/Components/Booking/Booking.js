@@ -14,11 +14,16 @@ function Booking() {
         return new Date(date_).toLocaleDateString("en-US")
     }
 
+    const getDateFormat = () => {
+        let date_ = propertyDetails.daterange.toString()
+        return new Date(date_).toLocaleDateString("en-US")
+    }
+
     const getNight = () => {
         let date_1 = new Date(propertyDetails.daterange[0].toString())
         let date_2 = new Date(propertyDetails.daterange[1].toString())
-        let diff = date_2.getTime() - date_1.getTime();   
-        let daydiff = diff / (1000 * 60 * 60 * 24);   
+        let diff = date_2.getTime() - date_1.getTime();
+        let daydiff = diff / (1000 * 60 * 60 * 24);
         return daydiff;
     }
 
@@ -181,14 +186,14 @@ function Booking() {
                                         </div>
                                     </a>*/}
                                     <div className="agent--info">
-                                            <h5 className="agent--title">{propertyDetails.name}</h5>
-                                        </div>
-                                        <div className="property--details">
-                                            <p><b>Location:</b> Address</p>
-                                        </div>
-                                        <div className="property--details">
-                                            <p>This is dummy discription</p>
-                                        </div>
+                                        <h5 className="agent--title">{propertyDetails.name}</h5>
+                                    </div>
+                                    <div className="property--details">
+                                        <p><b>Location:</b> Address</p>
+                                    </div>
+                                    <div className="property--details">
+                                        <p>This is dummy discription</p>
+                                    </div>
 
                                 </div>
                             </div>
@@ -199,26 +204,48 @@ function Booking() {
                                 </div>
                                 <div className="widget--content row">
                                     <div className="col-xs-12">
-                                        <h6>Date <span>{getDate(0)} - {getDate(1)}</span></h6>
+                                        <h6>Date
+                                            {propertyDetails.category === 'stay' && <span>{getDate(0)} - {getDate(1)}</span>}
+                                            {propertyDetails.category === 'experience' && <span>{getDateFormat()}</span>}
+                                        </h6>
+                                    </div>
+                                    {propertyDetails.category === 'stay' &&
+                                        <>
+                                            <div className="col-xs-12">
+                                                <h6>Check In Time <span>{propertyDetails.check_in_time}</span></h6>
+                                            </div>
+                                            <div className="col-xs-12">
+                                                <h6>Check Out Time <span>{propertyDetails.check_out_time}</span></h6>
+                                            </div>
+                                        </>
+                                    }
+                                    <div className="col-xs-12">
+                                        <h6 className="guest-detail">
+                                            Guests <span>{propertyDetails.no_guest}
+                                                {propertyDetails.category === 'stay' &&
+                                                    <>
+                                                        Adult(s) & {propertyDetails.no_guest_child}
+                                                        Child & {propertyDetails.no_guest_infant}
+                                                        Infant(s)
+                                                    </>}</span></h6>
                                     </div>
                                     <div className="col-xs-12">
-                                        <h6>Check In Time <span>{propertyDetails.check_in_time}</span></h6>
-                                    </div>
-                                    <div className="col-xs-12">
-                                        <h6>Check Out Time <span>{propertyDetails.check_out_time}</span></h6>
-                                    </div>
-                                    <div className="col-xs-12">
-                                        <h6 className="guest-detail">Guests <span>{propertyDetails.no_guest} Adult(s) & {propertyDetails.no_guest_child} Child & {propertyDetails.no_guest_infant} Infant(s)</span></h6>
-                                    </div>
-                                    <div className="col-xs-12">
-                                        <h6 className="amount-detail">Rs. {propertyDetails.total} X {getNight()} night(s) <span>Rs. {propertyDetails.total * getNight()}</span></h6>
+                                        {propertyDetails.category === 'stay' && <h6 className="amount-detail">
+                                            Rs. {propertyDetails.total} X {getNight()} night(s)
+                                            <span>Rs. {propertyDetails.total * getNight()}</span>
+                                        </h6>}
+                                        {propertyDetails.category === 'experience' && <h6 className="amount-detail">
+                                            Rs. {propertyDetails.total} X {propertyDetails.no_guest} Guests
+                                            <span>Rs. {propertyDetails.total * propertyDetails.no_guest}</span>
+                                        </h6>}
                                     </div>
                                     <div className="col-xs-12">
                                         <h6 className="cleaning-detail">Cleaning Charges <span>Rs. {cleaning_charge}</span></h6>
                                     </div>
                                     <div className="col-xs-12">
                                         <h6 className="grand-total">Grand Total (INR)</h6>
-                                        <h6 className="grand-total"><span>Rs. {propertyDetails.total * getNight() + cleaning_charge} (Inclusive of GST)</span></h6>
+                                        {propertyDetails.category === 'stay' && <h6 className="grand-total"><span>Rs. {propertyDetails.total * getNight() + cleaning_charge} (Inclusive of GST)</span></h6>}
+                                        {propertyDetails.category === 'experience' && <h6 className="grand-total"><span>Rs. {propertyDetails.total * propertyDetails.no_guest + cleaning_charge} (Inclusive of GST)</span></h6>}
                                     </div>
                                 </div>
                             </div>

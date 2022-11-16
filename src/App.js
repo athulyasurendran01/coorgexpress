@@ -73,6 +73,7 @@ function App() {
           <Route path="/stay/:id" caseSensitive={false} element={<PropertyDetail />} />
           <Route path="/experiences" caseSensitive={false} element={<Experiences propertyHighlight={propertyHighlight} />} />
           <Route path="/experiences/:id" caseSensitive={false} element={<ExperienceDetail />} />
+          <Route path="/events/:id" caseSensitive={false} element={<ExperienceDetail />} />
           <Route path="/events" caseSensitive={false} element={<Events propertyHighlight={propertyHighlight} />} />
           <Route path="/contact" caseSensitive={false} element={<Contact />} />
           <Route path="/blog" caseSensitive={false} element={<Blog />} />

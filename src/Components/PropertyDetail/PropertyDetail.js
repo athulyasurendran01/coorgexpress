@@ -135,7 +135,8 @@ function PropertyDetail() {
             no_guest: no_guest,
             no_guest_child: no_guest_child,
             no_guest_infant: no_guest_infant,
-            total: (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price
+            total: (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price,
+            category: 'stay'
         }
         navigate('/booking', { state: bookingDetails })
     }

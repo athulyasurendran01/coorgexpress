@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { httpGetService } from '../app/httpHandler';
+import { httpGetService, httpFilterGetService } from '../app/httpHandler';
 
 const initialState = {
   value: 0,
@@ -8,8 +8,13 @@ const initialState = {
 
 export const getItemsArray = createAsyncThunk(
   'home/fetchPropertyList',
-  async ({type, page}) => {
-    const response = await httpGetService(type,'', page)
+  async ({ type, page, option }) => {
+    let response;
+    if (option) {
+      response = await httpFilterGetService(type, page, option)
+    } else {
+      response = await httpGetService(type, '', page)
+    }
     return response;
   }
 );

@@ -7,7 +7,7 @@ function valuetext(value) {
 }
 
 export default function RangeSlider(props) {
-  const [value, setValue] = React.useState([500, 10000]);
+  const [value, setValue] = React.useState([props.selectedVal[0], props.selectedVal[1]]);
 
   const handleChange = (event, newValue) => {
     props.handlePriceChange(newValue)
@@ -22,6 +22,7 @@ export default function RangeSlider(props) {
         onChange={handleChange}
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
+        // defaultValue={props.selectedVal}
         min={500}
         max={50000}
       />
