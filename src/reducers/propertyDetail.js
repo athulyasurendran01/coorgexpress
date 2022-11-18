@@ -16,8 +16,8 @@ export const getPropertyDetail = createAsyncThunk(
 
 export const sendMail = createAsyncThunk(
   'home/sendMail',
-  async () => {
-    const response = await httpMailService()
+  async (data) => {
+    const response = await httpMailService(data)
     alert("Mail sent successfully")
     // return response;
   }

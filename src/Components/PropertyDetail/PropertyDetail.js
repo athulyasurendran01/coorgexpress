@@ -66,6 +66,16 @@ function PropertyDetail() {
     const [rooms, setRooms] = useState([]);
     const [message, setMessage] = useState('')
 
+    const [input0, setEnqInput0] = useState()
+    const [input1, setEnqInput1] = useState()
+    const [input2, setEnqInput2] = useState()
+    const [input3, setEnqInput3] = useState()
+    const [input4, setEnqInput4] = useState()
+    const [input5, setEnqInput5] = useState()
+    const [input6, setEnqInput6] = useState()
+    const [input7, setEnqInput7] = useState()
+    const [input8, setEnqInput8] = useState()
+
     const [currentSlide, setCurrentSlide] = useState(0);
     const carouselInner = useRef(null);
     const slideChanged = useCallback(() => {
@@ -114,7 +124,19 @@ function PropertyDetail() {
     }
 
     const sendEnquiry = () => {
-        dispatch(sendMail())
+        let data = new FormData ();
+        data.append ("date1", input0);
+        data.append ("date2", input1);
+        data.append ("adult", input2);
+        data.append ("children", input3);
+        data.append ("extra_bd", input4);
+        data.append ("name", input5);
+        data.append ("contact", input6);
+        data.append ("email", input7);
+        data.append ("message", input8);
+        data.append ("total", (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price);
+        
+        dispatch(sendMail(data))
     }
 
     const booknow = () => {
@@ -612,22 +634,22 @@ function PropertyDetail() {
                                             <form className="mb-0 row">
                                                 <div className="form-group col-lg-6">
                                                     <label for="start-date">Start Date</label>
-                                                    <input type="date" className="form-control" name="start-date" id="start-date" placeholder="Start Date" />
+                                                    <input type="date" className="form-control" name="start-date" id="start-date" onChange={(e) => setEnqInput0(e.target.value)} placeholder="Start Date" />
                                                 </div>
 
                                                 <div className="form-group col-lg-6">
                                                     <label for="end-date">End Date</label>
-                                                    <input type="date" className="form-control" name="end-date" id="end-date" placeholder="End Date" />
+                                                    <input type="date" className="form-control" name="end-date" id="end-date" onChange={(e) => setEnqInput1(e.target.value)} placeholder="End Date" />
                                                 </div>
 
                                                 <div className="form-group col-lg-6">
                                                     <label for="adults">Adults: &gt; 12</label>
-                                                    <input type="text" className="form-control" name="adults" id="adults" placeholder="Adults" />
+                                                    <input type="number" className="form-control" name="adults" id="adults" onChange={(e) => setEnqInput2(e.target.value)} placeholder="Adults" />
                                                 </div>
 
                                                 <div className="form-group col-lg-6">
                                                     <label for="children">Children: &lt; 12</label>
-                                                    <input type="text" className="form-control" name="children" id="children" placeholder="Children" />
+                                                    <input type="number" className="form-control" name="children" id="children" onChange={(e) => setEnqInput3(e.target.value)} placeholder="Children" />
                                                 </div>
 
                                                 <div className="form-group col-lg-12">
@@ -638,7 +660,7 @@ function PropertyDetail() {
                                                                     marginRight: "10px"
                                                                 }}
                                                             >Do you want an extra bed?</span>
-                                                            <input type="checkbox" />
+                                                            <input type="checkbox" onChange={(e) => setEnqInput4(e.target.value)} />
                                                             <span className="check-indicator"></span>
                                                         </label>
                                                     </div>
@@ -662,22 +684,22 @@ function PropertyDetail() {
 
                                                 <div className="form-group col-lg-6">
                                                     <label for="name">Name</label>
-                                                    <input type="text" className="form-control" name="name" id="name" placeholder="Name" />
+                                                    <input type="text" className="form-control" name="name" onChange={(e) => setEnqInput5(e.target.value)} id="name" placeholder="Name" />
                                                 </div>
 
                                                 <div className="form-group col-lg-6">
                                                     <label for="contact-no">Contact Number</label>
-                                                    <input type="text" className="form-control" name="contact-no" id="contact-no" placeholder="Contact Number" />
+                                                    <input type="text" className="form-control" name="contact-no" onChange={(e) => setEnqInput6(e.target.value)} id="contact-no" placeholder="Contact Number" />
                                                 </div>
 
                                                 <div className="form-group col-lg-12">
                                                     <label for="email">Email</label>
-                                                    <input type="email" className="form-control" name="email" id="email" placeholder="Email" />
+                                                    <input type="email" className="form-control" name="email" id="email" onChange={(e) => setEnqInput7(e.target.value)} placeholder="Email" />
                                                 </div>
 
                                                 <div className="form-group col-lg-12">
                                                     <label for="message">Message</label>
-                                                    <textarea className="form-control" name="message" id="message" placeholder="Message"></textarea>
+                                                    <textarea className="form-control" name="message" id="message" onChange={(e) => setEnqInput8(e.target.value)} placeholder="Message"></textarea>
                                                 </div>
 
                                                 <input type="button" value="Enquiry" name="submit" onClick={() => sendEnquiry()} className="btn btn--primary btn--block" />

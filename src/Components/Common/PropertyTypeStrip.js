@@ -46,7 +46,7 @@ function PropertyTypeStrip(props) {
     const [propertyArray, setPropertyArray] = useState([])
     const [locations, setLocations] = useState([])
     const [properties, setProperties] = useState()
-    const [trialProperties, setTrialProperties] = useState([])
+    const [trialProperties, setTrialProperties] = useState()
     const [amenitiesArray, setAmenitiesArray] = useState([])
     const [priceRange, setPriceRange] = useState([500, 10000])
     const [propSelected, selectedProp] = useState()
@@ -131,11 +131,21 @@ function PropertyTypeStrip(props) {
             let idx = amenitiesArray.indexOf(id)
             amenitiesArray.splice(idx, 1)
             setAmenitiesArray(amenitiesArray)
-        }else{
+        } else {
             const replacementList = [...amenitiesArray, id];
             setAmenitiesArray(replacementList);
         }
-        
+    }
+
+    const clearAll = () => {
+        console.log("Clear all...", locations)
+        // setAmenitiesArray([])
+        // setPriceRange([500, 10000])
+        // setTrialProperties([])
+        // setProperties([])
+        // setProperties('')
+
+        window.location.reload()
     }
 
     const onSearch = () => {
@@ -236,13 +246,15 @@ function PropertyTypeStrip(props) {
                                                 type={'multiple'} setOptions={setLocOptions} selectedVal={locations} />
                                         </div>
                                     </div>
-                                    <div className="form-group">
-                                        <div className="select--box">
-                                            <SearchAutoComplete
-                                                data={itemsDetails.propety_types ? itemsDetails.propety_types : []}
-                                                title={'Property Type'} setOptions={setPropOptions} selectedVal={properties} />
+                                    {props.category !== 'events' &&
+                                        <div className="form-group">
+                                            <div className="select--box">
+                                                <SearchAutoComplete
+                                                    data={itemsDetails.propety_types ? itemsDetails.propety_types : ''}
+                                                    title={'Property Type'} setOptions={setPropOptions} selectedVal={properties} />
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
                                     {props.category === 'events' &&
                                         <div className="form-group">
                                             <div className="select--box">
@@ -279,12 +291,12 @@ function PropertyTypeStrip(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <input type="submit" value="Clear All"
+                                <input type="button" value="Clear All"
                                     className="btn btn--primary"
                                     style={{
                                         "width": "125px",
                                         "marginRight": "10px"
-                                    }} />
+                                    }} onClick={clearAll} />
                                 <input type="submit" value="Search"
                                     className="btn btn--success"
                                     style={{ "width": "125px" }} onClick={onSearch} />

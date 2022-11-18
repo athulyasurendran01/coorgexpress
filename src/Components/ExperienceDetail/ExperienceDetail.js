@@ -9,7 +9,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { propertyData, getPropertyDetail } from '../../reducers/propertyDetail';
+import { propertyData, getPropertyDetail, sendMail } from '../../reducers/propertyDetail';
 import ImageSliderComponent from '../PropertyDetail/ImageSliderComponent';
 import { serverURL_ } from "../../app/Config"
 import Loader from "../Loader/Loader";
@@ -44,6 +44,17 @@ function ExperienceDetail() {
     const [no_guest, setPerson] = useState(0);
     const [slots, setSlot] = useState();
     const carouselInner = useRef(null);
+
+    const [input0, setEnqInput0] = useState()
+    const [input1, setEnqInput1] = useState()
+    const [input3, setEnqInput3] = useState()
+    const [input4, setEnqInput4] = useState()
+    const [input5, setEnqInput5] = useState()
+    const [input6, setEnqInput6] = useState()
+    const [input7, setEnqInput7] = useState()
+    const [input8, setEnqInput8] = useState()
+    const [input2, setEnqInput2] = useState(1);
+
     const slideChanged = useCallback(() => {
         const activeItem = carouselInner.current.querySelector(".active");
         setCurrentSlide(
@@ -74,7 +85,7 @@ function ExperienceDetail() {
     const booknow = () => {
         setMessage("")
 
-        if (no_guest <= 0 || !dateRange  || !slots) {
+        if (no_guest <= 0 || !dateRange) {
             setMessage("Please check the input")
             return;
         }
@@ -91,6 +102,21 @@ function ExperienceDetail() {
             category: 'experience'
         }
         navigate('/booking', { state: bookingDetails })
+    }
+
+    const sendEnquiry = () => {
+        let data = new FormData ();
+        data.append ("date1", input1);
+        data.append ("date2", '');
+        data.append ("adult", input2);
+        data.append ("children", '');
+        data.append ("extra_bd", '');
+        data.append ("name", input5);
+        data.append ("contact", input6);
+        data.append ("email", input7);
+        data.append ("message", input8);
+        data.append ("total", input2 * experienceDetails.data[0].event_price)
+        dispatch(sendMail(data))
     }
 
     if (!loadingStatus) {
@@ -135,7 +161,7 @@ function ExperienceDetail() {
                                                         <span>|</span> <i className="fa fa fa-pencil"></i> <span>{experienceDetails.data[0].duration} Hours</span></span>
                                                 </p>
                                             </div>
-                                            <div className="pull-right verified-listing" style={{textAlign: "end"}}>
+                                            <div className="pull-right verified-listing" style={{ textAlign: "end" }}>
                                                 <input type="submit" value="Verified Listing" name="submit" className="btn btn--success mb-20" style={{ width: "275px", background: "#34a20d", color: "#fff" }} />
                                                 <div className="property-rating" style={{ "margin-top": "0px", "margin-bottom": "20px" }}>
                                                     <span>Hosted By : </span>{experienceDetails.data[0].hosted_by}
@@ -169,7 +195,7 @@ function ExperienceDetail() {
 
                                             <div className="col-xs-12 col-sm-12 col-md-12">
                                                 <div className="property--details">
-                                                    <p>{experienceDetails.data[0].about_experience}</p>
+                                                    <p dangerouslySetInnerHTML={{ __html: experienceDetails.data[0].about_experience }} />
                                                 </div>
                                             </div>
                                         </div>
@@ -190,34 +216,35 @@ function ExperienceDetail() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-xs-6 col-sm-6 col-md-6">
-                                                <div className="feature-panel">
-                                                    <div className="heading">
-                                                        <h2 className="heading--title">Who can attend</h2>
-                                                    </div>
-                                                    <div>
-                                                        {experienceDetails.data[0].who_can_attend &&
-                                                            experienceDetails.data[0].who_can_attend.split(',').map(item => {
+                                            {experienceDetails.data[0].who_can_attend &&
+                                                <div className="col-xs-6 col-sm-6 col-md-6">
+                                                    <div className="feature-panel">
+                                                        <div className="heading">
+                                                            <h2 className="heading--title">Who can attend</h2>
+                                                        </div>
+                                                        <div>
+                                                            {experienceDetails.data[0].who_can_attend.split(',').map(item => {
                                                                 return <p>{item}</p>
                                                             })}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            
+                                            }
                                         </div>
+                                        {experienceDetails.data[0].event_time &&
                                         <div className="row">
-                                            
                                             <div className="col-xs-12 col-sm-12 col-md-6">
                                                 <div className="feature-panel upcoming-slots">
                                                     <div className="heading">
                                                         <h2 className="heading--title">Upcoming Availability</h2>
                                                     </div>
                                                     <div className='slot-availability'>
-                                                        <p>08.00AM - 01.00PM <span className='amount'>Rs. 3000</span></p>
+                                                        <p>{experienceDetails.data[0].event_time} <span className='amount'>Rs. {experienceDetails.data[0].event_price}</span></p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        }
                                     </div>
 
                                     <div className="property-single-design inner-box">
@@ -225,7 +252,7 @@ function ExperienceDetail() {
                                             <div className="col-xs-12 col-sm-12 col-md-12">
                                                 <div className="heading"
                                                     style={{
-                                                        marginBottom : "20px"
+                                                        marginBottom: "20px"
                                                     }}
                                                 >
                                                     <h2 className="heading--title">Tour Notes</h2>
@@ -234,7 +261,7 @@ function ExperienceDetail() {
                                             <div className="col-xs-12 col-sm-12 col-md-12">
                                                 <div className="col-xs-12 col-sm-12 col-md-12">
                                                     <div className="property--details">
-                                                        <p>{experienceDetails.data[0].about_host}</p>
+                                                        <p dangerouslySetInnerHTML={{ __html: experienceDetails.data[0].notes }} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -243,7 +270,7 @@ function ExperienceDetail() {
                                             <div className="col-xs-12 col-sm-12 col-md-12">
                                                 <div className="heading"
                                                     style={{
-                                                        marginBottom : "20px"
+                                                        marginBottom: "20px"
                                                     }}
                                                 >
                                                     <h2 className="heading--title">Things to Bring/Carry</h2>
@@ -252,7 +279,7 @@ function ExperienceDetail() {
                                             <div className="col-xs-12 col-sm-12 col-md-12">
                                                 <div className="col-xs-12 col-sm-12 col-md-12">
                                                     <div className="property--details">
-                                                        <p>{experienceDetails.data[0].about_host}</p>
+                                                        <p dangerouslySetInnerHTML={{ __html: experienceDetails.data[0].things_to_bring }} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -261,7 +288,7 @@ function ExperienceDetail() {
                                             <div className="col-xs-12 col-sm-12 col-md-12">
                                                 <div className="heading"
                                                     style={{
-                                                        marginBottom : "20px"
+                                                        marginBottom: "20px"
                                                     }}
                                                 >
                                                     <h2 className="heading--title">Cancellation Policy</h2>
@@ -270,7 +297,7 @@ function ExperienceDetail() {
                                             <div className="col-xs-12 col-sm-12 col-md-12">
                                                 <div className="col-xs-12 col-sm-12 col-md-12">
                                                     <div className="property--details">
-                                                        <p>{experienceDetails.data[0].about_host}</p>
+                                                        <p dangerouslySetInnerHTML={{ __html: experienceDetails.data[0].cancellation_policy }} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -434,11 +461,11 @@ function ExperienceDetail() {
                                             <form className="mb-0">
                                                 <div className="form-group">
                                                     <label for="contact-name">Pick a Date*</label>
-                                                    <input type="date" className="form-control" name="date" 
-                                                    onChange={(e) => {
-                                                        setDateRange(e.target.value);
-                                                    }}
-                                                     placeholder="Date" />
+                                                    <input type="date" className="form-control" name="date"
+                                                        onChange={(e) => {
+                                                            setDateRange(e.target.value);
+                                                        }}
+                                                        placeholder="Date" />
                                                     {/*
                                                     <DatePicker selectsRange={true}
                                                         startDate={startDate}
@@ -452,35 +479,39 @@ function ExperienceDetail() {
                                                     />
                                                     */}
                                                 </div>
-                                                <div className="form-group col-lg-12" 
-                                                    style={{
-                                                        marginBottom : "0px"
-                                                    }}
-                                                >
-                                                <label for="">Available Slots</label>
-                                                </div>
-                                                <div className="form-group col-lg-12" 
-                                                    style={{
-                                                        marginBottom : "0px"
-                                                    }}
-                                                >
-                                                    <input type="radio" name="slots" value="first"
-                                                    onChange={(e) => setSlot(e.target.value)}  
-                                                        style={{
-                                                            marginRight : "20px"
-                                                        }}
-                                                    />
-                                                    <label> 12:00 PM − 11:00 AM</label>
-                                                </div>
-                                                <div className="form-group col-lg-12">
+                                                {experienceDetails.data[0].event_time &&
+                                                    <>
+                                                        <div className="form-group col-lg-12"
+                                                            style={{
+                                                                marginBottom: "0px"
+                                                            }}
+                                                        >
+                                                            <label for="">Available Slots</label>
+                                                        </div>
+                                                        <div className="form-group col-lg-12"
+                                                            style={{
+                                                                marginBottom: "0px"
+                                                            }}
+                                                        >
+                                                            <input type="radio" name="slots" value="first"
+                                                                onChange={(e) => setSlot(e.target.value)}
+                                                                style={{
+                                                                    marginRight: "20px"
+                                                                }}
+                                                            />
+                                                            <label> {experienceDetails.data[0].event_time}</label>
+                                                        </div>
+                                                    </>
+                                                }
+                                                {/* <div className="form-group col-lg-12">
                                                     <input type="radio" name="slots" value="second"
-                                                    onChange={(e) => setSlot(e.target.value)}  
+                                                        onChange={(e) => setSlot(e.target.value)}
                                                         style={{
-                                                            marginRight : "20px"
+                                                            marginRight: "20px"
                                                         }}
                                                     />
-                                                   <label> 01:00 PM − 12:00 PM</label> 
-                                                </div>
+                                                    <label> 01:00 PM − 12:00 PM</label>
+                                                </div> */}
                                                 <div className="form-group">
                                                     <label for="contact-email">No of Person*</label>
                                                     <input type="number" className="form-control"
@@ -498,39 +529,39 @@ function ExperienceDetail() {
                                     </div>
 
                                     <div className="widget widget-mortgage-calculator">
-                                    <div className="widget--title">
+                                        <div className="widget--title">
                                             <h5>Enquiry</h5>
                                         </div>
                                         <div className="widget--content">
                                             <form className="mb-0 row">
                                                 <div className="form-group col-lg-6">
                                                     <label for="date">Date</label>
-                                                    <input type="date" className="form-control" name="date" id="date" placeholder="Date" />
+                                                    <input type="date" className="form-control" name="date" id="date" placeholder="Date" onChange={(e) => setEnqInput1(e.target.value)}/>
                                                 </div>
 
                                                 <div className="form-group col-lg-6">
                                                     <label for="adults">Adults: &gt; 12</label>
-                                                    <input type="text" className="form-control" name="adults" id="adults" placeholder="Adults" />
+                                                    <input type="number" className="form-control" valu={input2} name="adults" placeholder="Adults" onChange={(e) => setEnqInput2(e.target.value)}/>
                                                 </div>
-
                                                 <div className="form-group col-lg-12">
-                                                    <input type="checkbox" name="lang"  
+                                                    {/* <input type="checkbox" name="lang"
                                                         style={{
-                                                            marginRight : "20px"
+                                                            marginRight: "20px"
                                                         }}
-                                                    />
-                                                    12:00 PM − 11:00 AM ₹ {experienceDetails.data[0].event_price}(per person)
+                                                    /> */}
+                                                    {experienceDetails.data[0].event_time}
+                                                    <p>₹ {experienceDetails.data[0].event_price}(per person)</p>
                                                 </div>
 
                                                 <div className="form-group col-lg-12">
                                                     <label for="price">Final Price</label>
-                                                    <input 
-                                                        type="text" 
-                                                        className="form-control price-box" 
-                                                        name="price" 
-                                                        id="price" 
-                                                        placeholder={`Rs ${experienceDetails.data[0].event_price}`}
-                                                        disabled 
+                                                    <input
+                                                        type="text"
+                                                        className="form-control price-box"
+                                                        name="price"
+                                                        id="price"
+                                                        placeholder={`Rs ${input2 * experienceDetails.data[0].event_price}`}
+                                                        disabled
                                                         style={{
                                                             backgroundColor: "#fff",
                                                             borderColor: "#fff"
@@ -540,25 +571,24 @@ function ExperienceDetail() {
 
                                                 <div className="form-group col-lg-6">
                                                     <label for="name">Name</label>
-                                                    <input type="text" className="form-control" name="name" id="name" placeholder="Name" />
+                                                    <input type="text" className="form-control" name="name" id="name" onChange={(e) => setEnqInput5(e.target.value)} placeholder="Name" />
                                                 </div>
 
                                                 <div className="form-group col-lg-6">
                                                     <label for="contact-no">Contact Number</label>
-                                                    <input type="text" className="form-control" name="contact-no" id="contact-no" placeholder="Contact Number" />
+                                                    <input type="text" className="form-control" name="contact-no" id="contact-no" onChange={(e) => setEnqInput6(e.target.value)} placeholder="Contact Number" />
                                                 </div>
 
                                                 <div className="form-group col-lg-12">
                                                     <label for="email">Email</label>
-                                                    <input type="email" className="form-control" name="email" id="email" placeholder="Email" />
+                                                    <input type="email" className="form-control" name="email" id="email" onChange={(e) => setEnqInput7(e.target.value)} placeholder="Email" />
                                                 </div>
 
                                                 <div className="form-group col-lg-12">
                                                     <label for="message">Message</label>
-                                                    <textarea className="form-control" name="message" id="message" placeholder="Message"></textarea>
+                                                    <textarea className="form-control" name="message" id="message" onChange={(e) => setEnqInput8(e.target.value)} placeholder="Message"></textarea>
                                                 </div>
-
-                                                <input type="button" value="Enquiry" name="submit"  className="btn btn--primary btn--block" />
+                                                <input type="button" value="Enquiry" name="submit" onClick={() => sendEnquiry()} className="btn btn--primary btn--block" />
                                             </form>
                                         </div>
                                     </div>
