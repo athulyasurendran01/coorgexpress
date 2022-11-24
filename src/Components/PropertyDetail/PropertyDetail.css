@@ -177,7 +177,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 .property-single-features p i {
     margin-right: 14px;
-    color: #fe0100;
+    color: green;
 }
 .property-single-features p:before {
     display: none;

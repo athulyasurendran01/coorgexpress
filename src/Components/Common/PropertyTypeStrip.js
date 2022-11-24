@@ -81,7 +81,7 @@ function PropertyTypeStrip(props) {
                 locArray.push(locations[i].key)
             }
             const searchOpts = `price_start=${priceRange[0]}&price_end=${priceRange[1]}&aminities=${amenitiesArray.join()}
-            &locations=${locArray.join()}&properties=${properties && properties.key}&trialProperties=${trialProperties.key}&page=${currentPage}`
+            &locations=${locArray.join()}&properties=${properties && properties.key}&trialProperties=${trialProperties && trialProperties.key}&page=${currentPage}`
             dispatch(getItemsArray({ type: props.category, page: currentPage, option: searchOpts }))
 
         }
@@ -156,7 +156,7 @@ function PropertyTypeStrip(props) {
             locArray.push(locations[i].key)
         }
         const searchOpts = `price_start=${priceRange[0]}&price_end=${priceRange[1]}&aminities=${amenitiesArray.join()}
-        &locations=${locArray.join()}&properties=${properties && properties.key}&trialProperties=${trialProperties.key}&page=${currentPage}`
+        &locations=${locArray.join()}&properties=${properties && properties.key}&trialProperties=${trialProperties && trialProperties.key}&page=${currentPage}`
         dispatch(getItemsArray({ type: props.category, page: 1, option: searchOpts }))
     }
 

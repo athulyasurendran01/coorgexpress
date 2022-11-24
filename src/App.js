@@ -22,6 +22,7 @@ import { propertyHighlights, getHomepage } from './reducers/homeBasic';
 import BlogDetail from './Components/Blog/BlogDetail/BlogDetail';
 import WhyCoorg from './Components/About/WhyCoorg/WhyCoorg';
 import ResponsibleTourism from './Components/About/ResponsibleTourism/ResponsibleTourism';
+import EnquiryConfirm from './Components/Enquiry/EnquiryConfirm';
 
 function App() {
 
@@ -79,6 +80,7 @@ function App() {
           <Route path="/blog" caseSensitive={false} element={<Blog />} />
           <Route path="/blogdetail" caseSensitive={false} element={<BlogDetail />} />
           <Route path="/booking" caseSensitive={false} element={<Booking />} />
+          <Route path="/enquiry-confirm" caseSensitive={false} element={<EnquiryConfirm />} />
           <Route path="/" caseSensitive={false} element={<Home />} />
         </Routes>
         <Footer />

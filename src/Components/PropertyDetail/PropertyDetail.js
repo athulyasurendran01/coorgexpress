@@ -1,6 +1,6 @@
 import PropertyImage from '../../assets/images/property/property_image.jpg';
 import './PropertyDetail.css';
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import ImageSliderComponent from './ImageSliderComponent';
 import { serverURL_ } from "../../app/Config"
@@ -12,17 +12,6 @@ import guests from '../../assets/images/property/icons/guests.png'
 import beds from '../../assets/images/property/icons/beds.png'
 import baths from '../../assets/images/property/icons/baths.png'
 import pet_friendly from '../../assets/images/property/icons/pet-friendly.png'
-import center_cooling from '../../assets/images/property/icons/center-cooling.png'
-import balcony from '../../assets/images/property/icons/balcony.png'
-import fire_alarm from '../../assets/images/property/icons/fire-alarm.png'
-import modern_kitchen from '../../assets/images/property/icons/modern-kitchen.png'
-import storage from '../../assets/images/property/icons/storage.png'
-import heating from '../../assets/images/property/icons/heating.png'
-import pool from '../../assets/images/property/icons/pool.png'
-import laundry from '../../assets/images/property/icons/laundry.png'
-import gym from '../../assets/images/property/icons/gym.png'
-import elevator from '../../assets/images/property/icons/elevator.png'
-import dish_washer from '../../assets/images/property/icons/dish-washer.png'
 import ReactPlayer from 'react-player'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -30,6 +19,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Loader from "../Loader/Loader";
 
+// Total amount based on the room selected or the entire banglw So childern price is not neccessary
 
 import { Container, Row, Col } from 'react-bootstrap';
 
@@ -105,6 +95,14 @@ function PropertyDetail() {
         dispatch(getPropertyDetail({ type: 'stay', id: params.id }))
     }, [])
 
+    useMemo(() => {
+        let max_no_person = parseInt(no_guest) + parseInt(no_guest_child) + parseInt(no_guest_infant)
+        if (propertyDetails.data && propertyDetails.data[0].max_no_of_guest < max_no_person) {
+            setMessage(`${propertyDetails.data[0].max_no_of_guest} is the Maximum number guest.`)
+        } else {
+            setMessage('')
+        }
+    }, [no_guest, no_guest_child, no_guest_infant]);
 
     const handleChange = (e) => {
         const { value, checked } = e.target;
@@ -124,26 +122,31 @@ function PropertyDetail() {
     }
 
     const sendEnquiry = () => {
-        let data = new FormData ();
-        data.append ("date1", input0);
-        data.append ("date2", input1);
-        data.append ("adult", input2);
-        data.append ("children", input3);
-        data.append ("extra_bd", input4);
-        data.append ("name", input5);
-        data.append ("contact", input6);
-        data.append ("email", input7);
-        data.append ("message", input8);
-        data.append ("total", (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price);
-        
+        let data = new FormData();
+        data.append("date1", input0);
+        data.append("date2", input1);
+        data.append("adult", input2);
+        data.append("children", input3);
+        data.append("extra_bd", input4);
+        data.append("name", input5);
+        data.append("contact", input6);
+        data.append("email", input7);
+        data.append("message", input8);
+        data.append("total", (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price);
+
         dispatch(sendMail(data))
     }
 
     const booknow = () => {
         setMessage("")
+        let max_no_person = parseInt(no_guest) + parseInt(no_guest_child) + parseInt(no_guest_infant)
 
         if (no_guest <= 0 || dateRange[0] == null || dateRange[1] == null) {
             setMessage("Please check the input")
+            return;
+        }
+        if (propertyDetails.data[0].max_no_of_guest < max_no_person) {
+            setMessage(`${propertyDetails.data[0].max_no_of_guest} is the Maximum number guest.`)
             return;
         }
 
@@ -393,13 +396,19 @@ function PropertyDetail() {
                                                                     <div className="avatar">R</div>
                                                                     <div className="comment">
                                                                         <h6>{room.room_no_name} - ₹ {room.room_base_price}</h6>
-                                                                        <div className="property-rating">
+                                                                        {/* <div className="property-rating">
                                                                             <i className="fa fa-star"></i>
                                                                             <i className="fa fa-star"></i>
                                                                             <i className="fa fa-star"></i>
                                                                             <i className="fa fa-star"></i>
                                                                             <i className="fa fa-star-o"></i>
-                                                                        </div>
+                                                                        </div> */}<br/>
+                                                                       <div className="">
+                                                                                    <h6>Type: {room.type} </h6>
+                                                                                    <h6>Available Beds: {room.no_of_bed} </h6>
+                                                                                    <h6>Maximum Extra Beds: {room.extra_bed} </h6>
+                                                                                    <h6>Extra Per Bed Charge:  ₹ {room.extra_bed_charge} </h6>
+                                                                                </div>
                                                                         <p>{room.room_description}</p>
                                                                     </div>
                                                                 </Col>
@@ -605,17 +614,17 @@ function PropertyDetail() {
                                                     <input type="number" className="form-control" required
                                                         onChange={(e) => setPerson(e.target.value)} />
                                                 </div>
-                                                <span style={{ color: 'red' }}>{message}</span>
                                                 <div className="form-group">
-                                                    <label for="">Infants (0 - 5 years)*</label>
+                                                    <label for="">Infants (0 - 5 years)</label>
                                                     <input type="number" className="form-control" required
                                                         onChange={(e) => setInfant(e.target.value)} />
                                                 </div>
                                                 <div className="form-group">
-                                                    <label for="">Children (6 - 12)*</label>
+                                                    <label for="">Children (6 - 12)</label>
                                                     <input type="number" className="form-control" required
                                                         onChange={(e) => setChild(e.target.value)} />
                                                 </div>
+                                                <span style={{ color: 'red' }}>{message}</span>
                                                 <button className="btn btn--success mb-20"
                                                     onClick={booknow}
                                                     type="button"

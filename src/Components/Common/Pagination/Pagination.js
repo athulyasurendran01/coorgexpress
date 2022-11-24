@@ -45,13 +45,13 @@ const Pagination = props => {
       >
         <div className="arrow left" />
       </li> */}
-      {paginationRange.map(pageNumber => {
+      {paginationRange.map((pageNumber, idx) => {
         if (pageNumber === DOTS) {
-          return <li className="pagination-item dots">&#8230;</li>;
+          return <li key={idx} className="pagination-item dots">&#8230;</li>;
         }
 
         return (
-          <li
+          <li key={idx} 
             className={classnames('pagination-item', {
               selected: pageNumber === currentPage
             })}

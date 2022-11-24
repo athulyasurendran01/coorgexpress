@@ -221,12 +221,12 @@ function Booking() {
                                     }
                                     <div className="col-xs-12">
                                         <h6 className="guest-detail">
-                                            Guests <span>{propertyDetails.no_guest}
+                                            Guests <span>{propertyDetails.no_guest} Adult(s)
                                                 {propertyDetails.category === 'stay' &&
                                                     <>
-                                                        Adult(s) & {propertyDetails.no_guest_child}
-                                                        Child & {propertyDetails.no_guest_infant}
-                                                        Infant(s)
+                                                        <br/>{propertyDetails.no_guest_child} Child < br/>
+                                                        {propertyDetails.no_guest_infant} Infant(s)
+                                                        
                                                     </>}</span></h6>
                                     </div>
                                     <div className="col-xs-12">
