@@ -195,6 +195,15 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
     line-height: 1;
     margin-bottom: 18px;
 }
+.property-review .comment h6 {
+    font-size: 14px !important;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px;
+}
+.property-review .comment h5 {
+    font-size: 15px;
+    font-weight: 700;
+}
 .property-review {
     list-style: none;
     margin-bottom: 0;

@@ -15,6 +15,7 @@
 
 .pagination-item.selected {
     background-color: #fe0100;
+    color: #fff;
 }
 
 .pagination-item {

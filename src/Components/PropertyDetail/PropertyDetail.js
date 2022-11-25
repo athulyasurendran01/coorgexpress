@@ -384,7 +384,7 @@ function PropertyDetail() {
                                                     {propertyDetails.rooms && propertyDetails.rooms.map((room, idx) => {
                                                         return (
                                                             <Row className="review-comment row" key={idx}>
-                                                                <Col sm={2}>
+                                                                <Col sm={1}>
                                                                     <input
                                                                         type="checkbox"
                                                                         name="lang"
@@ -392,23 +392,26 @@ function PropertyDetail() {
                                                                         onChange={handleChange}
                                                                     />
                                                                 </Col>
-                                                                <Col>
-                                                                    <div className="avatar">R</div>
-                                                                    <div className="comment">
-                                                                        <h6>{room.room_no_name} - ₹ {room.room_base_price}</h6>
+                                                                <Col sm={11}>
+                                                                    {/*<div className="avatar">R</div>*/}
+                                                                    <div className="comment"
+                                                                        style={{paddingLeft : "0px", display: "grid"}}
+                                                                    >
+                                                                        <h5>{room.room_no_name} - ₹ {room.room_base_price}</h5>
                                                                         {/* <div className="property-rating">
                                                                             <i className="fa fa-star"></i>
                                                                             <i className="fa fa-star"></i>
                                                                             <i className="fa fa-star"></i>
                                                                             <i className="fa fa-star"></i>
                                                                             <i className="fa fa-star-o"></i>
-                                                                        </div> */}<br/>
-                                                                       <div className="">
-                                                                                    <h6>Type: {room.type} </h6>
-                                                                                    <h6>Available Beds: {room.no_of_bed} </h6>
-                                                                                    <h6>Maximum Extra Beds: {room.extra_bed} </h6>
-                                                                                    <h6>Extra Per Bed Charge:  ₹ {room.extra_bed_charge} </h6>
-                                                                                </div>
+                                                                        </div> */}
+                                                                        <div>
+                                                                            <h6>Type: {room.type} </h6>
+                                                                            <h6>Available Beds: {room.no_of_bed} </h6>
+                                                                            <h6>Maximum Extra Beds: {room.extra_bed} </h6>
+                                                                            <h6>Extra Per Bed Charge:  ₹ {room.extra_bed_charge} </h6>
+                                                                        </div>
+                                                                        
                                                                         <p>{room.room_description}</p>
                                                                     </div>
                                                                 </Col>

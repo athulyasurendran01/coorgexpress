@@ -28,7 +28,7 @@
     position: relative;
     top: -164px;
     /*width: 100%;*/
-    z-index: 9999999;
+    z-index: 999;
     background-color: #ffffff !important;
     border-radius: 10px;
     padding: 26px 18px;
@@ -302,6 +302,7 @@ textarea.form-control {
     color:#34495e;
 }
 .property-list ul {
+    text-align: center;
     display: inline-block;
 }
 .property-list ul li a{

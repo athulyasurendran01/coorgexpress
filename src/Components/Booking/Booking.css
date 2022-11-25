@@ -163,12 +163,16 @@ select, .form-control, textarea.form-control {
     float: right;
 }
 .booking-summary .widget--content h6.guest-detail {
-    border-bottom: 1px solid #34495e;
     padding-bottom: 15px;
 }
 .booking-summary .widget--content h6.amount-detail {
+    border-top: 1px solid #34495e;
+    padding-top: 10px;
     border-bottom: 1px solid #34495e;
     padding-bottom: 15px;
+}
+.booking-summary .widget--content h6.guest-detail span {
+    line-height: 27px;
 }
 .booking-summary .widget--content h6.cleaning-detail {
     border-bottom: 1px solid #34495e;

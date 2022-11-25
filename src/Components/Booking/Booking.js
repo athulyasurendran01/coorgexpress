@@ -130,12 +130,12 @@ function Booking() {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div className="form-box" style={{ "position": "relative", "top": "0px" }}>
+                                
                                     <div className="row">
                                         <div className="col-xs-12 col-sm-12 col-md-12">
-                                            <h4 className="form--title">Coupon</h4>
+                                            <h4 className="form--title"
+                                                style={{ "marginBottom" : "20px"}}
+                                            >Coupon</h4>
                                             <p>(If you have a valid offer code please enter below and click on "Redeem")</p>
                                         </div>
                                         <div className="col-xs-6 col-sm-6 col-md-6">
@@ -151,12 +151,12 @@ function Booking() {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div className="form-box" style={{ "position": "relative", "top": "0px" }}>
+                               
                                     <div className="row">
                                         <div className="col-xs-12 col-sm-12 col-md-12">
-                                            <h4 className="form--title">Payment Method</h4>
+                                            <h4 className="form--title"
+                                                style={{ "marginBottom" : "20px"}}
+                                            >Payment Method</h4>
                                         </div>
                                         <div className="col-xs-12 col-sm-12 col-md-12">
                                             <div className="input-checkbox">
