@@ -2,12 +2,26 @@ import Banner from "../Common/Banner"
 import { useForm } from "react-hook-form";
 import { useLocation } from 'react-router-dom';
 import "./Booking.css"
+import { useState } from "react";
+import { billingData, validateCouponCode } from "../../reducers/billing";
+import { useSelector, useDispatch } from 'react-redux';
+import { useMemo } from "react";
 
 function Booking() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const location = useLocation();
     const propertyDetails = location.state;
     const cleaning_charge = 10;
+    let response = useSelector(billingData);
+    console.log(response)
+
+
+    const [inputCoupon, setCoupon] = useState()
+    const [validateMessage, setValidateMessage] = useState()
+    const dispatch = useDispatch();
+
+    // useMemo(() => {
+    // }, [response]);
 
     const getDate = (idx) => {
         let date_ = propertyDetails.daterange[idx].toString()
@@ -29,6 +43,17 @@ function Booking() {
 
     const confirmBooking = (data) => {
         console.log(data)
+    }
+
+    const validateCoupon = () => {
+        if (inputCoupon) {
+            setValidateMessage("")
+            let data = new FormData ();
+            data.append ("input", inputCoupon);
+            dispatch(validateCouponCode({data: data, type: 'validateCoupon'}))
+        } else {
+            setValidateMessage("Please enter the Coupon number.")
+        }
     }
 
     return (
@@ -130,32 +155,35 @@ function Booking() {
                                             </div>
                                         </div>
                                     </div>
-                                
+
                                     <div className="row">
                                         <div className="col-xs-12 col-sm-12 col-md-12">
                                             <h4 className="form--title"
-                                                style={{ "marginBottom" : "20px"}}
+                                                style={{ "marginBottom": "20px" }}
                                             >Coupon</h4>
                                             <p>(If you have a valid offer code please enter below and click on "Redeem")</p>
                                         </div>
                                         <div className="col-xs-6 col-sm-6 col-md-6">
                                             <div className="form-group">
-                                                <input type="text" className="form-control" name="coupon"
-                                                    id="coupon" placeholder="Coupon"
-                                                    {...register("coupon")} />
+                                                <input type="text" className="form-control" name="coupon" id="coupon" placeholder="Coupon"
+                                                    onChange={e => {
+                                                        setValidateMessage("")
+                                                        setCoupon(e.target.value)
+                                                    }} />
                                             </div>
+                                            <p style={{ color: "red", marginTop: "0px" }}>{validateMessage}</p>
                                         </div>
                                         <div className="col-xs-6 col-sm-6 col-md-6">
                                             <div className="form-group">
-                                                <input type="button" value="Redeem" name="submit" className="btn btn--primary" />
+                                                <input type="button" onClick={validateCoupon} value="Redeem" name="submit" className="btn btn--primary" />
                                             </div>
                                         </div>
                                     </div>
-                               
+
                                     <div className="row">
                                         <div className="col-xs-12 col-sm-12 col-md-12">
                                             <h4 className="form--title"
-                                                style={{ "marginBottom" : "20px"}}
+                                                style={{ "marginBottom": "20px" }}
                                             >Payment Method</h4>
                                         </div>
                                         <div className="col-xs-12 col-sm-12 col-md-12">
@@ -224,9 +252,9 @@ function Booking() {
                                             Guests <span>{propertyDetails.no_guest} Adult(s)
                                                 {propertyDetails.category === 'stay' &&
                                                     <>
-                                                        <br/>{propertyDetails.no_guest_child} Child < br/>
+                                                        <br />{propertyDetails.no_guest_child} Child < br />
                                                         {propertyDetails.no_guest_infant} Infant(s)
-                                                        
+
                                                     </>}</span></h6>
                                     </div>
                                     <div className="col-xs-12">

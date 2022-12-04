@@ -5,6 +5,7 @@ import propertyDetailReducer from '../reducers/propertyDetail'
 import propertyListReducer from '../reducers/propertyList'
 import filterPropertyReducer from '../reducers/filterProperty'
 import authenticationReducer from '../reducers/authentication'
+import BillingReducer from '../reducers/billing'
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     propertyDetail:propertyDetailReducer,
     user:authenticationReducer,
     propertyList: propertyListReducer,
-    filterProperty: filterPropertyReducer
+    filterProperty: filterPropertyReducer,
+    billingData: BillingReducer
   }
 });

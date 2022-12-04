@@ -13,6 +13,19 @@ export function httpGetService(url, id, page) {
         .catch(err => console.log(err))
 }
 
+export function httpPostService(data, type) {
+    const apiURL = `${serverURL}/${type}.php`
+    return fetch(`${apiURL}`, {
+        method: 'POST',
+        body: data
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            return data
+        })
+        .catch(err => console.log(err))
+}
+
 export function httpMailService(data) {
     const apiURL = `${serverURL}/mail.php`
     return fetch(`${apiURL}`, {
@@ -38,15 +51,15 @@ export function httpFilterGetService(url, page, option) {
         .catch(err => console.log(err))
 }
 
-export function httpPostService(url, data) {
-    const apiURL = url ? `${url}.json` : `home.json`
-    return fetch(`${serverURL}/${apiURL}`, {
-        method: 'POST',
-        body: JSON.stringify(data)
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            return data
-        })
-        .catch(err => console.log(err))
-}
+// export function httpPostService(url, data) {
+//     const apiURL = url ? `${url}.json` : `home.json`
+//     return fetch(`${serverURL}/${apiURL}`, {
+//         method: 'POST',
+//         body: JSON.stringify(data)
+//     })
+//         .then((response) => response.json())
+//         .then((data) => {
+//             return data
+//         })
+//         .catch(err => console.log(err))
+// }
