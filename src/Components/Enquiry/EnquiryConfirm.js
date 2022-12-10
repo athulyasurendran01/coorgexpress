@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { serverURL_ } from "../../app/Config"
 
@@ -6,7 +6,7 @@ function EnquiryConfirm() {
     const search = useLocation().search;
     const navigate = useNavigate()
 
-    useMemo(() => {
+    useEffect(() => {
         //let bannerURL = `${serverURL_}/${propertyDetails.data[0].file_path}/${propertyDetails.data[0].file_name}`
         const bookingDetails = {
             name: new URLSearchParams(search).get('name'),
@@ -21,7 +21,7 @@ function EnquiryConfirm() {
             category: 'stay'
         }
         navigate('/booking', { state: bookingDetails })
-    }, [])
+    })
 
     return (
         <p>Enquiry Confirmation</p>

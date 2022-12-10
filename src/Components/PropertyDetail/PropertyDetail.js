@@ -1,7 +1,7 @@
 import PropertyImage from '../../assets/images/property/property_image.jpg';
 import './PropertyDetail.css';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import ImageSliderComponent from './ImageSliderComponent';
 import { serverURL_ } from "../../app/Config"
 
@@ -72,6 +72,10 @@ function PropertyDetail() {
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const carouselInner = useRef(null);
+
+    const location = useLocation();
+    const selectedRooms = location.state;
+
     const slideChanged = useCallback(() => {
         const activeItem = carouselInner.current.querySelector(".active");
         setCurrentSlide(
@@ -131,13 +135,14 @@ function PropertyDetail() {
         data.append("date2", input1);
         data.append("adult", input2);
         data.append("children", input3);
-        data.append("extra_bd", input4);
+        data.append("extra_bd", isExtraChecked ? input4 : 0);
+        data.append("extrabedPrice", parseInt(propertyDetails.rooms[0].extra_bed_charge));
         data.append("name", input5);
         data.append("contact", input6);
         data.append("email", input7);
         data.append("message", input8);
-        data.append("total", (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price);
 
+        data.append("total", (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price);
         dispatch(sendMail(data))
     }
 
@@ -181,6 +186,21 @@ function PropertyDetail() {
             extrabedPrice: parseInt(propertyDetails.rooms[0].extra_bed_charge)
         }
         navigate('/booking', { state: bookingDetails })
+    }
+
+    const checkAvailability = (id) => {
+        if (selectedRooms.status == -1) {
+            return true
+        } else if (selectedRooms.status == 0) {
+            return false
+        } else {
+            const searchObject = selectedRooms.roomdata && selectedRooms.roomdata.find((property) => property.id == id);
+            if (searchObject) {
+                return true
+            } else {
+                return false
+            }
+        }
     }
 
     if (!loadingStatus) {
@@ -414,7 +434,7 @@ function PropertyDetail() {
                                                                     <div className="comment"
                                                                         style={{ paddingLeft: "0px", display: "grid" }}
                                                                     >
-                                                                        <h5>{room.room_no_name} - ₹ {room.room_base_price}</h5>
+                                                                        <h5>{room.room_no_name} - ₹ {room.room_base_price} {checkAvailability(room.id) ? '' : <span style={{ color: 'red' }}>- Not available</span>}</h5>
                                                                         {/* <div className="property-rating">
                                                                             <i className="fa fa-star"></i>
                                                                             <i className="fa fa-star"></i>
@@ -644,7 +664,7 @@ function PropertyDetail() {
                                                     <input type="number" className="form-control" required
                                                         onChange={(e) => setChild(e.target.value)} />
                                                 </div>
-                                                <RoomList rooms={propertyDetails.rooms} handleChange={handleChange} />
+                                                <RoomList rooms={propertyDetails.rooms} handleChange={handleChange} checkRooms={checkAvailability} />
                                                 <hr />
                                                 <div>
                                                     <input type="checkbox"
@@ -704,7 +724,7 @@ function PropertyDetail() {
                                                             <input type="checkbox"
                                                                 checked={isExtraChecked}
                                                                 onChange={(e) => setExtraChecked(!isExtraChecked)} />
-                                                                {isExtraChecked ? <input type="number"
+                                                            {isExtraChecked ? <input type="number"
                                                                 placeholder="Enter number of extra bed" className="form-control"
                                                                 onChange={e => setEnqInput4(e.target.value)} /> : ''}
                                                             <span className="check-indicator"></span>

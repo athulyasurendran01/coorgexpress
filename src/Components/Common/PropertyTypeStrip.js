@@ -49,6 +49,7 @@ function PropertyTypeStrip(props) {
     const [responseData, setResponseData] = useState([])
     const [propertyArray, setPropertyArray] = useState([])
     const [locations, setLocations] = useState([])
+    const [cities, setCities] = useState([])
     const [properties, setProperties] = useState()
     const [trialProperties, setTrialProperties] = useState()
     const [amenitiesArray, setAmenitiesArray] = useState([])
@@ -94,31 +95,19 @@ function PropertyTypeStrip(props) {
             dispatch(getItemsArray({ type: props.category, page: currentPage, option: searchOpts }))
 
         }
-        else
-            dispatch(getItemsArray({ type: props.category, page: (currentPage) }))
+        else {
+            if(props.category !== 'stay') {
+                dispatch(getItemsArray({ type: props.category, page: (currentPage) }))
+            }
+        }
     }, [currentPage, location]);
-
-    // const getPaginationData = (event) => {
-    //     let responseData = itemsDetails.data
-    //     let itemsPerPage = itemsDetails.total
-    //     const newOffset = (event.selected * itemsPerPage) % responseData.length;
-    //     setItemOffset(newOffset)
-    //     // setLoader(true)
-    //     let pageStr = (event.selected + 1) ? `?page=${(event.selected + 1)}` : ''
-    //     const apiURL = `${serverURL}/${props.category}.php${pageStr}`
-
-    //     fetch(`${apiURL}`)
-    //         .then((response) => response.json())
-    //         .then((itemsDetails) => {
-    //             setResponseData(itemsDetails[0].data)
-    //             // setLoader(false)
-    //         })
-    //         .catch(err => console.log(err))
-    //     // dispatch(getItemsArray({ type: props.category, page: (event.selected + 1) }))
-    // }
 
     const setLocOptions = (value) => {
         setLocations(value)
+    }
+
+    const setCitiesOptions = (value) => {
+        setCities(value)
     }
 
     const setPropOptions = (value) => {
@@ -164,8 +153,12 @@ function PropertyTypeStrip(props) {
         for (let i = 0; i < locations.length; i++) {
             locArray.push(locations[i].key)
         }
+        let cityArray = [];
+        for (let i = 0; i < cities.length; i++) {
+            cityArray.push(cities[i].key)
+        }
         const searchOpts = `price_start=${priceRange[0]}&price_end=${priceRange[1]}&aminities=${amenitiesArray.join()}
-        &locations=${locArray.join()}&properties=${properties && properties.key}&trialProperties=${trialProperties && trialProperties.key}&page=${currentPage}`
+        &locations=${locArray.join()}&cities=${cityArray.join()}&properties=${properties && properties.key}&trialProperties=${trialProperties && trialProperties.key}&page=${currentPage}`
         dispatch(getItemsArray({ type: props.category, page: 1, option: searchOpts }))
     }
 
@@ -200,14 +193,13 @@ function PropertyTypeStrip(props) {
         return new Date(date_).toLocaleDateString("en-US")
     }
 
-    const onSearchProperty = () => {
-        console.log(startDate, endDate)
+    const onSearchProperty = () => {               
         setIsvisible(true)
-
-        if (startDate && endDate) {
-            const searchOpts = `properties=${location.state.type}&page=${currentPage}&datefrom=${getDate(startDate)}&dateto=${getDate(endDate)}`
-            console.log(searchOpts)
-            dispatch(getItemsArray({ type: props.category, page: 1, option: searchOpts }))
+        if (startDate) {
+            let date_ = startDate.toString()
+            let date__ = endDate.toString()
+            const searchOpts = `selected_date=${new Date(date_).toLocaleDateString("en-CA")}&selected_date_end=${new Date(date__).toLocaleDateString("en-CA")}&page=${currentPage}`
+            dispatch(getItemsArray({ type: props.category, page: currentPage, option: searchOpts }))
         }
     }
 
@@ -221,6 +213,18 @@ function PropertyTypeStrip(props) {
         }
         else{
             return -1
+        }
+    }
+
+    const getOccupiedRoom = (id) => {
+        const searchObject= itemsDetails.occupiedrooms && itemsDetails.occupiedrooms.find((property) => property.homeId == id);
+        if(searchObject && searchObject.rooms.length > 0){
+            if(searchObject.roomdetails && searchObject.roomdetails.length > 0){
+                return searchObject.roomdetails
+            }
+           return []
+        }else{
+           return []
         }
     }
 
@@ -242,7 +246,6 @@ function PropertyTypeStrip(props) {
                         <Modal.Header>
                         <Modal.Title>Select your travelling date</Modal.Title>
                         </Modal.Header>
-
                         <Modal.Body>
                         <div style={{ display: "inline-flex", width:"100%" }}>
                             <DatePicker selectsRange={true}
@@ -316,6 +319,14 @@ function PropertyTypeStrip(props) {
                                                     data={itemsDetails.locations ? itemsDetails.locations : []}
                                                     title={'Location'}
                                                     type={'multiple'} setOptions={setLocOptions} selectedVal={locations} />
+                                            </div>
+                                        </div>
+                                        <div className="form-group">
+                                            <div className="select--box">
+                                                <SearchAutoComplete
+                                                    data={itemsDetails.cities ? itemsDetails.cities : []}
+                                                    title={'Cities'}
+                                                    type={'multiple'} setOptions={setCitiesOptions} selectedVal={cities} />
                                             </div>
                                         </div>
                                         {props.category !== 'events' &&
@@ -497,14 +508,14 @@ function PropertyTypeStrip(props) {
                                                                 {isOccupied(stay.id) == 0 && 'Occupied'}
                                                                 {isOccupied(stay.id) > 0 && `${isOccupied(stay.id)}Number of rooms are free`}
                                                                 <div className="property--img">
-                                                                    <Link to={`/stay/${stay.id}`}>
+                                                                    <Link to={`/stay/${stay.id}`} state={{roomdata: getOccupiedRoom(stay.id), status: isOccupied(stay.id)}}>
                                                                         <img src={imageURL} alt="property image" className="img-responsive" />
                                                                     </Link>
                                                                 </div>
                                                                 <div className="property--content">
                                                                     <div className="property--info">
                                                                         <h5 className="property--title">
-                                                                            <Link to={`/stay/${stay.id}`}>{stay.name}</Link>
+                                                                            <Link to={`/stay/${stay.id}`} state={{roomdata: getOccupiedRoom(stay.id), status: isOccupied(stay.id)}}>{stay.name}</Link>
                                                                         </h5>
                                                                         <p className="property--location">{stay.address}</p>
                                                                         <p className="property--price">Rs. {stay.price}</p>

@@ -3,7 +3,7 @@ import "./RoomList.css";
 
 const getFormattedPrice = (price) => `₹${price.toFixed(2)}`;
 
-export default function RoomList({ rooms, handleChange }) {
+export default function RoomList({ rooms, handleChange, checkRooms }) {
     const [checkedState, setCheckedState] = useState(
         new Array(rooms.length).fill(false)
     );
@@ -38,22 +38,25 @@ export default function RoomList({ rooms, handleChange }) {
                 {rooms.map(({ id, room_no_name, room_base_price }, index) => {
                     return (
                         <li key={index}>
-                            <div className="toppings-list-item">
-                                <div className="left-section">
-                                    <input
-                                        type="checkbox"
-                                        id={`custom-checkbox-${index}`}
-                                        name={room_no_name}
-                                        value={index}
-                                        checked={checkedState[index]}
-                                        onChange={(e) => handleOnChange(e, index)}
-                                    />
-                                    <label htmlFor={`custom-checkbox-${index}`}>{room_no_name}</label>
+                            {checkRooms(id) ?
+                                <div className="toppings-list-item">
+                                    <div className="left-section">
+                                        <input
+                                            type="checkbox"
+                                            id={`custom-checkbox-${index}`}
+                                            name={room_no_name}
+                                            value={index}
+                                            checked={checkedState[index]}
+                                            onChange={(e) => handleOnChange(e, index)}
+                                        />
+                                        <label htmlFor={`custom-checkbox-${index}`}>{room_no_name}</label>
+                                    </div>
+                                    <div className="right-section">{getFormattedPrice(parseFloat(room_base_price))}</div>
                                 </div>
-                                <div className="right-section">{getFormattedPrice(parseFloat(room_base_price))}</div>
-                            </div>
+                                : ''}
                         </li>
                     );
+
                 })}
                 <li className="li-total">
                     <div className="toppings-list-item">
