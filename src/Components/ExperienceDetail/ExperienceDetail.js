@@ -43,6 +43,7 @@ function ExperienceDetail() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [no_guest, setPerson] = useState(0);
     const [slots, setSlot] = useState();
+    const [enquirySlots, setEnquirySlot] = useState();
     const carouselInner = useRef(null);
 
     const [input0, setEnqInput0] = useState()
@@ -105,17 +106,17 @@ function ExperienceDetail() {
     }
 
     const sendEnquiry = () => {
-        let data = new FormData ();
-        data.append ("date1", input1);
-        data.append ("date2", '');
-        data.append ("adult", input2);
-        data.append ("children", '');
-        data.append ("extra_bd", '');
-        data.append ("name", input5);
-        data.append ("contact", input6);
-        data.append ("email", input7);
-        data.append ("message", input8);
-        data.append ("total", input2 * experienceDetails.data[0].event_price)
+        let data = new FormData();
+        data.append("date1", input1);
+        data.append("date2", '');
+        data.append("adult", input2);
+        data.append("children", '');
+        data.append("extra_bd", '');
+        data.append("name", input5);
+        data.append("contact", input6);
+        data.append("email", input7);
+        data.append("message", input8);
+        data.append("total", input2 * experienceDetails.data[0].event_price)
         dispatch(sendMail(data))
     }
 
@@ -232,18 +233,18 @@ function ExperienceDetail() {
                                             }
                                         </div>
                                         {experienceDetails.data[0].event_time &&
-                                        <div className="row">
-                                            <div className="col-xs-12 col-sm-12 col-md-6">
-                                                <div className="feature-panel upcoming-slots">
-                                                    <div className="heading">
-                                                        <h2 className="heading--title">Upcoming Availability</h2>
-                                                    </div>
-                                                    <div className='slot-availability'>
-                                                        <p>{experienceDetails.data[0].event_time} <span className='amount'>Rs. {experienceDetails.data[0].event_price}</span></p>
+                                            <div className="row">
+                                                <div className="col-xs-12 col-sm-12 col-md-6">
+                                                    <div className="feature-panel upcoming-slots">
+                                                        <div className="heading">
+                                                            <h2 className="heading--title">Upcoming Availability</h2>
+                                                        </div>
+                                                        <div className='slot-availability'>
+                                                            <p>{experienceDetails.data[0].event_time} <span className='amount'>Rs. {experienceDetails.data[0].event_price}</span></p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         }
                                     </div>
 
@@ -536,12 +537,12 @@ function ExperienceDetail() {
                                             <form className="mb-0 row">
                                                 <div className="form-group col-lg-6">
                                                     <label for="date">Date</label>
-                                                    <input type="date" className="form-control" name="date" id="date" placeholder="Date" onChange={(e) => setEnqInput1(e.target.value)}/>
+                                                    <input type="date" className="form-control" name="date" id="date" placeholder="Date" onChange={(e) => setEnqInput1(e.target.value)} />
                                                 </div>
 
                                                 <div className="form-group col-lg-6">
-                                                    <label for="adults">Adults: &gt; 12</label>
-                                                    <input type="number" className="form-control" valu={input2} name="adults" placeholder="Adults" onChange={(e) => setEnqInput2(e.target.value)}/>
+                                                    <label for="adults">No of Person</label>
+                                                    <input type="number" className="form-control" valu={input2} name="adults" placeholder="Adults" onChange={(e) => setEnqInput2(e.target.value)} />
                                                 </div>
                                                 <div className="form-group col-lg-12">
                                                     {/* <input type="checkbox" name="lang"
@@ -549,7 +550,31 @@ function ExperienceDetail() {
                                                             marginRight: "20px"
                                                         }}
                                                     /> */}
-                                                    {experienceDetails.data[0].event_time}
+                                                    {experienceDetails.data[0].event_time &&
+                                                        <>
+                                                            <div className="form-group col-lg-12"
+                                                                style={{
+                                                                    marginBottom: "0px"
+                                                                }}
+                                                            >
+                                                                <label for="">Available Slots</label>
+                                                            </div>
+                                                            <div className="form-group col-lg-12"
+                                                                style={{
+                                                                    marginBottom: "0px"
+                                                                }}
+                                                            >
+                                                                <input type="radio" name="slots" value="first"
+                                                                    onChange={(e) => setEnquirySlot(e.target.value)}
+                                                                    style={{
+                                                                        marginRight: "20px"
+                                                                    }}
+                                                                />
+                                                                <label> {experienceDetails.data[0].event_time}</label>
+                                                            </div>
+                                                        </>
+                                                    }
+                                                    {/* {experienceDetails.data[0].event_time} */}
                                                     <p>₹ {experienceDetails.data[0].event_price}(per person)</p>
                                                 </div>
 

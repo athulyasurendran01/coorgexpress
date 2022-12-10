@@ -208,6 +208,19 @@ function PropertyTypeStrip(props) {
         }
     }
 
+    const isOccupied = (id) => {
+        const searchObject= itemsDetails.occupiedrooms && itemsDetails.occupiedrooms.find((property) => property.homeId == id);
+        if(searchObject && searchObject.rooms.length > 0){
+            if(searchObject.roomdetails && searchObject.roomdetails.length > 0){
+                return searchObject.roomdetails.length
+            }
+           return 0
+        }
+        else{
+            return -1
+        }
+    }
+
     if (!loadingStatus || isLoader) {
         return (
             <>
@@ -465,6 +478,9 @@ function PropertyTypeStrip(props) {
                                                     return (
                                                         listView ? <div className="col-xs-12 col-sm-6 col-md-6" key={idx}>
                                                             <div className="property-item">
+                                                                {isOccupied(stay.id) == -1 && 'Availabe'}
+                                                                {isOccupied(stay.id) == 0 && 'Occupied'}
+                                                                {isOccupied(stay.id) > 0 && `${isOccupied(stay.id)}Number of rooms are free`}
                                                                 <div className="property--img">
                                                                     <Link to={`/stay/${stay.id}`}>
                                                                         <img src={imageURL} alt="property image" className="img-responsive" />

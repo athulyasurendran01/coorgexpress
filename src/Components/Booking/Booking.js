@@ -48,9 +48,9 @@ function Booking() {
     const validateCoupon = () => {
         if (inputCoupon) {
             setValidateMessage("")
-            let data = new FormData ();
-            data.append ("input", inputCoupon);
-            dispatch(validateCouponCode({data: data, type: 'validateCoupon'}))
+            let data = new FormData();
+            data.append("input", inputCoupon);
+            dispatch(validateCouponCode({ data: data, type: 'validateCoupon' }))
         } else {
             setValidateMessage("Please enter the Coupon number.")
         }
@@ -253,10 +253,16 @@ function Booking() {
                                                 {propertyDetails.category === 'stay' &&
                                                     <>
                                                         <br />{propertyDetails.no_guest_child} Child < br />
-                                                        {propertyDetails.no_guest_infant} Infant(s)
-
+                                                        {/* {propertyDetails.no_guest_infant} Infant(s) */}
                                                     </>}</span></h6>
                                     </div>
+                                    {propertyDetails.category === 'stay' &&
+                                        <>
+                                            <div className="col-xs-12">
+                                                <h6>Extra Bed <span>{propertyDetails.extraBedNo}</span></h6>
+                                            </div>
+                                        </>
+                                    }
                                     <div className="col-xs-12">
                                         {propertyDetails.category === 'stay' && <h6 className="amount-detail">
                                             Rs. {propertyDetails.total} X {getNight()} night(s)
@@ -268,11 +274,17 @@ function Booking() {
                                         </h6>}
                                     </div>
                                     <div className="col-xs-12">
-                                        <h6 className="cleaning-detail">Cleaning Charges <span>Rs. {cleaning_charge}</span></h6>
+                                        <h6 className="cleaning-detail">Cleaning Charges <span>Rs. {cleaning_charge}</span> <br />
+                                            {propertyDetails.category === 'stay' && propertyDetails.extraBedNo > 0 &&
+                                                <>
+                                                    Extra Bed:3000 X {propertyDetails.extraBedNo}
+                                                    <span>Rs. {propertyDetails.extraBedNo * propertyDetails.extrabedPrice}</span>
+                                                </>}
+                                        </h6>
                                     </div>
                                     <div className="col-xs-12">
                                         <h6 className="grand-total">Grand Total (INR)</h6>
-                                        {propertyDetails.category === 'stay' && <h6 className="grand-total"><span>Rs. {propertyDetails.total * getNight() + cleaning_charge} (Inclusive of GST)</span></h6>}
+                                        {propertyDetails.category === 'stay' && <h6 className="grand-total"><span>Rs. {propertyDetails.total * getNight() + cleaning_charge + (propertyDetails.extraBedNo * propertyDetails.extrabedPrice)} (Inclusive of GST)</span></h6>}
                                         {propertyDetails.category === 'experience' && <h6 className="grand-total"><span>Rs. {propertyDetails.total * propertyDetails.no_guest + cleaning_charge} (Inclusive of GST)</span></h6>}
                                     </div>
                                 </div>

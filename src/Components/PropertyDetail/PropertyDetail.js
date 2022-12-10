@@ -22,6 +22,7 @@ import Loader from "../Loader/Loader";
 // Total amount based on the room selected or the entire banglw So childern price is not neccessary
 
 import { Container, Row, Col } from 'react-bootstrap';
+import RoomList from '../Common/RoomList';
 
 const responsive1 = {
     desktop: {
@@ -51,10 +52,13 @@ function PropertyDetail() {
     const [dateRange, setDateRange] = useState([null, null]);
     const [no_guest, setPerson] = useState(0);
     const [no_guest_child, setChild] = useState(0);
-    const [no_guest_infant, setInfant] = useState(0);
+    // const [no_guest_infant, setInfant] = useState(0);
     const [startDate, endDate] = dateRange;
     const [rooms, setRooms] = useState([]);
     const [message, setMessage] = useState('')
+    const [isChecked, setChecked] = useState(false)
+    const [extraBedNo, setExtraBed] = useState(0)
+    const [isExtraChecked, setExtraChecked] = useState(false)
 
     const [input0, setEnqInput0] = useState()
     const [input1, setEnqInput1] = useState()
@@ -96,13 +100,13 @@ function PropertyDetail() {
     }, [])
 
     useMemo(() => {
-        let max_no_person = parseInt(no_guest) + parseInt(no_guest_child) + parseInt(no_guest_infant)
+        let max_no_person = parseInt(no_guest) + parseInt(no_guest_child)
         if (propertyDetails.data && propertyDetails.data[0].max_no_of_guest < max_no_person) {
             setMessage(`${propertyDetails.data[0].max_no_of_guest} is the Maximum number guest.`)
         } else {
             setMessage('')
         }
-    }, [no_guest, no_guest_child, no_guest_infant]);
+    }, [no_guest, no_guest_child]);
 
     const handleChange = (e) => {
         const { value, checked } = e.target;
@@ -139,12 +143,23 @@ function PropertyDetail() {
 
     const booknow = () => {
         setMessage("")
-        let max_no_person = parseInt(no_guest) + parseInt(no_guest_child) + parseInt(no_guest_infant)
+        let max_no_person = parseInt(no_guest) + parseInt(no_guest_child)
 
         if (no_guest <= 0 || dateRange[0] == null || dateRange[1] == null) {
             setMessage("Please check the input")
             return;
         }
+
+        // if (rooms.length <= 0) {
+        //     setMessage(`Please select room.`)
+        //     return;
+        // }
+
+        // if (isChecked && extraBedNo <= 0) {
+        //     setMessage(`Please add number of extra bed required.`);
+        //     return;
+        // }
+
         if (propertyDetails.data[0].max_no_of_guest < max_no_person) {
             setMessage(`${propertyDetails.data[0].max_no_of_guest} is the Maximum number guest.`)
             return;
@@ -159,9 +174,11 @@ function PropertyDetail() {
             check_out_time: propertyDetails.data[0].check_out_time,
             no_guest: no_guest,
             no_guest_child: no_guest_child,
-            no_guest_infant: no_guest_infant,
+            // no_guest_infant: no_guest_infant,
             total: (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price,
-            category: 'stay'
+            category: 'stay',
+            extraBedNo: extraBedNo,
+            extrabedPrice: parseInt(propertyDetails.rooms[0].extra_bed_charge)
         }
         navigate('/booking', { state: bookingDetails })
     }
@@ -358,10 +375,10 @@ function PropertyDetail() {
                                             </div>
                                             {propertyDetails.amenities && propertyDetails.amenities.map((amenity, idx) => {
                                                 return (
-                                                    <div className="col-xs-6 col-sm-4 col-md-4">
-                                                        <div class="feature-item amenities">
+                                                    <div className="col-xs-6 col-sm-4 col-md-4" key={idx}>
+                                                        <div className="feature-item amenities">
                                                             <p>
-                                                                <i class="fa fa-check" aria-hidden="true" />
+                                                                <i className="fa fa-check" aria-hidden="true" />
                                                                 {amenity.amenity}
                                                             </p>
                                                         </div>
@@ -384,18 +401,18 @@ function PropertyDetail() {
                                                     {propertyDetails.rooms && propertyDetails.rooms.map((room, idx) => {
                                                         return (
                                                             <Row className="review-comment row" key={idx}>
-                                                                <Col sm={1}>
+                                                                {/* <Col sm={1}>
                                                                     <input
                                                                         type="checkbox"
                                                                         name="lang"
                                                                         value={idx}
                                                                         onChange={handleChange}
                                                                     />
-                                                                </Col>
+                                                                </Col> */}
                                                                 <Col sm={11}>
                                                                     {/*<div className="avatar">R</div>*/}
                                                                     <div className="comment"
-                                                                        style={{paddingLeft : "0px", display: "grid"}}
+                                                                        style={{ paddingLeft: "0px", display: "grid" }}
                                                                     >
                                                                         <h5>{room.room_no_name} - ₹ {room.room_base_price}</h5>
                                                                         {/* <div className="property-rating">
@@ -411,7 +428,7 @@ function PropertyDetail() {
                                                                             <h6>Maximum Extra Beds: {room.extra_bed} </h6>
                                                                             <h6>Extra Per Bed Charge:  ₹ {room.extra_bed_charge} </h6>
                                                                         </div>
-                                                                        
+
                                                                         <p>{room.room_description}</p>
                                                                     </div>
                                                                 </Col>
@@ -589,12 +606,12 @@ function PropertyDetail() {
                                 </div>
                                 <div className="col-xs-12 col-sm-12 col-md-4">
                                     <div className="widget widget-request">
-                                        <div className="widget--title">
+                                        {/* <div className="widget--title">
                                             <h5><span><i className="fa fa-rupee"></i>
                                                 {(rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price}
                                             </span> per night</h5>
                                             <hr />
-                                        </div>
+                                        </div> */}
                                         <div className="widget--content">
                                             <form className="mb-0">
                                                 <div className="form-group">
@@ -617,17 +634,29 @@ function PropertyDetail() {
                                                     <input type="number" className="form-control" required
                                                         onChange={(e) => setPerson(e.target.value)} />
                                                 </div>
-                                                <div className="form-group">
+                                                {/* <div className="form-group">
                                                     <label for="">Infants (0 - 5 years)</label>
                                                     <input type="number" className="form-control" required
                                                         onChange={(e) => setInfant(e.target.value)} />
-                                                </div>
+                                                </div> */}
                                                 <div className="form-group">
                                                     <label for="">Children (6 - 12)</label>
                                                     <input type="number" className="form-control" required
                                                         onChange={(e) => setChild(e.target.value)} />
                                                 </div>
+                                                <RoomList rooms={propertyDetails.rooms} handleChange={handleChange} />
+                                                <hr />
+                                                <div>
+                                                    <input type="checkbox"
+                                                        checked={isChecked}
+                                                        onChange={(e) => setChecked(!isChecked)} />&nbsp;
+                                                    Do you want an extra bed?
+                                                    {isChecked ? <input type="number"
+                                                        placeholder="Enter number of extra bed" className="form-control"
+                                                        onChange={e => setExtraBed(e.target.value)} /> : ''}
+                                                </div>
                                                 <span style={{ color: 'red' }}>{message}</span>
+                                                <br />
                                                 <button className="btn btn--success mb-20"
                                                     onClick={booknow}
                                                     type="button"
@@ -672,7 +701,12 @@ function PropertyDetail() {
                                                                     marginRight: "10px"
                                                                 }}
                                                             >Do you want an extra bed?</span>
-                                                            <input type="checkbox" onChange={(e) => setEnqInput4(e.target.value)} />
+                                                            <input type="checkbox"
+                                                                checked={isExtraChecked}
+                                                                onChange={(e) => setExtraChecked(!isExtraChecked)} />
+                                                                {isExtraChecked ? <input type="number"
+                                                                placeholder="Enter number of extra bed" className="form-control"
+                                                                onChange={e => setEnqInput4(e.target.value)} /> : ''}
                                                             <span className="check-indicator"></span>
                                                         </label>
                                                     </div>
