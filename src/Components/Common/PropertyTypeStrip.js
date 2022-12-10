@@ -19,6 +19,9 @@ import { httpFilterGetService } from '../../app/httpHandler';
 import Pagination from './Pagination/Pagination';
 import DatePicker from 'react-datepicker';
 
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
 const responsive1 = {
     desktop: {
         breakpoint: { max: 3000, min: 1024 },
@@ -217,10 +220,18 @@ function PropertyTypeStrip(props) {
     } else {
         if (props.category === 'stay' && !isVisible) {
             return (
-                <div className="datePopup">
-                    <div>
-                        <label for="contact-name">Pick a Date Range*</label><br />
-                        <div style={{ display: "inline-flex" }}>
+                <div className="loaderDiv"  style={{paddingTop:"100px"}}>
+                <div
+                    className="modal show"
+                    style={{ display: 'block', position: 'initial' }}
+                    >
+                    <Modal.Dialog>
+                        <Modal.Header>
+                        <Modal.Title>Select your travelling date</Modal.Title>
+                        </Modal.Header>
+
+                        <Modal.Body>
+                        <div style={{ display: "inline-flex", width:"100%" }}>
                             <DatePicker selectsRange={true}
                                 startDate={startDate}
                                 endDate={endDate}
@@ -231,9 +242,13 @@ function PropertyTypeStrip(props) {
                                 isClearable={true}
                                 style={{ zIndex: 1 }}
                             />
-                            <button onClick={onSearchProperty}>Search</button>
+                            <button onClick={onSearchProperty} className="btn btn-primary"
+                                style={{background: "#fe0100", border: "1px solid #fe0100"}}
+                            >Search</button>
                         </div>
-                    </div>
+                        </Modal.Body>
+                    </Modal.Dialog>
+                </div>
                 </div>
             )
         } else {
