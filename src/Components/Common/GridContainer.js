@@ -3,10 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
 
+import './GridContainer.css'
+
 function GridContainer(props) {
     if (props.response && props.response.length > 0) {
         return (
-            <div id={props.data.title} className="about-area area-padding stay-property text-center pb-70  pt-60">
+            <div id={props.data.title} className={`about-area area-padding stay-property text-center pb-70  pt-60 ${props.title === 'events' ? `event-div` : ``}`}>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12 col-sm-12 col-xs-12  text-center">

@@ -8,21 +8,21 @@
     text-align: -webkit-center;
 }
 .filter-stay-item .filter-stay-icon:hover {
- background: whitesmoke;
- border-radius: 100px;
- height: 100px;
- width: 100px;
+    background: whitesmoke;
+    border-radius: 100px;
+    height: 100px;
+    width: 100px;
 }
 .filter-stay-item .filter-stay-icon img {
- width: 70px;
+    width: 70px;
 }
 .filter-stay-item {
- text-align: -webkit-center;
+    text-align: -webkit-center;
 }
 .filter-stay-item h6 {
- margin-top: 0px;
- font-size: 13px;
- margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: 13px;
+    margin-bottom: 0px;
 }
 .form-box {
     position: relative;
@@ -54,18 +54,6 @@
     text-transform: capitalize;
     margin-bottom: 0;
 }
-/* .input-checkbox {
-    margin-bottom: 30px;
-} */
-/* .label-checkbox {
-    display: block;
-    position: relative;
-    cursor: pointer;
-    font-size: 14px;
-    line-height: 14px;
-    z-index: 2;
-    text-align: left;
-} */
 label {
     line-height: 1;
     font-weight: 400;
@@ -102,7 +90,6 @@ button, html input[type=button], input[type=reset], input[type=submit] {
     -webkit-appearance: button;
     cursor: pointer;
 }
-
 .btn--primary {
     background-color: #ff5e5e00;
     color: #ffffff;
@@ -525,4 +512,19 @@ address, blockquote, dd, dl, fieldset, form, ol, p, pre, table, ul {
 }
 .property-single-desc .feature-panel .feature--content {
     padding-left: 50px;
+}
+.available-text{
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #008500;
+}
+
+.notavailable-text{
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: 700;
+    color: red;
 }
