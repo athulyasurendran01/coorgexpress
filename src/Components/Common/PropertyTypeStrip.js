@@ -297,36 +297,7 @@ function PropertyTypeStrip(props) {
                                     <div className="widget--title">
                                         <h5>PROPERTY SEARCH</h5>
                                     </div>
-                                    {props.category === 'stay' &&
-                                        <div className="input-checkbox">
-                                            <div style={{ display: "inline-flex", width: "100%" }}>
-                                                <DatePicker selectsRange={true}
-                                                    startDate={startDate}
-                                                    endDate={endDate}
-                                                    minDate={new Date()}
-                                                    onChange={(update) => {
-                                                        setDateRange(update);
-                                                    }}
-                                                    isClearable={true}
-                                                    style={{ zIndex: 10 }}
-                                                />
-                                                <button onClick={onSearchProperty} className="btn btn-primary"
-                                                    style={{ background: "#fe0100", border: "1px solid #fe0100" }}
-                                                >Search</button>
-                                            </div>
-                                            {/* <label className="label-checkbox"> */}
-                                            {/* <span>Instant Booking</span> */}
-                                            {/* <input type="checkbox" /> */}
-
-                                            {/* <Checkbox label="Instant Booking"
-                                        handleClick={handleClick(label,value)} 
-                                        /> */}
-                                            {/* <span className="check-indicator"></span>
-                                        </label> */}
-                                        </div>
-                                    }
-
-
+                                    
                                     <div className="widget--content" >
                                         <div className="form-group">
                                             <div className="select--box">
@@ -395,7 +366,7 @@ function PropertyTypeStrip(props) {
                                             "width": "125px",
                                             "marginRight": "10px"
                                         }} onClick={clearAll} />
-                                    <input type="submit" value="Search"
+                                    <input type="submit" value="Go"
                                         className="btn btn--success"
                                         style={{ "width": "125px" }} onClick={onSearch} />
                                 </div>
@@ -487,8 +458,8 @@ function PropertyTypeStrip(props) {
 
                             <div className="col-xs-12 col-sm-12 col-md-8" style={{ marginTop: '5px' }}>
                                 <div className="row property-list">
-                                    <div className="col-xs-12 col-sm-12 col-md-12">
-                                        <div className="properties-filter clearfix">
+                                    <div className="row">
+                                        <div className="properties-filter clearfix col-xs-12 col-sm-12 col-md-12">
                                             <div className="select--box pull-left">
                                                 <label>Sort by:</label>
                                                 <Form.Select onChange={(e) => onListSort(e)}>
@@ -501,12 +472,38 @@ function PropertyTypeStrip(props) {
                                                 </Form.Select>
 
                                             </div>
-                                            {/*
+                                        
                                         <div className="view--type pull-right">
-                                            <a id="switch-list" className="active" onClick={() => setListView(true)}><i className="fa fa-th-list"></i></a>
-                                            <a id="switch-grid" className="" onClick={() => setListView(false)}><i className="fa fa-th-large"></i></a>
+                                        {props.category === 'stay' &&
+                                        <div className="input-checkbox" style={{marginBottom : "0px" }}>
+                                            <div style={{ display: "inline-flex", width: "100%" }}>
+                                                <DatePicker selectsRange={true}
+                                                    startDate={startDate}
+                                                    endDate={endDate}
+                                                    minDate={new Date()}
+                                                    onChange={(update) => {
+                                                        setDateRange(update);
+                                                    }}
+                                                    isClearable={true}
+                                                    style={{ zIndex: 10 }}
+                                                />
+                                                <button onClick={onSearchProperty} className="btn btn-primary"
+                                                    style={{ background: "#fe0100", border: "1px solid #fe0100" }}
+                                                >Search</button>
+                                            </div>
+                                            {/* <label className="label-checkbox"> */}
+                                            {/* <span>Instant Booking</span> */}
+                                            {/* <input type="checkbox" /> */}
+
+                                            {/* <Checkbox label="Instant Booking"
+                                        handleClick={handleClick(label,value)} 
+                                        /> */}
+                                            {/* <span className="check-indicator"></span>
+                                        </label> */}
                                         </div>
-                                        */}
+                                    }
+                                        </div>
+                                        
                                         </div>
                                     </div>
                                     {total === 0 && <p>No data found</p>}
