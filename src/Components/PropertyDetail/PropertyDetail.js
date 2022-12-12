@@ -141,14 +141,14 @@ function PropertyDetail() {
         data.append("date2", input1);
         data.append("adult", input2);
         data.append("children", input3);
-        data.append("extra_bd", isExtraChecked ? input4 : 0);
-        data.append("extrabedPrice", parseInt(propertyDetails.rooms[0].extra_bed_charge));
+        data.append("extra_bd", extraBedNo);
+        data.append("extrabedPrice", extraBedTotal);
         data.append("name", input5);
         data.append("contact", input6);
         data.append("email", input7);
         data.append("message", input8);
-
-        data.append("total", (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price);
+        data.append("finalprice", ((rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price) + extraBedTotal);
+        data.append("roomrent", (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price);
         dispatch(sendMail(data))
     }
 
@@ -713,7 +713,10 @@ function PropertyDetail() {
                                                 </div>
 
                                                 <div className="form-group col-lg-12">
-                                                    <div className="input-checkbox">
+                                                <RoomList rooms={propertyDetails.rooms} handleChange={handleChange} 
+                                                handleExtrabedChange={handleExtrabedChange} 
+                                                checkRooms={checkAvailability} />
+                                                    {/* <div className="input-checkbox">
                                                         <label className="label-checkbox">
                                                             <span
                                                                 style={{
@@ -728,10 +731,10 @@ function PropertyDetail() {
                                                                 onChange={e => setEnqInput4(e.target.value)} /> : ''}
                                                             <span className="check-indicator"></span>
                                                         </label>
-                                                    </div>
+                                                    </div> */}
                                                 </div>
 
-                                                <div className="form-group col-lg-12">
+                                                {/* <div className="form-group col-lg-12">
                                                     <label for="price">Final Price</label>
                                                     <input
                                                         type="text"
@@ -745,7 +748,7 @@ function PropertyDetail() {
                                                             borderColor: "#fff"
                                                         }}
                                                     />
-                                                </div>
+                                                </div> */}
 
                                                 <div className="form-group col-lg-6">
                                                     <label for="name">Name</label>

@@ -298,18 +298,34 @@ function PropertyTypeStrip(props) {
                                         <h5>PROPERTY SEARCH</h5>
                                     </div>
                                     <div className="input-checkbox">
-                                        <label className="label-checkbox">
-                                            {/* <span>Instant Booking</span> */}
-                                            {/* <input type="checkbox" /> */}
+                                        <div style={{ display: "inline-flex", width: "100%" }}>
+                                            <DatePicker selectsRange={true}
+                                                startDate={startDate}
+                                                endDate={endDate}
+                                                minDate={new Date()}
+                                                onChange={(update) => {
+                                                    setDateRange(update);
+                                                }}
+                                                isClearable={true}
+                                                style={{ zIndex: 10 }}
+                                            />
+                                            <button onClick={onSearchProperty} className="btn btn-primary"
+                                                style={{ background: "#fe0100", border: "1px solid #fe0100" }}
+                                            >Search</button>
+                                        </div>
+                                        {/* <label className="label-checkbox"> */}
+                                        {/* <span>Instant Booking</span> */}
+                                        {/* <input type="checkbox" /> */}
 
-                                            {/* <Checkbox label="Instant Booking"
+                                        {/* <Checkbox label="Instant Booking"
                                         handleClick={handleClick(label,value)} 
                                         /> */}
-                                            <span className="check-indicator"></span>
-                                        </label>
+                                        {/* <span className="check-indicator"></span>
+                                        </label> */}
                                     </div>
+                                    <hr />
 
-                                    <div className="widget--content">
+                                    <div className="widget--content" >
                                         <div className="form-group">
                                             <div className="select--box">
                                                 <SearchAutoComplete
@@ -502,7 +518,7 @@ function PropertyTypeStrip(props) {
                                                         listView ? <div className="col-xs-12 col-sm-6 col-md-6" key={idx}>
                                                             <div className="property-item">
 
-                                                                
+
                                                                 <div className="property--img">
                                                                     <Link to={`/stay/${stay.id}`} state={{ roomdata: getOccupiedRoom(stay.id), status: isOccupied(stay.id) }}>
                                                                         <img src={imageURL} alt="property image" className="img-responsive" />

@@ -13,7 +13,6 @@ function Booking() {
     const propertyDetails = location.state;
     const cleaning_charge = 10;
     let response = useSelector(billingData);
-    console.log(response)
 
     const [inputCoupon, setCoupon] = useState()
     const [validateMessage, setValidateMessage] = useState()
@@ -279,7 +278,7 @@ function Booking() {
                                     </div>
                                     <div className="col-xs-12">
                                         <h6 className="grand-total">Grand Total (INR)</h6>
-                                        {propertyDetails.category === 'stay' && <h6 className="grand-total"><span>Rs. {propertyDetails.total * getNight() + cleaning_charge + propertyDetails.extrabedPrice} (Inclusive of GST)</span></h6>}
+                                        {propertyDetails.category === 'stay' && <h6 className="grand-total"><span>Rs. {parseFloat(propertyDetails.total) * parseInt(getNight()) + parseInt(cleaning_charge) + parseFloat(propertyDetails.extrabedPrice)} (Inclusive of GST)</span></h6>}
                                         {propertyDetails.category === 'experience' && <h6 className="grand-total"><span>Rs. {propertyDetails.total * propertyDetails.no_guest + cleaning_charge} (Inclusive of GST)</span></h6>}
                                     </div>
                                 </div>

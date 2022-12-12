@@ -528,3 +528,7 @@ address, blockquote, dd, dl, fieldset, form, ol, p, pre, table, ul {
     font-weight: 700;
     color: red;
 }
+
+label{
+    z-index: 0 !important;
+}
