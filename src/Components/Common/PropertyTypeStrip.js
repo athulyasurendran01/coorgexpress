@@ -96,9 +96,9 @@ function PropertyTypeStrip(props) {
 
         }
         else {
-            if (props.category !== 'stay') {
-                dispatch(getItemsArray({ type: props.category, page: (currentPage) }))
-            }
+            // if (props.category !== 'stay') {
+            dispatch(getItemsArray({ type: props.category, page: (currentPage) }))
+            // }
         }
     }, [currentPage, location]);
 
@@ -297,33 +297,35 @@ function PropertyTypeStrip(props) {
                                     <div className="widget--title">
                                         <h5>PROPERTY SEARCH</h5>
                                     </div>
-                                    <div className="input-checkbox">
-                                        <div style={{ display: "inline-flex", width: "100%" }}>
-                                            <DatePicker selectsRange={true}
-                                                startDate={startDate}
-                                                endDate={endDate}
-                                                minDate={new Date()}
-                                                onChange={(update) => {
-                                                    setDateRange(update);
-                                                }}
-                                                isClearable={true}
-                                                style={{ zIndex: 10 }}
-                                            />
-                                            <button onClick={onSearchProperty} className="btn btn-primary"
-                                                style={{ background: "#fe0100", border: "1px solid #fe0100" }}
-                                            >Search</button>
-                                        </div>
-                                        {/* <label className="label-checkbox"> */}
-                                        {/* <span>Instant Booking</span> */}
-                                        {/* <input type="checkbox" /> */}
+                                    {props.category === 'stay' &&
+                                        <div className="input-checkbox">
+                                            <div style={{ display: "inline-flex", width: "100%" }}>
+                                                <DatePicker selectsRange={true}
+                                                    startDate={startDate}
+                                                    endDate={endDate}
+                                                    minDate={new Date()}
+                                                    onChange={(update) => {
+                                                        setDateRange(update);
+                                                    }}
+                                                    isClearable={true}
+                                                    style={{ zIndex: 10 }}
+                                                />
+                                                <button onClick={onSearchProperty} className="btn btn-primary"
+                                                    style={{ background: "#fe0100", border: "1px solid #fe0100" }}
+                                                >Search</button>
+                                            </div>
+                                            {/* <label className="label-checkbox"> */}
+                                            {/* <span>Instant Booking</span> */}
+                                            {/* <input type="checkbox" /> */}
 
-                                        {/* <Checkbox label="Instant Booking"
+                                            {/* <Checkbox label="Instant Booking"
                                         handleClick={handleClick(label,value)} 
                                         /> */}
-                                        {/* <span className="check-indicator"></span>
+                                            {/* <span className="check-indicator"></span>
                                         </label> */}
-                                    </div>
-                                    <hr />
+                                        </div>
+                                    }
+
 
                                     <div className="widget--content" >
                                         <div className="form-group">
