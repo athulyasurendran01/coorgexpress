@@ -501,9 +501,8 @@ function PropertyTypeStrip(props) {
                                                     return (
                                                         listView ? <div className="col-xs-12 col-sm-6 col-md-6" key={idx}>
                                                             <div className="property-item">
-                                                                {isOccupied(stay.id) == -1 && 'Availabe'}
-                                                                {isOccupied(stay.id) == 0 && 'Occupied'}
-                                                                {isOccupied(stay.id) > 0 && `${isOccupied(stay.id)}Number of rooms are free`}
+
+                                                                
                                                                 <div className="property--img">
                                                                     <Link to={`/stay/${stay.id}`} state={{ roomdata: getOccupiedRoom(stay.id), status: isOccupied(stay.id) }}>
                                                                         <img src={imageURL} alt="property image" className="img-responsive" />
@@ -521,12 +520,19 @@ function PropertyTypeStrip(props) {
                                                                                 <i className="fa fa-star" key={idx}></i>
                                                                             ))}
                                                                         </div>
+                                                                        <h4 className='available-text'>
+                                                                            {isOccupied(stay.id) == -1 && 'Availabe'}
+                                                                            {isOccupied(stay.id) > 0 && `${isOccupied(stay.id)}Number of rooms are free`}
+                                                                        </h4>
+                                                                        <h4 className='notavailable-text'>
+                                                                            {isOccupied(stay.id) == 0 && 'Occupied'}
+                                                                        </h4>
                                                                     </div>
 
                                                                     <div className="property--features">
                                                                         <ul className="list-unstyled mb-0">
                                                                             <li><span className="feature">Beds:</span><span className="feature-num">{stay.no_of_beds}</span></li>
-                                                                            <li><span className="feature">Baths:</span><span className="feature-num">{stay.no_of_bathrooms}</span></li>
+                                                                            {/*<li><span className="feature">Baths:</span><span className="feature-num">{stay.no_of_bathrooms}</span></li>*/}
                                                                             <li style={{ float: "right" }}>
                                                                                 <img src={pet_friendly} style={{ width: "35px" }} />
                                                                             </li>
