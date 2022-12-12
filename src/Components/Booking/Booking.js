@@ -15,13 +15,9 @@ function Booking() {
     let response = useSelector(billingData);
     console.log(response)
 
-
     const [inputCoupon, setCoupon] = useState()
     const [validateMessage, setValidateMessage] = useState()
     const dispatch = useDispatch();
-
-    // useMemo(() => {
-    // }, [response]);
 
     const getDate = (idx) => {
         let date_ = propertyDetails.daterange[idx].toString()
@@ -274,17 +270,16 @@ function Booking() {
                                         </h6>}
                                     </div>
                                     <div className="col-xs-12">
-                                        <h6 className="cleaning-detail">Cleaning Charges <span>Rs. {cleaning_charge}</span> <br />
+                                        <h6 className="cleaning-detail">
                                             {propertyDetails.category === 'stay' && propertyDetails.extraBedNo > 0 &&
-                                                <>
-                                                    Extra Bed:3000 X {propertyDetails.extraBedNo}
-                                                    <span>Rs. {propertyDetails.extraBedNo * propertyDetails.extrabedPrice}</span>
-                                                </>}
+                                                <>Extra Bed Charge: <span>Rs. {propertyDetails.extrabedPrice}</span></>
+                                            }
+                                            <br />Cleaning Charges <span>Rs. {cleaning_charge}</span>
                                         </h6>
                                     </div>
                                     <div className="col-xs-12">
                                         <h6 className="grand-total">Grand Total (INR)</h6>
-                                        {propertyDetails.category === 'stay' && <h6 className="grand-total"><span>Rs. {propertyDetails.total * getNight() + cleaning_charge + (propertyDetails.extraBedNo * propertyDetails.extrabedPrice)} (Inclusive of GST)</span></h6>}
+                                        {propertyDetails.category === 'stay' && <h6 className="grand-total"><span>Rs. {propertyDetails.total * getNight() + cleaning_charge + propertyDetails.extrabedPrice} (Inclusive of GST)</span></h6>}
                                         {propertyDetails.category === 'experience' && <h6 className="grand-total"><span>Rs. {propertyDetails.total * propertyDetails.no_guest + cleaning_charge} (Inclusive of GST)</span></h6>}
                                     </div>
                                 </div>

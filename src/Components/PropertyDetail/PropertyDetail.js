@@ -58,6 +58,7 @@ function PropertyDetail() {
     const [message, setMessage] = useState('')
     const [isChecked, setChecked] = useState(false)
     const [extraBedNo, setExtraBed] = useState(0)
+    const [extraBedTotal, setExtraBedTotal] = useState(0)
     const [isExtraChecked, setExtraChecked] = useState(false)
 
     const [input0, setEnqInput0] = useState()
@@ -121,6 +122,11 @@ function PropertyDetail() {
         }
     };
 
+    const handleExtrabedChange = (count, total) => {
+        setExtraBed(count)
+        setExtraBedTotal(total)
+    }
+
     const roomRent = () => {
         let roomPrice = 0;
         rooms.map(room => {
@@ -183,7 +189,7 @@ function PropertyDetail() {
             total: (rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price,
             category: 'stay',
             extraBedNo: extraBedNo,
-            extrabedPrice: parseInt(propertyDetails.rooms[0].extra_bed_charge)
+            extrabedPrice: extraBedTotal
         }
         navigate('/booking', { state: bookingDetails })
     }
@@ -664,17 +670,10 @@ function PropertyDetail() {
                                                     <input type="number" className="form-control" required
                                                         onChange={(e) => setChild(e.target.value)} />
                                                 </div>
-                                                <RoomList rooms={propertyDetails.rooms} handleChange={handleChange} checkRooms={checkAvailability} />
+                                                <RoomList rooms={propertyDetails.rooms} handleChange={handleChange} 
+                                                handleExtrabedChange={handleExtrabedChange} 
+                                                checkRooms={checkAvailability} />
                                                 <hr />
-                                                <div>
-                                                    <input type="checkbox"
-                                                        checked={isChecked}
-                                                        onChange={(e) => setChecked(!isChecked)} />&nbsp;
-                                                    Do you want an extra bed?
-                                                    {isChecked ? <input type="number"
-                                                        placeholder="Enter number of extra bed" className="form-control"
-                                                        onChange={e => setExtraBed(e.target.value)} /> : ''}
-                                                </div>
                                                 <span style={{ color: 'red' }}>{message}</span>
                                                 <br />
                                                 <button className="btn btn--success mb-20"

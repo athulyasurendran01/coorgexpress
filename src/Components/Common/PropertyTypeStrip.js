@@ -96,7 +96,7 @@ function PropertyTypeStrip(props) {
 
         }
         else {
-            if(props.category !== 'stay') {
+            if (props.category !== 'stay') {
                 dispatch(getItemsArray({ type: props.category, page: (currentPage) }))
             }
         }
@@ -123,8 +123,6 @@ function PropertyTypeStrip(props) {
     }
 
     const handleClick = (id, value) => {
-        console.log(amenitiesArray, value)
-
         if (value == false) {
             let idx = amenitiesArray.indexOf(id)
             amenitiesArray.splice(idx, 1)
@@ -193,7 +191,7 @@ function PropertyTypeStrip(props) {
         return new Date(date_).toLocaleDateString("en-US")
     }
 
-    const onSearchProperty = () => {               
+    const onSearchProperty = () => {
         setIsvisible(true)
         if (startDate) {
             let date_ = startDate.toString()
@@ -204,31 +202,30 @@ function PropertyTypeStrip(props) {
     }
 
     const isOccupied = (id) => {
-        const searchObject= itemsDetails.occupiedrooms && itemsDetails.occupiedrooms.find((property) => property.homeId == id);
-        if(searchObject && searchObject.rooms.length > 0){
-            if(searchObject.roomdetails && searchObject.roomdetails.length > 0){
+        const searchObject = itemsDetails.occupiedrooms && itemsDetails.occupiedrooms.find((property) => property.homeId == id);
+        if (searchObject && searchObject.rooms.length > 0) {
+            if (searchObject.roomdetails && searchObject.roomdetails.length > 0) {
                 return searchObject.roomdetails.length
             }
-           return 0
+            return 0
         }
-        else{
+        else {
             return -1
         }
     }
 
     const getOccupiedRoom = (id) => {
-        const searchObject= itemsDetails.occupiedrooms && itemsDetails.occupiedrooms.find((property) => property.homeId == id);
-        if(searchObject && searchObject.rooms.length > 0){
-            if(searchObject.roomdetails && searchObject.roomdetails.length > 0){
+        const searchObject = itemsDetails.occupiedrooms && itemsDetails.occupiedrooms.find((property) => property.homeId == id);
+        if (searchObject && searchObject.rooms.length > 0) {
+            if (searchObject.roomdetails && searchObject.roomdetails.length > 0) {
                 return searchObject.roomdetails
             }
-           return []
-        }else{
-           return []
+            return []
+        } else {
+            return []
         }
     }
-
-    if (!loadingStatus || isLoader) {
+    if (!loadingStatus && isVisible) {
         return (
             <>
                 <Loader />
@@ -237,34 +234,34 @@ function PropertyTypeStrip(props) {
     } else {
         if (props.category === 'stay' && !isVisible) {
             return (
-                <div className="loaderDiv"  style={{paddingTop:"100px"}}>
-                <div
-                    className="modal show"
-                    style={{ display: 'block', position: 'initial' }}
+                <div className="loaderDiv" style={{ paddingTop: "100px" }}>
+                    <div
+                        className="modal show"
+                        style={{ display: 'block', position: 'initial' }}
                     >
-                    <Modal.Dialog>
-                        <Modal.Header>
-                        <Modal.Title>Select your travelling date</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                        <div style={{ display: "inline-flex", width:"100%" }}>
-                            <DatePicker selectsRange={true}
-                                startDate={startDate}
-                                endDate={endDate}
-                                minDate={new Date()}
-                                onChange={(update) => {
-                                    setDateRange(update);
-                                }}
-                                isClearable={true}
-                                style={{ zIndex: 1 }}
-                            />
-                            <button onClick={onSearchProperty} className="btn btn-primary"
-                                style={{background: "#fe0100", border: "1px solid #fe0100"}}
-                            >Search</button>
-                        </div>
-                        </Modal.Body>
-                    </Modal.Dialog>
-                </div>
+                        <Modal.Dialog>
+                            <Modal.Header>
+                                <Modal.Title>Select your travelling date</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div style={{ display: "inline-flex", width: "100%" }}>
+                                    <DatePicker selectsRange={true}
+                                        startDate={startDate}
+                                        endDate={endDate}
+                                        minDate={new Date()}
+                                        onChange={(update) => {
+                                            setDateRange(update);
+                                        }}
+                                        isClearable={true}
+                                        style={{ zIndex: 1 }}
+                                    />
+                                    <button onClick={onSearchProperty} className="btn btn-primary"
+                                        style={{ background: "#fe0100", border: "1px solid #fe0100" }}
+                                    >Search</button>
+                                </div>
+                            </Modal.Body>
+                        </Modal.Dialog>
+                    </div>
                 </div>
             )
         } else {
@@ -316,17 +313,17 @@ function PropertyTypeStrip(props) {
                                         <div className="form-group">
                                             <div className="select--box">
                                                 <SearchAutoComplete
-                                                    data={itemsDetails.locations ? itemsDetails.locations : []}
-                                                    title={'Location'}
-                                                    type={'multiple'} setOptions={setLocOptions} selectedVal={locations} />
+                                                    data={itemsDetails.cities ? itemsDetails.cities : []}
+                                                    title={'Cities'}
+                                                    type={'multiple'} setOptions={setCitiesOptions} selectedVal={cities} />
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <div className="select--box">
                                                 <SearchAutoComplete
-                                                    data={itemsDetails.cities ? itemsDetails.cities : []}
-                                                    title={'Cities'}
-                                                    type={'multiple'} setOptions={setCitiesOptions} selectedVal={cities} />
+                                                    data={itemsDetails.locations ? itemsDetails.locations : []}
+                                                    title={'Location'}
+                                                    type={'multiple'} setOptions={setLocOptions} selectedVal={locations} />
                                             </div>
                                         </div>
                                         {props.category !== 'events' &&
@@ -508,14 +505,14 @@ function PropertyTypeStrip(props) {
                                                                 {isOccupied(stay.id) == 0 && 'Occupied'}
                                                                 {isOccupied(stay.id) > 0 && `${isOccupied(stay.id)}Number of rooms are free`}
                                                                 <div className="property--img">
-                                                                    <Link to={`/stay/${stay.id}`} state={{roomdata: getOccupiedRoom(stay.id), status: isOccupied(stay.id)}}>
+                                                                    <Link to={`/stay/${stay.id}`} state={{ roomdata: getOccupiedRoom(stay.id), status: isOccupied(stay.id) }}>
                                                                         <img src={imageURL} alt="property image" className="img-responsive" />
                                                                     </Link>
                                                                 </div>
                                                                 <div className="property--content">
                                                                     <div className="property--info">
                                                                         <h5 className="property--title">
-                                                                            <Link to={`/stay/${stay.id}`} state={{roomdata: getOccupiedRoom(stay.id), status: isOccupied(stay.id)}}>{stay.name}</Link>
+                                                                            <Link to={`/stay/${stay.id}`} state={{ roomdata: getOccupiedRoom(stay.id), status: isOccupied(stay.id) }}>{stay.name}</Link>
                                                                         </h5>
                                                                         <p className="property--location">{stay.address}</p>
                                                                         <p className="property--price">Rs. {stay.price}</p>
