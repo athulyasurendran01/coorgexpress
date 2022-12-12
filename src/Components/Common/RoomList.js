@@ -43,7 +43,7 @@ export default function RoomList({ rooms, handleChange, checkRooms, handleExtrab
             setExtrabed([...extrabedCount, {
                 roomId: rooms[position].id,
                 noBed: parseInt(e.target.value),
-                price: parseFloat(e.target.value) * parseFloat(rooms[position].extra_bed_charge)
+                price: parseInt(e.target.value) * parseFloat(rooms[position].extra_bed_charge ? rooms[position].extra_bed_charge : 0)
             }])
         }
     };
@@ -87,8 +87,8 @@ export default function RoomList({ rooms, handleChange, checkRooms, handleExtrab
                                         <select onChange={(e) => {
                                             handleOnChange(e, index, 'bed')
                                         }}>
-                                            <option value={0} disabled={true}>Select extra bed</option>
-                                            <option value={0}>0</option>
+                                            <option value={0} disabled={true} selected={true}>Select extra bed</option>
+                                            <option value={0}>Nill</option>
                                             {
                                                 Array.from({ length: parseInt(no_of_bed) }).map((_, idx) => (
                                                     <option value={idx + 1} key={idx}>{idx + 1}</option>
