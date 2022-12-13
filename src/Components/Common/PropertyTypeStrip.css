@@ -28,7 +28,7 @@
     position: relative;
     top: -164px;
     /*width: 100%;*/
-    z-index: 999;
+    z-index: 10;
     background-color: #ffffff !important;
     border-radius: 10px;
     padding: 26px 18px;
@@ -531,4 +531,8 @@ address, blockquote, dd, dl, fieldset, form, ol, p, pre, table, ul {
 
 label{
     z-index: 0 !important;
+}
+
+.react-datepicker-popper {
+    z-index: 20 !important;
 }

@@ -536,11 +536,14 @@ function PropertyTypeStrip(props) {
                                                                             ))}
                                                                         </div>
                                                                         <h4 className='available-text'>
-                                                                            {isOccupied(stay.id) == -1 && 'Availabe'}
-                                                                            {isOccupied(stay.id) > 0 && `${isOccupied(stay.id)}Number of rooms are free`}
+                                                                        {/* Availabe */}
+                                                                            {isOccupied(stay.id) == -1 && ''} 
+                                                                            {isOccupied(stay.id) > 0 && 'Partially available'
+                                                                            // `${isOccupied(stay.id)}room/s availabe`
+                                                                            }
                                                                         </h4>
                                                                         <h4 className='notavailable-text'>
-                                                                            {isOccupied(stay.id) == 0 && 'Occupied'}
+                                                                            {isOccupied(stay.id) == 0 && 'Not availabe'}
                                                                         </h4>
                                                                     </div>
 
