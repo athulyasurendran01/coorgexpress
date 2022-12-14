@@ -160,7 +160,7 @@ function PropertyDetail() {
         let max_no_person = parseInt(no_guest) + parseInt(no_guest_child)
 
         if (no_guest <= 0 || dateRange[0] == null || dateRange[1] == null) {
-            setMessage("Please make a room selection")
+            setMessage("Please fill all the details")
             return;
         }
 
