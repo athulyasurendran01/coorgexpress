@@ -61,14 +61,18 @@ export default function RoomList({ rooms, handleChange, checkRooms, handleExtrab
 
     return (
         <div className="App">
-            <h6>Select Rooms</h6>
+            <h6
+            style={{marginBottom: "15px"}}
+            >Select Rooms</h6>
             <ul className="toppings-list">
                 {rooms.map(({ no_of_bed, id, room_no_name, room_base_price, extra_bed_charge }, index) => {
                     return (
                         <li key={index}>
                             {checkRooms(id) ?
                                 <>
-                                    <div className="toppings-list-item">
+                                    <div className="toppings-list-item"
+                                        style={{marginBottom: "10px"}}
+                                    >
                                         <div className="left-section">
                                             <input
                                                 type="checkbox"

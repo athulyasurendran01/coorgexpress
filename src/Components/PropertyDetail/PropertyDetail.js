@@ -19,6 +19,9 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import Loader from "../Loader/Loader";
 
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+
 // Total amount based on the room selected or the entire banglw So childern price is not neccessary
 
 import { Container, Row, Col } from 'react-bootstrap';
@@ -638,142 +641,157 @@ function PropertyDetail() {
                                             </span> per night</h5>
                                             <hr />
                                         </div> */}
-                                        <div className="widget--content">
-                                            <form className="mb-0">
-                                                <div className="form-group">
-                                                    <label for="contact-name">Pick a Date Range*</label>
-                                                    <DatePicker selectsRange={true}
-                                                        startDate={startDate}
-                                                        endDate={endDate}
-                                                        minDate={new Date()}
-                                                        onChange={(update) => {
-                                                            setDateRange(update);
-                                                        }}
-                                                        isClearable={true}
-                                                        style={{ zIndex: 1 }}
-                                                    />
+                                        <div className="widget--content tab-form">
+                                            <Tabs 
+                                                    defaultActiveKey="first"
+                                                    id="fill-tab-example"
+                                                    className="mb-1"
+                                                    fill
+                                                >
+                                                    <Tab eventKey="first" title="Book Now">
+                                                        <div
+                                                            style={{padding : "10px"}}
+                                                        >
+                                                            <form className="mb-0">
+                                                                <div className="form-group">
 
-                                                </div>
+                                                                    <label for="contact-name">Pick a Date Range*</label>
+                                                                    <DatePicker selectsRange={true}
+                                                                        startDate={startDate}
+                                                                        endDate={endDate}
+                                                                        minDate={new Date()}
+                                                                        onChange={(update) => {
+                                                                            setDateRange(update);
+                                                                        }}
+                                                                        isClearable={true}
+                                                                        style={{ zIndex: 1 }}
+                                                                    />
 
-                                                <div className="form-group">
-                                                    <label for="">Adults*</label>
-                                                    <input type="number" className="form-control" required
-                                                        onChange={(e) => setPerson(e.target.value)} />
-                                                </div>
-                                                {/* <div className="form-group">
-                                                    <label for="">Infants (0 - 5 years)</label>
-                                                    <input type="number" className="form-control" required
-                                                        onChange={(e) => setInfant(e.target.value)} />
-                                                </div> */}
-                                                <div className="form-group">
-                                                    <label for="">Children (6 - 12)</label>
-                                                    <input type="number" className="form-control" required
-                                                        onChange={(e) => setChild(e.target.value)} />
-                                                </div>
-                                                <RoomList rooms={propertyDetails.rooms} handleChange={handleChange} 
-                                                handleExtrabedChange={handleExtrabedChange} 
-                                                checkRooms={checkAvailability} />
-                                                <hr />
-                                                <span style={{ color: 'red' }}>{message}</span>
-                                                <br />
-                                                <button className="btn btn--success mb-20"
-                                                    onClick={booknow}
-                                                    type="button"
-                                                    style={{ marginTop: "10px", width: "100%", background: "#34a20d", color: "#fff", zIndex: 0 }} >
-                                                    Book Now
-                                                </button>
-                                            </form>
+                                                                </div>
+
+                                                                <div className="form-group">
+                                                                    <label for="">Adults*</label>
+                                                                    <input type="number" className="form-control" required
+                                                                        onChange={(e) => setPerson(e.target.value)} />
+                                                                </div>
+                                                                {/* <div className="form-group">
+                                                                    <label for="">Infants (0 - 5 years)</label>
+                                                                    <input type="number" className="form-control" required
+                                                                        onChange={(e) => setInfant(e.target.value)} />
+                                                                </div> */}
+                                                                <div className="form-group">
+                                                                    <label for="">Children (6 - 12)</label>
+                                                                    <input type="number" className="form-control" required
+                                                                        onChange={(e) => setChild(e.target.value)} />
+                                                                </div>
+                                                                <RoomList rooms={propertyDetails.rooms} handleChange={handleChange} 
+                                                                handleExtrabedChange={handleExtrabedChange} 
+                                                                checkRooms={checkAvailability} />
+                                                                <hr />
+                                                                <span style={{ color: 'red' }}>{message}</span>
+                                                                <br />
+                                                                <button className="btn btn--success mb-20"
+                                                                    onClick={booknow}
+                                                                    type="button"
+                                                                    style={{ marginTop: "10px", width: "100%", background: "#34a20d", color: "#fff", zIndex: 0 }} >
+                                                                    Book Now
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </Tab>
+                                                    <Tab eventKey="second" title="Enquiry">
+                                                        <div
+                                                            style={{padding : "10px"}}
+                                                        >
+                                                             <form className="mb-0 row">
+                                                                <div className="form-group col-lg-6">
+                                                                    <label for="start-date">Start Date</label>
+                                                                    <input type="date" className="form-control" name="start-date" id="start-date" onChange={(e) => setEnqInput0(e.target.value)} placeholder="Start Date" />
+                                                                </div>
+
+                                                                <div className="form-group col-lg-6">
+                                                                    <label for="end-date">End Date</label>
+                                                                    <input type="date" className="form-control" name="end-date" id="end-date" onChange={(e) => setEnqInput1(e.target.value)} placeholder="End Date" />
+                                                                </div>
+
+                                                                <div className="form-group col-lg-6">
+                                                                    <label for="adults">Adults: &gt; 12</label>
+                                                                    <input type="number" className="form-control" name="adults" id="adults" onChange={(e) => setEnqInput2(e.target.value)} placeholder="Adults" />
+                                                                </div>
+
+                                                                <div className="form-group col-lg-6">
+                                                                    <label for="children">Children: &lt; 12</label>
+                                                                    <input type="number" className="form-control" name="children" id="children" onChange={(e) => setEnqInput3(e.target.value)} placeholder="Children" />
+                                                                </div>
+
+                                                                <div className="form-group col-lg-12">
+                                                                <RoomList rooms={propertyDetails.rooms} handleChange={handleChange} 
+                                                                handleExtrabedChange={handleExtrabedChange} 
+                                                                checkRooms={checkAvailability} />
+                                                                    {/* <div className="input-checkbox">
+                                                                        <label className="label-checkbox">
+                                                                            <span
+                                                                                style={{
+                                                                                    marginRight: "10px"
+                                                                                }}
+                                                                            >Do you want an extra bed?</span>
+                                                                            <input type="checkbox"
+                                                                                checked={isExtraChecked}
+                                                                                onChange={(e) => setExtraChecked(!isExtraChecked)} />
+                                                                            {isExtraChecked ? <input type="number"
+                                                                                placeholder="Enter number of extra bed" className="form-control"
+                                                                                onChange={e => setEnqInput4(e.target.value)} /> : ''}
+                                                                            <span className="check-indicator"></span>
+                                                                        </label>
+                                                                    </div> */}
+                                                                </div>
+
+                                                                {/* <div className="form-group col-lg-12">
+                                                                    <label for="price">Final Price</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        className="form-control price-box"
+                                                                        name="price"
+                                                                        id="price"
+                                                                        placeholder={`Rs. ${(rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price}`}
+                                                                        disabled
+                                                                        style={{
+                                                                            backgroundColor: "#fff",
+                                                                            borderColor: "#fff"
+                                                                        }}
+                                                                    />
+                                                                </div> */}
+
+                                                                <div className="form-group col-lg-6">
+                                                                    <label for="name">Name</label>
+                                                                    <input type="text" className="form-control" name="name" onChange={(e) => setEnqInput5(e.target.value)} id="name" placeholder="Name" />
+                                                                </div>
+
+                                                                <div className="form-group col-lg-6">
+                                                                    <label for="contact-no">Contact Number</label>
+                                                                    <input type="text" className="form-control" name="contact-no" onChange={(e) => setEnqInput6(e.target.value)} id="contact-no" placeholder="Contact Number" />
+                                                                </div>
+
+                                                                <div className="form-group col-lg-12">
+                                                                    <label for="email">Email</label>
+                                                                    <input type="email" className="form-control" name="email" id="email" onChange={(e) => setEnqInput7(e.target.value)} placeholder="Email" />
+                                                                </div>
+
+                                                                <div className="form-group col-lg-12">
+                                                                    <label for="message">Message</label>
+                                                                    <textarea className="form-control" name="message" id="message" onChange={(e) => setEnqInput8(e.target.value)} placeholder="Message"></textarea>
+                                                                </div>
+
+                                                                <input type="button" value="Enquiry" name="submit" onClick={() => sendEnquiry()} className="btn btn--primary btn--block" />
+                                                            </form>
+                                                        </div>
+                                                    </Tab>
+                                                </Tabs>
+                                            
                                         </div>
                                     </div>
 
-                                    <div className="widget widget-mortgage-calculator">
-                                        <div className="widget--title">
-                                            <h5>Enquiry</h5>
-                                        </div>
-                                        <div className="widget--content">
-                                            <form className="mb-0 row">
-                                                <div className="form-group col-lg-6">
-                                                    <label for="start-date">Start Date</label>
-                                                    <input type="date" className="form-control" name="start-date" id="start-date" onChange={(e) => setEnqInput0(e.target.value)} placeholder="Start Date" />
-                                                </div>
-
-                                                <div className="form-group col-lg-6">
-                                                    <label for="end-date">End Date</label>
-                                                    <input type="date" className="form-control" name="end-date" id="end-date" onChange={(e) => setEnqInput1(e.target.value)} placeholder="End Date" />
-                                                </div>
-
-                                                <div className="form-group col-lg-6">
-                                                    <label for="adults">Adults: &gt; 12</label>
-                                                    <input type="number" className="form-control" name="adults" id="adults" onChange={(e) => setEnqInput2(e.target.value)} placeholder="Adults" />
-                                                </div>
-
-                                                <div className="form-group col-lg-6">
-                                                    <label for="children">Children: &lt; 12</label>
-                                                    <input type="number" className="form-control" name="children" id="children" onChange={(e) => setEnqInput3(e.target.value)} placeholder="Children" />
-                                                </div>
-
-                                                <div className="form-group col-lg-12">
-                                                <RoomList rooms={propertyDetails.rooms} handleChange={handleChange} 
-                                                handleExtrabedChange={handleExtrabedChange} 
-                                                checkRooms={checkAvailability} />
-                                                    {/* <div className="input-checkbox">
-                                                        <label className="label-checkbox">
-                                                            <span
-                                                                style={{
-                                                                    marginRight: "10px"
-                                                                }}
-                                                            >Do you want an extra bed?</span>
-                                                            <input type="checkbox"
-                                                                checked={isExtraChecked}
-                                                                onChange={(e) => setExtraChecked(!isExtraChecked)} />
-                                                            {isExtraChecked ? <input type="number"
-                                                                placeholder="Enter number of extra bed" className="form-control"
-                                                                onChange={e => setEnqInput4(e.target.value)} /> : ''}
-                                                            <span className="check-indicator"></span>
-                                                        </label>
-                                                    </div> */}
-                                                </div>
-
-                                                {/* <div className="form-group col-lg-12">
-                                                    <label for="price">Final Price</label>
-                                                    <input
-                                                        type="text"
-                                                        className="form-control price-box"
-                                                        name="price"
-                                                        id="price"
-                                                        placeholder={`Rs. ${(rooms.length && rooms.length > 0) ? roomRent() : propertyDetails.data[0].base_price}`}
-                                                        disabled
-                                                        style={{
-                                                            backgroundColor: "#fff",
-                                                            borderColor: "#fff"
-                                                        }}
-                                                    />
-                                                </div> */}
-
-                                                <div className="form-group col-lg-6">
-                                                    <label for="name">Name</label>
-                                                    <input type="text" className="form-control" name="name" onChange={(e) => setEnqInput5(e.target.value)} id="name" placeholder="Name" />
-                                                </div>
-
-                                                <div className="form-group col-lg-6">
-                                                    <label for="contact-no">Contact Number</label>
-                                                    <input type="text" className="form-control" name="contact-no" onChange={(e) => setEnqInput6(e.target.value)} id="contact-no" placeholder="Contact Number" />
-                                                </div>
-
-                                                <div className="form-group col-lg-12">
-                                                    <label for="email">Email</label>
-                                                    <input type="email" className="form-control" name="email" id="email" onChange={(e) => setEnqInput7(e.target.value)} placeholder="Email" />
-                                                </div>
-
-                                                <div className="form-group col-lg-12">
-                                                    <label for="message">Message</label>
-                                                    <textarea className="form-control" name="message" id="message" onChange={(e) => setEnqInput8(e.target.value)} placeholder="Message"></textarea>
-                                                </div>
-
-                                                <input type="button" value="Enquiry" name="submit" onClick={() => sendEnquiry()} className="btn btn--primary btn--block" />
-                                            </form>
-                                        </div>
-                                    </div>
+                                    
 
                                 </div>
 
