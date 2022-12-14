@@ -323,11 +323,11 @@ input.price-box.form-control::placeholder {
 .tab-form .nav.nav-tabs li.nav-item .nav-link.active {
     color: #fe0100;
     font-weight: 700;
-    font-size: 17px;
+    font-size: 20px;
 }
 .tab-form .nav.nav-tabs li.nav-item .nav-link {
     color: #000;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 18px;
 }
 
