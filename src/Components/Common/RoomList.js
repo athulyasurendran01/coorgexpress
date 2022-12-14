@@ -80,11 +80,15 @@ export default function RoomList({ rooms, handleChange, checkRooms, handleExtrab
                                             />
                                             <label htmlFor={`custom-checkbox-${index}`}>{room_no_name}</label>
                                         </div>
-                                        <div className="right-section">{getFormattedPrice(parseFloat(room_base_price))}</div>
+                                        <div className="right-section" 
+                                        style={{fontWeight: "700"}}
+                                        >{getFormattedPrice(parseFloat(room_base_price))}</div>
                                     </div>
 
                                     {checkedState[index] &&
-                                        <select onChange={(e) => {
+                                        <select 
+                                        style={{marginTop : "10px", marginBottom: "5px"}}
+                                        onChange={(e) => {
                                             handleOnChange(e, index, 'bed')
                                         }}>
                                             <option value={0} disabled={true} selected={true}>Select extra bed</option>
@@ -104,7 +108,9 @@ export default function RoomList({ rooms, handleChange, checkRooms, handleExtrab
                 })}
                 <li className="li-total">
                     <div className="toppings-list-item">
-                        <div className="left-section"><span className="total">Total:</span><span>(Per night)</span></div>
+                        <div className="left-section"><span className="total"
+                        style={{marginRight : "10px"}}
+                        >Total:</span><span>(Per night)</span></div>
                         <div className="right-section total">{getFormattedPrice(total + extraBedTotal)}</div>
                         <OverlayTrigger
                             placement="top"

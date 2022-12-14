@@ -157,7 +157,7 @@ function PropertyDetail() {
         let max_no_person = parseInt(no_guest) + parseInt(no_guest_child)
 
         if (no_guest <= 0 || dateRange[0] == null || dateRange[1] == null) {
-            setMessage("Please check the input")
+            setMessage("Please make a room selection")
             return;
         }
 
@@ -679,7 +679,7 @@ function PropertyDetail() {
                                                 <button className="btn btn--success mb-20"
                                                     onClick={booknow}
                                                     type="button"
-                                                    style={{ width: "100%", background: "#34a20d", color: "#fff", zIndex: 0 }} >
+                                                    style={{ marginTop: "10px", width: "100%", background: "#34a20d", color: "#fff", zIndex: 0 }} >
                                                     Book Now
                                                 </button>
                                             </form>
