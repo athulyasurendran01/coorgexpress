@@ -44,6 +44,8 @@ const PageSize = 10
 
 function PropertyTypeStrip(props) {
     const [currentPage, setCurrentPage] = useState(1);
+    const [isPagination, setPagination] = useState(false);
+    
     const [total, setTotal] = useState(1);
 
     const [responseData, setResponseData] = useState([])
@@ -96,9 +98,17 @@ function PropertyTypeStrip(props) {
 
         }
         else {
-            // if (props.category !== 'stay') {
-            dispatch(getItemsArray({ type: props.category, page: (currentPage) }))
-            // }
+            if (props.category === 'stay') {
+                if (startDate && endDate && isPagination) {
+                    let date_ = startDate.toString()
+                    let date__ = endDate.toString()
+                    const searchOpts = `selected_date=${new Date(date_).toLocaleDateString("en-CA")}&selected_date_end=${new Date(date__).toLocaleDateString("en-CA")}&page=${currentPage}`
+                    dispatch(getItemsArray({ type: props.category, page: currentPage, option: searchOpts }))
+                }
+                // isPagination && dispatch(getItemsArray({ type: props.category, page: (currentPage) }))
+            }else{
+                dispatch(getItemsArray({ type: props.category, page: (currentPage) }))
+            }
         }
     }, [currentPage, location]);
 
@@ -297,32 +307,35 @@ function PropertyTypeStrip(props) {
                                     <div className="widget--title">
                                         <h5>PROPERTY SEARCH</h5>
                                     </div>
-                                    
+
                                     <div className="widget--content" >
-                                        <div className="form-group">
+                                        {/* <div className="form-group">
                                             <div className="select--box">
                                                 <SearchAutoComplete
                                                     data={itemsDetails.cities ? itemsDetails.cities : []}
                                                     title={'Cities'}
                                                     type={'multiple'} setOptions={setCitiesOptions} selectedVal={cities} />
                                             </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <div className="select--box">
-                                                <SearchAutoComplete
-                                                    data={itemsDetails.locations ? itemsDetails.locations : []}
-                                                    title={'Location'}
-                                                    type={'multiple'} setOptions={setLocOptions} selectedVal={locations} />
-                                            </div>
-                                        </div>
+                                        </div> */}
                                         {props.category !== 'events' &&
-                                            <div className="form-group">
-                                                <div className="select--box">
-                                                    <SearchAutoComplete
-                                                        data={itemsDetails.propety_types ? itemsDetails.propety_types : ''}
-                                                        title={'Property Type'} setOptions={setPropOptions} selectedVal={properties} />
+                                            <>
+                                                <div className="form-group">
+                                                    <div className="select--box">
+                                                        <SearchAutoComplete
+                                                            data={itemsDetails.locations ? itemsDetails.locations : []}
+                                                            title={'Location'}
+                                                            type={'multiple'} setOptions={setLocOptions} selectedVal={locations} />
+                                                    </div>
                                                 </div>
-                                            </div>
+
+                                                <div className="form-group">
+                                                    <div className="select--box">
+                                                        <SearchAutoComplete
+                                                            data={itemsDetails.propety_types ? itemsDetails.propety_types : ''}
+                                                            title={'Property Type'} setOptions={setPropOptions} selectedVal={properties} />
+                                                    </div>
+                                                </div>
+                                            </>
                                         }
                                         {props.category === 'events' &&
                                             <div className="form-group">
@@ -472,38 +485,38 @@ function PropertyTypeStrip(props) {
                                                 </Form.Select>
 
                                             </div>
-                                        
-                                        <div className="view--type pull-right">
-                                        {props.category === 'stay' &&
-                                        <div className="input-checkbox" style={{marginBottom : "0px" }}>
-                                            <div style={{ display: "inline-flex", width: "100%" }}>
-                                                <DatePicker selectsRange={true}
-                                                    startDate={startDate}
-                                                    endDate={endDate}
-                                                    minDate={new Date()}
-                                                    onChange={(update) => {
-                                                        setDateRange(update);
-                                                    }}
-                                                    isClearable={true}
-                                                    style={{ zIndex: 10 }}
-                                                />
-                                                <button onClick={onSearchProperty} className="btn btn-primary"
-                                                    style={{ background: "#fe0100", border: "1px solid #fe0100" }}
-                                                >Search</button>
-                                            </div>
-                                            {/* <label className="label-checkbox"> */}
-                                            {/* <span>Instant Booking</span> */}
-                                            {/* <input type="checkbox" /> */}
 
-                                            {/* <Checkbox label="Instant Booking"
+                                            <div className="view--type pull-right">
+                                                {props.category === 'stay' &&
+                                                    <div className="input-checkbox" style={{ marginBottom: "0px" }}>
+                                                        <div style={{ display: "inline-flex", width: "100%" }}>
+                                                            <DatePicker selectsRange={true}
+                                                                startDate={startDate}
+                                                                endDate={endDate}
+                                                                minDate={new Date()}
+                                                                onChange={(update) => {
+                                                                    setDateRange(update);
+                                                                }}
+                                                                isClearable={true}
+                                                                style={{ zIndex: 10 }}
+                                                            />
+                                                            <button onClick={onSearchProperty} className="btn btn-primary"
+                                                                style={{ background: "#fe0100", border: "1px solid #fe0100" }}
+                                                            >Search</button>
+                                                        </div>
+                                                        {/* <label className="label-checkbox"> */}
+                                                        {/* <span>Instant Booking</span> */}
+                                                        {/* <input type="checkbox" /> */}
+
+                                                        {/* <Checkbox label="Instant Booking"
                                         handleClick={handleClick(label,value)} 
                                         /> */}
-                                            {/* <span className="check-indicator"></span>
+                                                        {/* <span className="check-indicator"></span>
                                         </label> */}
-                                        </div>
-                                    }
-                                        </div>
-                                        
+                                                    </div>
+                                                }
+                                            </div>
+
                                         </div>
                                     </div>
                                     {total === 0 && <p>No data found</p>}
@@ -536,10 +549,10 @@ function PropertyTypeStrip(props) {
                                                                             ))}
                                                                         </div>
                                                                         <h4 className='available-text'>
-                                                                        {/* Availabe */}
-                                                                            {isOccupied(stay.id) == -1 && ''} 
+                                                                            {/* Availabe */}
+                                                                            {isOccupied(stay.id) == -1 && ''}
                                                                             {isOccupied(stay.id) > 0 && 'Partially available'
-                                                                            // `${isOccupied(stay.id)}room/s availabe`
+                                                                                // `${isOccupied(stay.id)}room/s availabe`
                                                                             }
                                                                         </h4>
                                                                         <h4 className='notavailable-text'>
@@ -637,7 +650,10 @@ function PropertyTypeStrip(props) {
                                         currentPage={currentPage}
                                         totalCount={total}
                                         pageSize={PageSize}
-                                        onPageChange={page => setCurrentPage(page)}
+                                        onPageChange={page => {
+                                            setPagination(true)
+                                            setCurrentPage(page)
+                                        }}
                                     />
                                     {/* {itemsDetails.total && itemsDetails.total > 0 &&
                                     <ReactPaginate
