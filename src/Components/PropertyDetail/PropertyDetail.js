@@ -672,6 +672,12 @@ function PropertyDetail() {
 
                                                             </div>
 
+                                                            {propertyDetails.rooms && <RoomList rooms={propertyDetails.rooms} 
+                                                                handleChange={handleChange}
+                                                                type="booknow"
+                                                                handleExtrabedChange={handleExtrabedChange}
+                                                                checkRooms={checkAvailability} />}
+                                                            <hr />
                                                             <div className="form-group">
                                                                 <label for="">Adults*</label>
                                                                 <input type="number" className="form-control" required
@@ -687,12 +693,6 @@ function PropertyDetail() {
                                                                 <input type="number" className="form-control" required
                                                                     onChange={(e) => setChild(e.target.value)} />
                                                             </div>
-                                                            {propertyDetails.rooms && <RoomList rooms={propertyDetails.rooms} 
-                                                                handleChange={handleChange}
-                                                                type="booknow"
-                                                                handleExtrabedChange={handleExtrabedChange}
-                                                                checkRooms={checkAvailability} />}
-                                                            <hr />
                                                             <span style={{ color: 'red' }}>{message}</span>
                                                             <br />
                                                             <button className="btn btn--success mb-20"

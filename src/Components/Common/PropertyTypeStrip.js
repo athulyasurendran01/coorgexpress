@@ -319,14 +319,14 @@ function PropertyTypeStrip(props) {
                                         </div> */}
                                         {props.category !== 'events' &&
                                             <>
-                                                <div className="form-group">
+                                                {props.category === 'stay' && <div className="form-group">
                                                     <div className="select--box">
                                                         <SearchAutoComplete
                                                             data={itemsDetails.locations ? itemsDetails.locations : []}
                                                             title={'Location'}
                                                             type={'multiple'} setOptions={setLocOptions} selectedVal={locations} />
                                                     </div>
-                                                </div>
+                                                </div>}
 
                                                 <div className="form-group">
                                                     <div className="select--box">

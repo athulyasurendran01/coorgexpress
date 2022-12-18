@@ -273,7 +273,7 @@ function Booking() {
                                             {propertyDetails.category === 'stay' && propertyDetails.extraBedNo > 0 &&
                                                 <>Extra Bed Charge: <span>Rs. {propertyDetails.extrabedPrice}</span></>
                                             }
-                                            <br />Cleaning Charges <span>Rs. {cleaning_charge}</span>
+                                            <br />Tax Amount <span>Rs. {cleaning_charge}</span>
                                         </h6>
                                     </div>
                                     <div className="col-xs-12">

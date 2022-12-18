@@ -24,6 +24,7 @@ import GridContainer from '../Common/GridContainer'
 import Blogs from '../Home/Blogs/Blogs'
 import React from 'react'
 import { serverURL_ } from '../../app/Config'
+import EventGridContainer from '../Common/EventGridContainer'
 
 function Layout({ homeStayItem, experienceItem, eventsItem, blogs }) {
     const propsData = [{
@@ -61,7 +62,7 @@ function Layout({ homeStayItem, experienceItem, eventsItem, blogs }) {
                             <React.Fragment key={idx} >
                                 {inputData.title === 'about' && <GridContainer data={inputData} response={homeStayItem} title={'stay'} />}
                                 {inputData.title === 'experience' && <GridContainer data={inputData} response={experienceItem} title={'experiences'} />}
-                                {inputData.title === 'events' && <GridContainer data={inputData} response={eventsItem} title={'events'} />}
+                                {inputData.title === 'events' && <EventGridContainer data={inputData} response={eventsItem} title={'events'} />}
                             </React.Fragment>
                         )
                     })

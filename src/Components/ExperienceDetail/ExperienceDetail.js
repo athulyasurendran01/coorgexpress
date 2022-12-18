@@ -105,6 +105,14 @@ function ExperienceDetail() {
         navigate('/booking', { state: bookingDetails })
     }
 
+    const disablePastDate = () => {
+        const now = new Date();
+        const day = ("0" + now.getDate()).slice(-2);
+        const month = ("0" + (now.getMonth() + 1)).slice(-2);
+        const today = now.getFullYear() + "-" + (month) + "-" + (day);
+        return today;
+    };
+
     const sendEnquiry = () => {
         let data = new FormData();
         data.append("date1", input1);
@@ -462,7 +470,9 @@ function ExperienceDetail() {
                                             <form className="mb-0">
                                                 <div className="form-group">
                                                     <label for="contact-name">Pick a Date*</label>
-                                                    <input type="date" className="form-control" name="date"
+                                                    <input type="date" 
+                                                        className="form-control" name="date"
+                                                        min={disablePastDate()}
                                                         onChange={(e) => {
                                                             setDateRange(e.target.value);
                                                         }}
@@ -578,7 +588,7 @@ function ExperienceDetail() {
                                                     <p>₹ {experienceDetails.data[0].event_price}(per person)</p>
                                                 </div>
 
-                                                <div className="form-group col-lg-12">
+                                                {/* <div className="form-group col-lg-12">
                                                     <label for="price">Final Price</label>
                                                     <input
                                                         type="text"
@@ -592,7 +602,7 @@ function ExperienceDetail() {
                                                             borderColor: "#fff"
                                                         }}
                                                     />
-                                                </div>
+                                                </div> */}
 
                                                 <div className="form-group col-lg-6">
                                                     <label for="name">Name</label>
