@@ -288,6 +288,7 @@ function PropertyDetail() {
                                                         color: "#fff"
                                                     }}
                                                 />
+                                                {/*
                                                 <span className="property--status"><i className="fa fa-share-alt"></i> <span>Share</span> <span>|</span> <span onClick={() => window.scrollTo(0, 4800)}><i className="fa fa fa-pencil"></i> <span>Review</span></span></span>
                                                 <div className="property-rating">
                                                     <span>Rating : </span>
@@ -297,6 +298,7 @@ function PropertyDetail() {
                                                     <i className="fa fa-star"></i>
                                                     <i className="fa fa-star-o"></i>
                                                 </div>
+                                                */}
                                             </div>
                                         </div>
 
@@ -487,6 +489,7 @@ function PropertyDetail() {
                                             </div>
                                         </div>
                                     </div>
+                                    {/*
                                     <div className="property-single-video inner-box">
                                         <div className="row">
                                             <div className="col-xs-12 col-sm-12 col-md-12">
@@ -499,6 +502,8 @@ function PropertyDetail() {
                                             </div>
                                         </div>
                                     </div>
+                                    */}
+                                    {/*
                                     <div className="property-single-location inner-box">
                                         <div className="row">
                                             <div className="col-xs-12 col-sm-12 col-md-12">
@@ -581,7 +586,7 @@ function PropertyDetail() {
                                         </div>
 
                                     </div>
-
+                                
 
                                     <div id="review_section" className="property-single-leave-review inner-box">
                                         <div className="row">
@@ -635,7 +640,11 @@ function PropertyDetail() {
                                         </div>
 
                                     </div>
+                                    */}
+
                                 </div>
+
+
                                 <div className="col-xs-12 col-sm-12 col-md-4">
                                     <div className="widget widget-request">
                                         {/* <div className="widget--title">
