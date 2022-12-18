@@ -53,10 +53,13 @@ function PropertyDetail() {
     const navigate = useNavigate()
 
     const [dateRange, setDateRange] = useState([null, null]);
+    const [enqDateRange, setDateEnqRange] = useState([null, null]);
+    
     const [no_guest, setPerson] = useState(0);
     const [no_guest_child, setChild] = useState(0);
     // const [no_guest_infant, setInfant] = useState(0);
     const [startDate, endDate] = dateRange;
+    const [startEnqDate, endEnqDate] = enqDateRange;
     const [rooms, setRooms] = useState([]);
     const [message, setMessage] = useState('')
     const [isChecked, setChecked] = useState(false)
@@ -138,10 +141,15 @@ function PropertyDetail() {
         return roomPrice
     }
 
+    const getDate = (idx) => {
+        let date_ = idx.toString()
+        return new Date(date_).toLocaleDateString("en-US")
+    }
+    
     const sendEnquiry = () => {
         let data = new FormData();
-        data.append("date1", input0);
-        data.append("date2", input1);
+        data.append("date1", getDate(startEnqDate));
+        data.append("date2", getDate(endEnqDate));
         data.append("adult", input2);
         data.append("children", input3);
         data.append("extra_bd", extraBedNo);
@@ -198,7 +206,7 @@ function PropertyDetail() {
     }
 
     const checkAvailability = (id) => {
-        if(!selectedRooms){
+        if (!selectedRooms) {
             return false
         }
         if (selectedRooms.status == -1) {
@@ -681,7 +689,7 @@ function PropertyDetail() {
 
                                                             </div>
 
-                                                            {propertyDetails.rooms && <RoomList rooms={propertyDetails.rooms} 
+                                                            {propertyDetails.rooms && <RoomList rooms={propertyDetails.rooms}
                                                                 handleChange={handleChange}
                                                                 type="booknow"
                                                                 handleExtrabedChange={handleExtrabedChange}
@@ -718,7 +726,22 @@ function PropertyDetail() {
                                                         style={{ padding: "10px" }}
                                                     >
                                                         <form className="mb-0 row">
-                                                            <div className="form-group col-lg-6">
+
+                                                            <div className="form-group col-lg-12">
+                                                                <label for="start-date">Select Date</label>
+                                                                <DatePicker selectsRange={true}
+                                                                    startDate={startEnqDate}
+                                                                    endDate={endEnqDate}
+                                                                    minDate={new Date()}
+                                                                    onChange={(update) => {
+                                                                        setDateEnqRange(update);
+                                                                    }}
+                                                                    isClearable={true}
+                                                                    style={{ zIndex: 1 }}
+                                                                />
+                                                            </div>
+
+                                                            {/* <div className="form-group col-lg-6">
                                                                 <label for="start-date">Start Date</label>
                                                                 <input type="date" className="form-control" name="start-date" id="start-date" onChange={(e) => setEnqInput0(e.target.value)} placeholder="Start Date" />
                                                             </div>
@@ -726,7 +749,7 @@ function PropertyDetail() {
                                                             <div className="form-group col-lg-6">
                                                                 <label for="end-date">End Date</label>
                                                                 <input type="date" className="form-control" name="end-date" id="end-date" onChange={(e) => setEnqInput1(e.target.value)} placeholder="End Date" />
-                                                            </div>
+                                                            </div> */}
 
                                                             <div className="form-group col-lg-6">
                                                                 <label for="adults">Adults: &gt; 12</label>
@@ -739,7 +762,7 @@ function PropertyDetail() {
                                                             </div>
 
                                                             <div className="form-group col-lg-12">
-                                                                {propertyDetails.rooms && <RoomList rooms={propertyDetails.rooms} 
+                                                                {propertyDetails.rooms && <RoomList rooms={propertyDetails.rooms}
                                                                     handleChange={handleChange}
                                                                     type="enquiry"
                                                                     handleExtrabedChange={handleExtrabedChange}

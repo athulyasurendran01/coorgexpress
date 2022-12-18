@@ -45,7 +45,7 @@ const PageSize = 10
 function PropertyTypeStrip(props) {
     const [currentPage, setCurrentPage] = useState(1);
     const [isPagination, setPagination] = useState(false);
-    
+
     const [total, setTotal] = useState(1);
 
     const [responseData, setResponseData] = useState([])
@@ -106,7 +106,7 @@ function PropertyTypeStrip(props) {
                     dispatch(getItemsArray({ type: props.category, page: currentPage, option: searchOpts }))
                 }
                 // isPagination && dispatch(getItemsArray({ type: props.category, page: (currentPage) }))
-            }else{
+            } else {
                 dispatch(getItemsArray({ type: props.category, page: (currentPage) }))
             }
         }
@@ -202,12 +202,14 @@ function PropertyTypeStrip(props) {
     }
 
     const onSearchProperty = () => {
-        setIsvisible(true)
         if (startDate) {
+            setIsvisible(true)
             let date_ = startDate.toString()
             let date__ = endDate.toString()
             const searchOpts = `selected_date=${new Date(date_).toLocaleDateString("en-CA")}&selected_date_end=${new Date(date__).toLocaleDateString("en-CA")}&page=${currentPage}`
             dispatch(getItemsArray({ type: props.category, page: currentPage, option: searchOpts }))
+        }else{
+            return false
         }
     }
 
@@ -265,7 +267,7 @@ function PropertyTypeStrip(props) {
                                         isClearable={true}
                                         style={{ zIndex: 1 }}
                                     />
-                                    <button onClick={onSearchProperty} className="btn btn-primary"
+                                    <button type="button" onClick={onSearchProperty} className="btn btn-primary"
                                         style={{ background: "#fe0100", border: "1px solid #fe0100" }}
                                     >Search</button>
                                 </div>
@@ -501,8 +503,9 @@ function PropertyTypeStrip(props) {
                                                                 style={{ zIndex: 10 }}
                                                             />
                                                             <button onClick={onSearchProperty} className="btn btn-primary"
-                                                                style={{ background: "#fe0100", border: "1px solid #fe0100" }}
-                                                            >Search</button>
+                                                                style={{ background: "#fe0100", border: "1px solid #fe0100" }}>
+                                                                Search
+                                                            </button>
                                                         </div>
                                                         {/* <label className="label-checkbox"> */}
                                                         {/* <span>Instant Booking</span> */}

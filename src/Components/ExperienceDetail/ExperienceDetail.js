@@ -564,7 +564,12 @@ function ExperienceDetail() {
                                                         <form className="mb-0 row">
                                                             <div className="form-group col-lg-6">
                                                                 <label for="date">Date</label>
-                                                                <input type="date" className="form-control" name="date" id="date" placeholder="Date" onChange={(e) => setEnqInput1(e.target.value)} />
+                                                                <input type="date" 
+                                                                className="form-control" 
+                                                                name="date" id="date" 
+                                                                placeholder="Date" 
+                                                                min={disablePastDate()}
+                                                                onChange={(e) => setEnqInput1(e.target.value)} />
                                                             </div>
 
                                                             <div className="form-group col-lg-6">
