@@ -2,6 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
+import EventBanners from '../../assets/images/stay/events_banner.jpg'
 
 import './GridContainer.css'
 
@@ -20,15 +21,15 @@ function EventGridContainer(props) {
 
                     </div>
                     <div className="row">
-                        <div className="col-md-8 col-sm-8 col-xs-12">
+                        <div className="col-md-12 col-sm-12 col-xs-12">
                             <div className="well-left property-city-item">
                                 <div className="single-well property--city-img">
                                     <Link to={'/events'}>
-                                        <img src="" alt="" />
+                                        <img src={EventBanners} alt="" />
                                         <div className='property--city-overlay'>
                                             <div className='property--item-content'>
                                                 <h5 className='property--title'>
-                                                    Test
+                                                    
                                                 </h5>
                                                 <p className='property--numbers'>Read More &nbsp;
                                                     <FontAwesomeIcon icon={faAngleDoubleRight} /></p>
