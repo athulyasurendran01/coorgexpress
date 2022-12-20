@@ -67,6 +67,7 @@ function Layout({ homeStayItem, experienceItem, eventsItem, blogs }) {
                         )
                     })
                 }
+                {/*
                 <Blogs title={'blog'} blog={blog} data={blogs}/>
                 <section id="instagram-feeds" className="instagram-feeds text-center pb-70">
                     <div className="container">
@@ -84,6 +85,7 @@ function Layout({ homeStayItem, experienceItem, eventsItem, blogs }) {
                         </div>
                     </div>
                 </section>
+            */}
             </main>
         </>
     )

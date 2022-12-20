@@ -38,7 +38,7 @@ function Header({ headerStyle }) {
                                 <NavDropdown.Item><Link to="/responsible-tourism">Responsible Tourism</Link></NavDropdown.Item>
                             </NavDropdown>
                             </Nav.Link>
-                            <Nav.Link><Link to="/blog">Blogs</Link></Nav.Link>
+                            {/*<Nav.Link><Link to="/blog">Blogs</Link></Nav.Link>*/}
                             <Nav.Link>
                                 <Button variant="primary" className="login" onClick={handleShow}>Login</Button>
                             </Nav.Link>
