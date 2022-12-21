@@ -18,6 +18,15 @@ function Booking() {
     const [validateMessage, setValidateMessage] = useState()
     const dispatch = useDispatch();
 
+    useMemo(() => {
+        setValidateMessage("")
+        if (response && response.value) {
+            setValidateMessage("Coupon applied successfully!!!")
+        } else {
+            setValidateMessage("Invalid coupon.")
+        }
+    }, [response]);
+
     const getDate = (idx) => {
         let date_ = propertyDetails.daterange[idx].toString()
         return new Date(date_).toLocaleDateString("en-US")
@@ -41,14 +50,28 @@ function Booking() {
     }
 
     const validateCoupon = () => {
+        setValidateMessage("")
         if (inputCoupon) {
-            setValidateMessage("")
             let data = new FormData();
             data.append("input", inputCoupon);
             dispatch(validateCouponCode({ data: data, type: 'validateCoupon' }))
         } else {
             setValidateMessage("Please enter the Coupon number.")
         }
+    }
+
+    const getDiscount = () => {
+        if (response.value) {
+            if (response.value.value === 'percentage') {
+                return getGrandTotal() % parseFloat(response.value.value)
+            } else {
+                return getGrandTotal() - parseFloat(response.value.value)
+            }
+        }
+    }
+
+    const getGrandTotal = () => {
+        return parseFloat(propertyDetails.total) * parseInt(getNight()) + parseInt(cleaning_charge) + parseFloat(propertyDetails.extrabedPrice)
     }
 
     return (
@@ -278,7 +301,13 @@ function Booking() {
                                     </div>
                                     <div className="col-xs-12">
                                         <h6 className="grand-total">Grand Total (INR)</h6>
-                                        {propertyDetails.category === 'stay' && <h6 className="grand-total"><span>Rs. {parseFloat(propertyDetails.total) * parseInt(getNight()) + parseInt(cleaning_charge) + parseFloat(propertyDetails.extrabedPrice)} (Inclusive of GST)</span></h6>}
+                                        {propertyDetails.category === 'stay' &&
+                                            <>
+                                                <h6 className="grand-total"><span>Rs. {getGrandTotal()} (Inclusive of GST)</span></h6>
+                                                {response && response.value && <><br /><h5>Coupon applied <span>Rs. {getDiscount()}</span></h5></>}
+                                            </>
+                                        }
+
                                         {propertyDetails.category === 'experience' && <h6 className="grand-total"><span>Rs. {propertyDetails.total * propertyDetails.no_guest + cleaning_charge} (Inclusive of GST)</span></h6>}
                                     </div>
                                 </div>

@@ -30,6 +30,6 @@ export const billing = createSlice({
   },
 });
 
-export const billingData = (state) => state.billing;
+export const billingData = (state) => state.billingData;
 
 export default billing.reducer;
