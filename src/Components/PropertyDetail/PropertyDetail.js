@@ -278,10 +278,42 @@ function PropertyDetail() {
                                 <div className="col-xs-12 col-sm-12 col-md-12">
                                     <div className="property-single-gallery-info">
                                         <div className="property--info clearfix">
-                                            <div className="pull-left">
+                                            <div className="pull-left col-lg-6">
                                                 <h5 className="property--title">{propertyDetails.data[0].name}</h5>
-                                                <p className="property--location">{propertyDetails.data[0].address} </p>
-                                                <p className="property--location">Address Address </p>
+                                                <p className="property--location"><i className="fa fa-map-marker" aria-hidden="true"></i> {propertyDetails.data[0].address} </p>
+                                                {/*<p className="property--location">Address Address </p>*/}
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <div className="feature-panel">
+                                                        <div className="feature--img">
+                                                            <img src={guests} alt="icon" />
+                                                        </div>
+                                                        <div className="feature--content">
+                                                            <h5>{propertyDetails.data[0].max_no_of_guest} Guests</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <div className="feature-panel">
+                                                        <div className="feature--img">
+                                                            <img src={beds} alt="icon" />
+                                                        </div>
+                                                        <div className="feature--content">
+                                                            <h5>{propertyDetails.data[0].no_of_beds} Beds</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-3">
+                                                    <div className="feature-panel">
+                                                        <div className="feature--img">
+                                                            <img src={pet_friendly} alt="icon" />
+                                                        </div>
+                                                        <div className="feature--content">
+                                                            <h5>Pet Friendly</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             </div>
                                             <div className="pull-right verified-listing">
                                                 <input
@@ -335,6 +367,7 @@ function PropertyDetail() {
                                                     </div>
                                                 </div>
                                             </div>
+                                            {/*
                                             <div className="col-xs-6 col-sm-6 col-md-6">
                                                 <div className="feature-panel">
                                                     <div className="heading">
@@ -347,6 +380,7 @@ function PropertyDetail() {
                                                     </div>
                                                 </div>
                                             </div>
+                                            */}
                                         </div>
                                     </div>
 
@@ -357,46 +391,7 @@ function PropertyDetail() {
                                                     <h2 className="heading--title">Overview</h2>
                                                 </div>
                                             </div>
-                                            <div className="col-xs-6 col-sm-3 col-md-3">
-                                                <div className="feature-panel">
-                                                    <div className="feature--img">
-                                                        <img src={guests} alt="icon" />
-                                                    </div>
-                                                    <div className="feature--content">
-                                                        <h5>{propertyDetails.data[0].max_no_of_guest} Guests</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-xs-6 col-sm-3 col-md-3">
-                                                <div className="feature-panel">
-                                                    <div className="feature--img">
-                                                        <img src={beds} alt="icon" />
-                                                    </div>
-                                                    <div className="feature--content">
-                                                        <h5>{propertyDetails.data[0].no_of_beds} Beds</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {/* <div className="col-xs-6 col-sm-3 col-md-3">
-                                                <div className="feature-panel">
-                                                    <div className="feature--img">
-                                                        <img src={baths} alt="icon" />
-                                                    </div>
-                                                    <div className="feature--content">
-                                                        <h5>{propertyDetails.data[0].no_of_bathrooms} Baths</h5>
-                                                    </div>
-                                                </div>
-                                            </div> */}
-                                            <div className="col-xs-6 col-sm-3 col-md-3">
-                                                <div className="feature-panel">
-                                                    <div className="feature--img">
-                                                        <img src={pet_friendly} alt="icon" />
-                                                    </div>
-                                                    <div className="feature--content">
-                                                        <h5>Pet Friendly</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
 
 
                                             <div className="col-xs-12 col-sm-12 col-md-12">

@@ -70,7 +70,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
     margin-bottom: 9px;
 }
 .property-single-gallery-info .property--location {
-    font-size: 16px;
+    font-size: 15px;
     line-height: 28px;
     margin-bottom: 0;
     color: #545454;
@@ -329,5 +329,30 @@ input.price-box.form-control::placeholder {
     color: #000;
     font-weight: 700;
     font-size: 18px;
+}
+.property-single-gallery-info .feature-panel .feature--img {
+    margin-bottom: 13px;
+}
+.property-single-gallery-info .feature-panel .feature--img {
+    height: 30px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 30px;
+}
+.property-single-gallery-info .feature-panel .feature--content {
+    padding-left: 50px;
+    padding-top: 8px;
+}
+.property-single-gallery-info .feature-panel .feature--content h5 {
+    color: #34495e;
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+.property-single-gallery-info .feature-panel {
+    margin-top: 20px;
 }
 
