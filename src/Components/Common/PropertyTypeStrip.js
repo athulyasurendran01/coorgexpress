@@ -112,6 +112,16 @@ function PropertyTypeStrip(props) {
         }
     }, [currentPage, location]);
 
+    useMemo(() => {
+        if(localStorage.getItem('searchdate')){
+            let data = JSON.parse(localStorage.getItem('searchdate'))
+            setIsvisible(true)
+            // setDateRange([new Date(data.start), new Date(data.end)])
+            const searchOpts = `selected_date=${new Date(data.start).toLocaleDateString("en-CA")}&selected_date_end=${new Date(data.end).toLocaleDateString("en-CA")}&page=${currentPage}`
+            dispatch(getItemsArray({ type: props.category, page: currentPage, option: searchOpts }))
+        }
+    }, [startDate, endDate])
+
     const setLocOptions = (value) => {
         setLocations(value)
     }
@@ -202,10 +212,13 @@ function PropertyTypeStrip(props) {
     }
 
     const onSearchProperty = () => {
+        console.log("startDate", startDate.toString())
         if (startDate) {
             setIsvisible(true)
             let date_ = startDate.toString()
             let date__ = endDate.toString()
+            let data = {start: date_, end: date__}
+            localStorage.setItem('searchdate', JSON.stringify(data))
             const searchOpts = `selected_date=${new Date(date_).toLocaleDateString("en-CA")}&selected_date_end=${new Date(date__).toLocaleDateString("en-CA")}&page=${currentPage}`
             dispatch(getItemsArray({ type: props.category, page: currentPage, option: searchOpts }))
         }else{
@@ -244,6 +257,7 @@ function PropertyTypeStrip(props) {
             </>
         )
     } else {
+
         if (props.category === 'stay' && !isVisible) {
             return (
                 <div className="loaderDiv" style={{ paddingTop: "100px" }}>
