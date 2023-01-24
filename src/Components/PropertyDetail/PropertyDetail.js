@@ -26,6 +26,7 @@ import Tab from 'react-bootstrap/Tab';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import RoomList from '../Common/RoomList';
+import { Checkbox } from '@mui/material';
 
 const responsive1 = {
     desktop: {
@@ -54,7 +55,7 @@ function PropertyDetail() {
 
     const [dateRange, setDateRange] = useState([null, null]);
     const [enqDateRange, setDateEnqRange] = useState([null, null]);
-    
+
     const [no_guest, setPerson] = useState(0);
     const [no_guest_child, setChild] = useState(0);
     // const [no_guest_infant, setInfant] = useState(0);
@@ -76,6 +77,7 @@ function PropertyDetail() {
     const [input6, setEnqInput6] = useState()
     const [input7, setEnqInput7] = useState()
     const [input8, setEnqInput8] = useState()
+    const [isBooking, setBooking] = useState(false)
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const carouselInner = useRef(null);
@@ -145,7 +147,7 @@ function PropertyDetail() {
         let date_ = idx.toString()
         return new Date(date_).toLocaleDateString("en-US")
     }
-    
+
     const sendEnquiry = () => {
         let data = new FormData();
         data.append("date1", getDate(startEnqDate));
@@ -223,6 +225,11 @@ function PropertyDetail() {
         }
     }
 
+    const handleClick = ({ target }) => {
+        const { checked } = target;
+        setBooking(checked)
+    }
+
     if (!loadingStatus) {
         return (
             <>
@@ -282,38 +289,38 @@ function PropertyDetail() {
                                                 <h5 className="property--title">{propertyDetails.data[0].name}</h5>
                                                 <p className="property--location"><i className="fa fa-map-marker" aria-hidden="true"></i> {propertyDetails.data[0].address} </p>
                                                 {/*<p className="property--location">Address Address </p>*/}
-                                            <div className="row">
-                                                <div className="col-md-3">
-                                                    <div className="feature-panel">
-                                                        <div className="feature--img">
-                                                            <img src={guests} alt="icon" />
+                                                <div className="row">
+                                                    <div className="col-md-3">
+                                                        <div className="feature-panel">
+                                                            <div className="feature--img">
+                                                                <img src={guests} alt="icon" />
+                                                            </div>
+                                                            <div className="feature--content">
+                                                                <h5>{propertyDetails.data[0].max_no_of_guest} Guests</h5>
+                                                            </div>
                                                         </div>
-                                                        <div className="feature--content">
-                                                            <h5>{propertyDetails.data[0].max_no_of_guest} Guests</h5>
+                                                    </div>
+                                                    <div className="col-md-3">
+                                                        <div className="feature-panel">
+                                                            <div className="feature--img">
+                                                                <img src={beds} alt="icon" />
+                                                            </div>
+                                                            <div className="feature--content">
+                                                                <h5>{propertyDetails.data[0].no_of_beds} Beds</h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-3">
+                                                        <div className="feature-panel">
+                                                            <div className="feature--img">
+                                                                <img src={pet_friendly} alt="icon" />
+                                                            </div>
+                                                            <div className="feature--content">
+                                                                <h5>Pet Friendly</h5>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="col-md-3">
-                                                    <div className="feature-panel">
-                                                        <div className="feature--img">
-                                                            <img src={beds} alt="icon" />
-                                                        </div>
-                                                        <div className="feature--content">
-                                                            <h5>{propertyDetails.data[0].no_of_beds} Beds</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="col-md-3">
-                                                    <div className="feature-panel">
-                                                        <div className="feature--img">
-                                                            <img src={pet_friendly} alt="icon" />
-                                                        </div>
-                                                        <div className="feature--content">
-                                                            <h5>Pet Friendly</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             </div>
                                             <div className="pull-right verified-listing">
                                                 <input
@@ -391,7 +398,7 @@ function PropertyDetail() {
                                                     <h2 className="heading--title">Overview</h2>
                                                 </div>
                                             </div>
-                                            
+
 
 
                                             <div className="col-xs-12 col-sm-12 col-md-12">
@@ -656,14 +663,24 @@ function PropertyDetail() {
                                             </span> per night</h5>
                                             <hr />
                                         </div> */}
+
+                                        <label className="label-checkbox">
+                                            <Checkbox label="Instant Booking"
+                                                value={isBooking}
+                                                onClick={handleClick}
+                                            />
+                                            <span>Instant Booking</span>
+                                            {/* <span className="check-indicator"></span> */}
+                                        </label>
+
                                         <div className="widget--content tab-form">
                                             <Tabs
-                                                defaultActiveKey="first"
+                                                // defaultActiveKey="first"
                                                 id="fill-tab-example"
                                                 className="mb-1"
                                                 fill
                                             >
-                                                <Tab eventKey="first" title="Book Now">
+                                                {isBooking && <Tab eventKey="first" title="Book Now" disabled={!isBooking}>
                                                     <div
                                                         style={{ padding: "10px" }}
                                                     >
@@ -716,6 +733,7 @@ function PropertyDetail() {
                                                         </form>
                                                     </div>
                                                 </Tab>
+                                                }
                                                 <Tab eventKey="second" title="Enquiry">
                                                     <div
                                                         style={{ padding: "10px" }}
