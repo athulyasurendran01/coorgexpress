@@ -1,5 +1,5 @@
 import './Loader.css'
-import LoaderImg from '../../assets/images/coorgexpress_loader.png'
+import LoaderImg from '../../assets/images/coorgexpress_loader.gif'
 
 function Loader() {
     return(
